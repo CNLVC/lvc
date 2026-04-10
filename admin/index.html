@@ -276,13 +276,21 @@
     // ============ 登录 ============
     function login() {
       const password = document.getElementById('passwordInput').value;
+      console.log('登录密码:', password);
       // 简单密码验证（实际应用中应该更安全）
       if (password === 'zukzew-1mupno-Tiwman') {  // 默认密码
+        console.log('密码正确，进入后台...');
         localStorage.setItem('lvc_access_password', password);
-        document.getElementById('loginPage').classList.add('hidden');
-        document.getElementById('app').classList.add('active');
-        loadArticles();
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
+        console.log('开始加载文章...');
+        try {
+          loadArticles();
+        } catch(e) {
+          console.error('加载文章出错:', e);
+        }
       } else {
+        console.log('密码错误');
         document.getElementById('loginError').style.display = 'block';
       }
     }
