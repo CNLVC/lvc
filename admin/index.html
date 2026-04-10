@@ -452,7 +452,7 @@
         }
 
         // 尝试提取分类
-        const categoryMatch = content.match(/href="/categories/([^"]+)"/);
+        const categoryMatch = content.match(/href="\/categories\/([^"]+)"/);
         if (categoryMatch) {
           document.getElementById('categorySelect').value = decodeURIComponent(categoryMatch[1]);
         }
