@@ -18,7 +18,7 @@
     .login-error { color: red; font-size: 14px; text-align: center; margin-top: 10px; display: none; }
 
     /* 主应用 */
-    .app { display: none; min-height: 100vh; }
+    .app { display: none; }
     .app.active { display: block; }
 
     /* 顶部导航 */
@@ -35,9 +35,6 @@
     .toolbar select { padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 4px; font-size: 14px; }
     .toolbar .separator { width: 1px; height: 24px; background: #d1d5da; margin: 0 10px; }
 
-    /* 登录页面隐藏 */
-    .login-container.hidden { display: none; }
-
     /* 主容器 */
     .main-container { display: flex; height: calc(100vh - 120px); }
     .sidebar { width: 280px; background: white; border-right: 1px solid #d1d5da; overflow-y: auto; padding: 15px; }
@@ -46,7 +43,7 @@
     .article-list li { padding: 10px; border-radius: 4px; cursor: pointer; margin-bottom: 5px; }
     .article-list li:hover { background: #f6f8fa; }
     .article-list li.active { background: #e1e4e8; }
-    .article-list li .title { font-size: 14px; font-weight: 500; color: #24292e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .article-list li .title { font-size: 14px; font-weight: 500; color: #24292e; }
     .article-list li .date { font-size: 12px; color: #586069; margin-top: 4px; }
     .new-article-btn { width: 100%; padding: 10px; background: #2ea44f; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; margin-bottom: 15px; }
     .new-article-btn:hover { background: #2c974b; }
@@ -56,13 +53,18 @@
     .editor-header { padding: 15px 20px; border-bottom: 1px solid #d1d5da; }
     .editor-header input { width: 100%; padding: 10px; font-size: 20px; border: 1px solid #d1d5da; border-radius: 4px; }
     .editor-header input:focus { outline: none; border-color: #0366d6; }
-    .meta-row { display: flex; gap: 15px; margin-top: 10px; }
+    .meta-row { display: flex; gap: 15px; margin-top: 10px; flex-wrap: wrap; }
     .meta-row select, .meta-row input { padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 4px; font-size: 14px; }
     .meta-row label { font-size: 14px; color: #586069; }
+
     .editor-body { flex: 1; display: flex; overflow: hidden; }
     .editor-pane { flex: 1; padding: 20px; overflow-y: auto; }
-    .editor-pane textarea { width: 100%; height: 100%; border: none; resize: none; font-family: 'Monaco', 'Menlo', monospace; font-size: 14px; line-height: 1.6; }
-    .editor-pane textarea:focus { outline: none; }
+    .editor-pane textarea {
+      width: 100%; height: 100%; border: none; resize: none;
+      font-family: 'Monaco', 'Menlo', monospace; font-size: 14px; line-height: 1.6;
+      padding: 10px; background: #fafafa; border-radius: 4px;
+    }
+    .editor-pane textarea:focus { outline: none; border: 1px solid #0366d6; }
     .preview-pane { flex: 1; padding: 20px; border-left: 1px solid #d1d5da; overflow-y: auto; background: #fafafa; }
     .preview-pane h1 { font-size: 28px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #e1e4e8; }
     .preview-pane h2 { font-size: 24px; margin: 20px 0 10px; }
@@ -85,34 +87,31 @@
     .btn-delete:hover { background: #a11e28; }
     .btn-cancel { background: #f6f8fa; border: 1px solid #d1d5da !important; color: #24292e; }
 
-    /* 图片上传 */
-    .image-upload { position: relative; }
-    .image-upload input[type="file"] { position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
-    .image-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; margin-top: 15px; padding: 10px; background: #f6f8fa; border-radius: 4px; max-height: 200px; overflow-y: auto; }
-    .image-gallery img { width: 100%; height: 80px; object-fit: cover; border-radius: 4px; cursor: pointer; border: 2px solid transparent; }
-    .image-gallery img:hover { border-color: #0366d6; }
-    .image-gallery img.selected { border-color: #2ea44f; }
+    /* 设置弹窗 */
+    .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+    .modal.active { display: flex; }
+    .modal-content { background: white; padding: 30px; border-radius: 8px; width: 450px; max-width: 90%; }
+    .modal-content h2 { margin-bottom: 20px; font-size: 20px; }
+    .modal-content input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; }
+    .modal-content p { font-size: 12px; color: #666; margin-bottom: 15px; line-height: 1.5; }
+    .modal-content button { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px; }
+    .modal-content .btn-primary { background: #4183c4; color: white; }
 
-    /* Toast 通知 */
+    /* Toast */
     .toast { position: fixed; bottom: 20px; right: 20px; padding: 15px 25px; background: #24292e; color: white; border-radius: 4px; font-size: 14px; transform: translateY(100px); opacity: 0; transition: all 0.3s; z-index: 1000; }
     .toast.show { transform: translateY(0); opacity: 1; }
     .toast.success { background: #2ea44f; }
     .toast.error { background: #cb2431; }
 
-    /* 加载动画 */
+    /* Loading */
     .loading { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8); z-index: 999; align-items: center; justify-content: center; }
     .loading.active { display: flex; }
     .spinner { width: 40px; height: 40px; border: 3px solid #f3f3f3; border-top-color: #4183c4; border-radius: 50%; animation: spin 1s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* 设置弹窗 */
-    .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
-    .modal.active { display: flex; }
-    .modal-content { background: white; padding: 30px; border-radius: 8px; width: 400px; max-width: 90%; }
-    .modal-content h2 { margin-bottom: 20px; font-size: 20px; }
-    .modal-content input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; }
-    .modal-content button { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px; }
-    .modal-content .btn-primary { background: #4183c4; color: white; }
+    /* 提示文字 */
+    .hint { background: #fff8e5; border: 1px solid #ffe58f; padding: 10px 15px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; color: #8a6d3b; }
+    .hint a { color: #1890ff; }
   </style>
 </head>
 <body>
@@ -138,54 +137,35 @@
     </div>
 
     <div class="toolbar">
-      <button onclick="execCmd('bold')" title="加粗"><b>B</b></button>
-      <button onclick="execCmd('italic')" title="斜体"><i>I</i></button>
-      <button onclick="execCmd('underline')" title="下划线"><u>U</u></button>
+      <button onclick="insertFormat('**', '**')" title="加粗"><b>B</b></button>
+      <button onclick="insertFormat('*', '*')" title="斜体"><i>I</i></button>
+      <button onclick="insertFormat('<u>', '</u>')" title="下划线"><u>U</u></button>
       <div class="separator"></div>
-      <button onclick="execCmd('formatBlock', 'h1')">H1</button>
-      <button onclick="execCmd('formatBlock', 'h2')">H2</button>
-      <button onclick="execCmd('formatBlock', 'h3')">H3</button>
-      <button onclick="execCmd('formatBlock', 'p')">段落</button>
+      <button onclick="insertAtLineStart('# ')">H1</button>
+      <button onclick="insertAtLineStart('## ')">H2</button>
+      <button onclick="insertAtLineStart('### ')">H3</button>
       <div class="separator"></div>
-      <button onclick="execCmd('formatBlock', 'blockquote')">引用</button>
-      <button onclick="execCmd('insertUnorderedList')">列表</button>
-      <button onclick="execCmd('insertOrderedList')">数字列表</button>
+      <button onclick="insertFormat('> ', '')">引用</button>
+      <button onclick="insertAtLineStart('- ')">列表</button>
+      <button onclick="insertAtLineStart('1. ')">数字列表</button>
       <div class="separator"></div>
-      <div class="image-upload">
-        <button>上传图片</button>
-        <input type="file" id="imageInput" accept="image/*" onchange="handleImageUpload(event)">
-      </div>
+      <button onclick="insertFormat('`', '`')">行内代码</button>
+      <button onclick="insertFormat('```\n', '\n```')">代码块</button>
       <div class="separator"></div>
-      <select id="categorySelect">
-        <option value="">选择分类</option>
-        <option value="未分类">未分类</option>
-        <option value="诗篇">诗篇</option>
-        <option value="马可福音">马可福音</option>
-        <option value="约翰福音">约翰福音</option>
-        <option value="路加福音">路加福音</option>
-        <option value="马太福音">马太福音</option>
-        <option value="创世记">创世记</option>
-        <option value="罗马书">罗马书</option>
-        <option value="加拉太书">加拉太书</option>
-        <option value="以弗所书">以弗所书</option>
-        <option value="腓立比书">腓立比书</option>
-        <option value="歌罗西书">歌罗西书</option>
-        <option value="希伯来书">希伯来书</option>
-        <option value="雅各书">雅各书</option>
-        <option value="约翰一书">约翰一书</option>
-        <option value="启示录">启示录</option>
-        <option value="使徒行传">使徒行传</option>
-        <option value="见证">见证</option>
-        <option value="圣诞节">圣诞节</option>
-        <option value="复活节">复活节</option>
-      </select>
+      <label style="display: inline-flex; align-items: center; cursor: pointer; padding: 6px 12px; background: white; border: 1px solid #d1d5da; border-radius: 4px; font-size: 14px;">
+        上传图片<input type="file" id="imageInput" accept="image/*" style="display:none" onchange="handleImageUpload(event)">
+      </label>
     </div>
 
     <div class="main-container">
       <div class="sidebar">
         <button class="new-article-btn" onclick="newArticle()">+ 新建文章</button>
         <h3>文章列表</h3>
-        <ul class="article-list" id="articleList"></ul>
+        <ul class="article-list" id="articleList">
+          <li style="color:#999;font-size:13px;padding:20px;text-align:center;">
+            请先在设置中配置 GitHub Token
+          </li>
+        </ul>
       </div>
 
       <div class="editor-area">
@@ -207,16 +187,54 @@
               <option value="亚伦">亚伦</option>
             </select>
             <label>日期:</label>
-            <input type="date" id="articleDate">
+            <input type="date" id="articleDate" style="width:150px;">
+            <label>分类:</label>
+            <select id="categorySelect">
+              <option value="">选择分类</option>
+              <option value="未分类">未分类</option>
+              <option value="诗篇">诗篇</option>
+              <option value="马可福音">马可福音</option>
+              <option value="约翰福音">约翰福音</option>
+              <option value="路加福音">路加福音</option>
+              <option value="马太福音">马太福音</option>
+              <option value="创世记">创世记</option>
+              <option value="罗马书">罗马书</option>
+              <option value="加拉太书">加拉太书</option>
+              <option value="以弗所书">以弗所书</option>
+              <option value="腓立比书">腓立比书</option>
+              <option value="歌罗西书">歌罗西书</option>
+              <option value="希伯来书">希伯来书</option>
+              <option value="雅各书">雅各书</option>
+              <option value="约翰一书">约翰一书</option>
+              <option value="启示录">启示录</option>
+              <option value="使徒行传">使徒行传</option>
+              <option value="见证">见证</option>
+              <option value="圣诞节">圣诞节</option>
+              <option value="复活节">复活节</option>
+            </select>
             <label>标签:</label>
-            <input type="text" id="articleTags" placeholder="多个标签用逗号分隔" style="width: 200px;">
+            <input type="text" id="articleTags" placeholder="多个标签用逗号分隔" style="width: 180px;">
           </div>
         </div>
         <div class="editor-body">
           <div class="editor-pane">
-            <textarea id="editor" placeholder="在这里开始写作..."></textarea>
+            <textarea id="editor" placeholder="在这里写文章内容...
+
+支持的格式：
+# 标题1
+## 标题2
+### 标题3
+**加粗文字**
+*斜体文字*
+> 引用
+- 列表项
+1. 有序列表
+
+上传图片后会自动插入图片链接"></textarea>
           </div>
-          <div class="preview-pane" id="preview"></div>
+          <div class="preview-pane" id="preview">
+            <p style="color:#999">预览区域</p>
+          </div>
         </div>
         <div class="action-bar">
           <button class="btn-cancel" onclick="clearEditor()">清空</button>
@@ -232,11 +250,16 @@
   <div class="modal" id="settingsModal">
     <div class="modal-content">
       <h2>设置</h2>
-      <input type="text" id="githubToken" placeholder="GitHub Personal Access Token">
-      <p style="font-size: 12px; color: #666; margin-bottom: 15px;">
-        Token 需要 repo 权限。<br>
-        可在 GitHub → Settings → Developer settings → Personal access tokens 生成。
-      </p>
+      <div class="hint">
+        <b>重要：</b>需要一个 GitHub Personal Access Token 来操作仓库。<br>
+        生成方法：<br>
+        1. 登录 GitHub → 点击头像 → Settings<br>
+        2. 左侧底部 "Developer settings"<br>
+        3. Personal access tokens → Generate new token<br>
+        4. 勾选 <b>repo</b> 权限<br>
+        5. 生成后复制 token 粘贴到下方
+      </div>
+      <input type="text" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
       <button class="btn-primary" onclick="saveSettings()">保存</button>
       <button onclick="closeSettings()" style="background: #f6f8fa; border: 1px solid #d1d5da;">取消</button>
     </div>
@@ -254,14 +277,17 @@
     // ============ 全局变量 ============
     let currentArticle = null;
     let articles = [];
-    let githubToken = localStorage.getItem('lvc_github_token') || '';
-    let accessPassword = localStorage.getItem('lvc_access_password') || '';
+    let githubToken = '';
+    let accessPassword = '';
     const OWNER = 'CNLVC';
     const REPO = 'lvc';
     const BRANCH = 'master';
 
     // ============ 初始化 ============
     document.addEventListener('DOMContentLoaded', () => {
+      accessPassword = localStorage.getItem('lvc_access_password') || '';
+      githubToken = localStorage.getItem('lvc_github_token') || '';
+
       if (accessPassword) {
         document.getElementById('passwordInput').value = accessPassword;
       }
@@ -269,35 +295,26 @@
         document.getElementById('githubToken').value = githubToken;
       }
 
-      // 编辑器实时预览
       document.getElementById('editor').addEventListener('input', updatePreview);
+      document.getElementById('articleDate').value = new Date().toISOString().split('T')[0];
     });
 
     // ============ 登录 ============
     function login() {
       const password = document.getElementById('passwordInput').value;
-      console.log('登录密码:', password);
-      // 简单密码验证（实际应用中应该更安全）
-      if (password === 'zukzew-1mupno-Tiwman') {  // 默认密码
-        console.log('密码正确，进入后台...');
+      if (password === 'zukzew-1mupno-Tiwman') {
         localStorage.setItem('lvc_access_password', password);
         document.getElementById('loginPage').style.display = 'none';
-        document.getElementById('app').style.display = 'block';
-        console.log('开始加载文章...');
-        try {
-          loadArticles();
-        } catch(e) {
-          console.error('加载文章出错:', e);
-        }
+        document.getElementById('app').classList.add('active');
+        loadArticles();
       } else {
-        console.log('密码错误');
         document.getElementById('loginError').style.display = 'block';
       }
     }
 
     function logout() {
       document.getElementById('app').classList.remove('active');
-      document.getElementById('loginPage').classList.remove('hidden');
+      document.getElementById('loginPage').style.display = 'flex';
     }
 
     // ============ 设置 ============
@@ -316,15 +333,92 @@
         githubToken = token;
         showToast('设置已保存', 'success');
         closeSettings();
+        loadArticles();
       }
+    }
+
+    // ============ 编辑器工具 ============
+    function insertFormat(before, after) {
+      const editor = document.getElementById('editor');
+      const start = editor.selectionStart;
+      const end = editor.selectionEnd;
+      const text = editor.value;
+      const selected = text.substring(start, end);
+
+      editor.value = text.substring(0, start) + before + selected + after + text.substring(end);
+      editor.focus();
+      editor.selectionStart = start + before.length;
+      editor.selectionEnd = start + before.length + selected.length;
+      updatePreview();
+    }
+
+    function insertAtLineStart(prefix) {
+      const editor = document.getElementById('editor');
+      const start = editor.selectionStart;
+      const text = editor.value;
+
+      // 找到当前行的开始
+      let lineStart = start;
+      while (lineStart > 0 && text[lineStart - 1] !== '\n') {
+        lineStart--;
+      }
+
+      editor.value = text.substring(0, lineStart) + prefix + text.substring(lineStart);
+      editor.focus();
+      editor.selectionStart = editor.selectionEnd = start + prefix.length;
+      updatePreview();
+    }
+
+    function updatePreview() {
+      const content = document.getElementById('editor').value;
+      const html = markdownToHTML(content);
+      document.getElementById('preview').innerHTML = html || '<p style="color:#999">预览区域</p>';
+    }
+
+    function markdownToHTML(md) {
+      if (!md) return '';
+
+      return md
+        .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+        .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+        .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+        .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
+        .replace(/^- (.+)$/gm, '<li>$1</li>')
+        .replace(/^(\d+)\. (.+)$/gm, '<li>$2</li>')
+        .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">')
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+        .replace(/\n\n+/g, '</p><p>')
+        .replace(/\n/g, '<br>');
+    }
+
+    function clearEditor() {
+      if (confirm('确定要清空编辑器吗？')) {
+        newArticle();
+      }
+    }
+
+    function newArticle() {
+      currentArticle = null;
+      document.getElementById('articleTitle').value = '';
+      document.getElementById('articleDate').value = new Date().toISOString().split('T')[0];
+      document.getElementById('authorSelect').value = 'Jeremy';
+      document.getElementById('articleTags').value = '';
+      document.getElementById('categorySelect').value = '';
+      document.getElementById('editor').value = '';
+      updatePreview();
+      document.querySelectorAll('.article-list li').forEach(li => li.classList.remove('active'));
     }
 
     // ============ GitHub API ============
     async function githubRequest(method, path, data = null) {
       if (!githubToken) {
-        showToast('请先设置 GitHub Token', 'error');
+        showToast('请先在设置中配置 GitHub Token', 'error');
         showSettings();
-        return null;
+        throw new Error('No token');
       }
 
       const url = `https://api.github.com${path}`;
@@ -343,7 +437,7 @@
 
       const response = await fetch(url, options);
       if (!response.ok) {
-        const error = await response.json();
+        const error = await response.json().catch(() => ({ message: response.statusText }));
         throw new Error(error.message || '请求失败');
       }
       return response.json();
@@ -351,12 +445,20 @@
 
     // ============ 文章管理 ============
     async function loadArticles() {
+      if (!githubToken) {
+        document.getElementById('articleList').innerHTML = `
+          <li style="color:#cb2431;font-size:13px;padding:20px;text-align:center;">
+            需要配置 GitHub Token 才能加载文章<br>
+            <a onclick="showSettings()" style="cursor:pointer;color:#0366d6;text-decoration:underline">点击设置</a>
+          </li>`;
+        return;
+      }
+
       showLoading(true);
       try {
         const data = await githubRequest('GET', `/repos/${OWNER}/${REPO}/git/trees/${BRANCH}?recursive=1`);
         const tree = data.tree || [];
 
-        // 获取所有文章的路径
         const articlePaths = tree
           .filter(item => item.path.match(/^\d{4}\/\d{2}\/\d{2}\/.+\/index\.html$/))
           .map(item => item.path);
@@ -365,32 +467,32 @@
         for (const path of articlePaths) {
           const dirPath = path.replace('/index.html', '');
           const [year, month, day, ...titleParts] = dirPath.split('/');
-          const title = titleParts.join('/');
+          const rawTitle = titleParts.join('/');
 
-          // 获取文件的 SHA
-          const fileData = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${path}`);
+          try {
+            const fileData = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${path}`);
+            const response = await fetch(fileData.download_url);
+            const content = await response.text();
 
-          // 获取文件内容
-          const contentResponse = await fetch(fileData.download_url);
-          const content = await contentResponse.text();
+            const titleMatch = content.match(/<h1[^>]*>([^<]+)<\/h1>/);
+            const title = titleMatch ? titleMatch[1].trim() : rawTitle;
 
-          // 解析 HTML 提取标题
-          const titleMatch = content.match(/<h1[^>]*>([^<]+)<\/h1>/);
-          const extractedTitle = titleMatch ? titleMatch[1].trim() : title;
-
-          articles.push({
-            path,
-            dirPath,
-            title: extractedTitle,
-            rawTitle: title,
-            date: `${year}-${month}-${day}`,
-            sha: fileData.sha
-          });
+            articles.push({
+              path,
+              dirPath,
+              title,
+              rawTitle,
+              date: `${year}-${month}-${day}`,
+              sha: fileData.sha
+            });
+          } catch (e) {
+            console.error('加载文章失败:', path, e);
+          }
         }
 
-        // 按日期排序
         articles.sort((a, b) => new Date(b.date) - new Date(a.date));
         renderArticleList();
+        showToast(`已加载 ${articles.length} 篇文章`, 'success');
 
       } catch (error) {
         showToast('加载文章失败: ' + error.message, 'error');
@@ -401,12 +503,23 @@
 
     function renderArticleList() {
       const list = document.getElementById('articleList');
+      if (articles.length === 0) {
+        list.innerHTML = '<li style="color:#999;font-size:13px;padding:20px;text-align:center;">暂无文章</li>';
+        return;
+      }
+
       list.innerHTML = articles.map(article => `
-        <li onclick="loadArticle('${article.dirPath}')">
-          <div class="title">${article.title}</div>
+        <li onclick="loadArticle('${article.dirPath.replace(/'/g, "\\'")}')">
+          <div class="title">${escapeHtml(article.title)}</div>
           <div class="date">${article.date}</div>
         </li>
       `).join('');
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
     }
 
     async function loadArticle(dirPath) {
@@ -420,10 +533,10 @@
 
         // 解析 HTML 提取内容
         const contentMatch = content.match(/<div class="entry-content"[^>]*>([\s\S]*?)<div class="post-shares">/);
-        let articleContent = contentMatch ? contentMatch[1].trim() : '';
+        let articleContent = contentMatch ? contentMatch[1] : '';
 
-        // 清理 HTML 标签，保留基本格式
-        articleContent = cleanHTML(articleContent);
+        // HTML 转 Markdown
+        articleContent = htmlToMarkdown(articleContent);
 
         currentArticle = {
           path,
@@ -438,20 +551,20 @@
         document.getElementById('articleDate').value = `${year}-${month}-${day}`;
         document.getElementById('editor').value = articleContent;
 
-        // 尝试提取作者和标签
+        // 提取作者
         const authorMatch = content.match(/rel="author"[^>]*>([^<]+)<\/a>/);
-        const tagsMatch = content.match(/<a[^>]*rel="tag"[^>]*>([^<]+)<\/a>/g);
-
         if (authorMatch) {
           document.getElementById('authorSelect').value = authorMatch[1];
         }
 
+        // 提取标签
+        const tagsMatch = content.match(/rel="tag"[^>]*>([^<]+)<\/a>/g);
         if (tagsMatch) {
           const tags = tagsMatch.map(t => t.match(/>([^<]+)</)[1]).join(', ');
           document.getElementById('articleTags').value = tags;
         }
 
-        // 尝试提取分类
+        // 提取分类
         const categoryMatch = content.match(/href="\/categories\/([^"]+)"/);
         if (categoryMatch) {
           document.getElementById('categorySelect').value = decodeURIComponent(categoryMatch[1]);
@@ -459,10 +572,11 @@
 
         updatePreview();
 
-        // 高亮当前文章
-        document.querySelectorAll('.article-list li').forEach(li => {
-          li.classList.remove('active');
-          if (li.onclick.toString().includes(dirPath)) {
+        // 高亮
+        document.querySelectorAll('.article-list li').forEach(li => li.classList.remove('active'));
+        const items = document.querySelectorAll('.article-list li');
+        items.forEach((li, i) => {
+          if (articles[i] && articles[i].dirPath === dirPath) {
             li.classList.add('active');
           }
         });
@@ -473,27 +587,26 @@
       showLoading(false);
     }
 
-    function cleanHTML(html) {
+    function htmlToMarkdown(html) {
+      if (!html) return '';
+
       return html
-        .replace(/<p class="post-date"[^>]*>[\s\S]*?<\/p>/g, '\n\n')
-        .replace(/<h1[^>]*>[\s\S]*?<\/h1>/gi, '\n# $&\n')
-        .replace(/<h2[^>]*>([^<]+)<\/h2>/gi, '\n## $1\n')
-        .replace(/<h3[^>]*>([^<]+)<\/h3>/gi, '\n### $1\n')
-        .replace(/<blockquote[^>]*>([\s\S]*?)<\/blockquote>/gi, '\n> $1\n')
+        .replace(/<h1[^>]*>([^<]+)<\/h1>/gi, '# $1\n')
+        .replace(/<h2[^>]*>([^<]+)<\/h2>/gi, '## $1\n')
+        .replace(/<h3[^>]*>([^<]+)<\/h3>/gi, '### $1\n')
         .replace(/<strong>([^<]+)<\/strong>/gi, '**$1**')
         .replace(/<b>([^<]+)<\/b>/gi, '**$1**')
         .replace(/<em>([^<]+)<\/em>/gi, '*$1*')
         .replace(/<i>([^<]+)<\/i>/gi, '*$1*')
         .replace(/<u>([^<]+)<\/u>/gi, '<u>$1</u>')
-        .replace(/<ul[^>]*>([\s\S]*?)<\/ul>/gi, (m, inner) => {
-          return inner.replace(/<li[^>]*>([\s\S]*?)<\/li>/gi, '- $1\n');
-        })
-        .replace(/<ol[^>]*>([\s\S]*?)<\/ol>/gi, (m, inner) => {
-          let i = 1;
-          return inner.replace(/<li[^>]*>([\s\S]*?)<\/li>/gi, () => `${i++}. $1\n`);
-        })
+        .replace(/<blockquote[^>]*>([\s\S]*?)<\/blockquote>/gi, '> $1\n')
+        .replace(/<li[^>]*>([\s\S]*?)<\/li>/gi, '- $1\n')
+        .replace(/<img[^>]*src="([^"]+)"[^>]*alt="([^"]+)"[^>]*>/gi, '![$2]($1)')
+        .replace(/<img[^>]*alt="([^"]+)"[^>]*src="([^"]+)"[^>]*>/gi, '![$1]($2)')
+        .replace(/<img[^>]*src="([^"]+)"[^>]*>/gi, '![]($1)')
+        .replace(/<a[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/gi, '[$2]($1)')
         .replace(/<br\s*\/?>/gi, '\n')
-        .replace(/<p[^>]*>([\s\S]*?)<\/p>/gi, '\n$1\n')
+        .replace(/<p[^>]*>([\s\S]*?)<\/p>/gi, '$1\n\n')
         .replace(/<[^>]+>/g, '')
         .replace(/&nbsp;/g, ' ')
         .replace(/&amp;/g, '&')
@@ -505,49 +618,6 @@
         .trim();
     }
 
-    function newArticle() {
-      currentArticle = null;
-      document.getElementById('articleTitle').value = '';
-      document.getElementById('articleDate').value = new Date().toISOString().split('T')[0];
-      document.getElementById('authorSelect').value = 'Jeremy';
-      document.getElementById('articleTags').value = '';
-      document.getElementById('categorySelect').value = '';
-      document.getElementById('editor').value = '';
-      updatePreview();
-    }
-
-    function clearEditor() {
-      if (confirm('确定要清空编辑器吗？')) {
-        newArticle();
-      }
-    }
-
-    // ============ 编辑器命令 ============
-    function execCmd(cmd, value = null) {
-      document.execCommand(cmd, false, value);
-      document.getElementById('editor').focus();
-    }
-
-    function updatePreview() {
-      const content = document.getElementById('editor').value;
-      const html = markdownToHTML(content);
-      document.getElementById('preview').innerHTML = html;
-    }
-
-    function markdownToHTML(md) {
-      return md
-        .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-        .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-        .replace(/^# (.+)$/gm, '<h1>$1</h1>')
-        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\*(.+?)\*/g, '<em>$1</em>')
-        .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
-        .replace(/^- (.+)$/gm, '<li>$1</li>')
-        .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
-        .replace(/\n\n/g, '</p><p>')
-        .replace(/\n/g, '<br>');
-    }
-
     // ============ 发布文章 ============
     async function publishArticle() {
       const title = document.getElementById('articleTitle').value.trim();
@@ -557,13 +627,21 @@
       const tags = document.getElementById('articleTags').value.split(',').map(t => t.trim()).filter(t => t);
       const content = document.getElementById('editor').value;
 
-      if (!title || !date || !content) {
-        showToast('请填写标题、日期和内容', 'error');
+      if (!title) {
+        showToast('请填写文章标题', 'error');
+        return;
+      }
+      if (!date) {
+        showToast('请选择日期', 'error');
+        return;
+      }
+      if (!content) {
+        showToast('请填写文章内容', 'error');
         return;
       }
 
       if (!githubToken) {
-        showToast('请先设置 GitHub Token', 'error');
+        showToast('请先在设置中配置 GitHub Token', 'error');
         showSettings();
         return;
       }
@@ -571,30 +649,28 @@
       showLoading(true);
 
       try {
-        // 生成目录路径
         const dateParts = date.split('-');
         const dirPath = `${dateParts[0]}/${dateParts[1]}/${dateParts[2]}/${title}`;
+        const path = `${dirPath}/index.html`;
 
-        // 构建 HTML
+        // 生成 HTML
         const html = generateHTML(title, date, author, category, tags, content);
 
-        // 如果是更新，先获取 SHA
+        // 检查文件是否已存在
         let sha = null;
         if (currentArticle) {
           sha = currentArticle.sha;
         } else {
-          // 检查文件是否已存在
           try {
-            const existing = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${dirPath}/index.html`);
+            const existing = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${path}`);
             sha = existing.sha;
           } catch (e) {
-            // 文件不存在，使用 null 创建
+            // 文件不存在
           }
         }
 
-        // 创建或更新文件
-        const path = `${dirPath}/index.html`;
-        const data = await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/${path}`, {
+        // 写入文件
+        await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/${path}`, {
           message: `发布文章: ${title}`,
           content: btoa(unescape(encodeURIComponent(html))),
           sha: sha,
@@ -602,20 +678,19 @@
         });
 
         showToast('文章发布成功！', 'success');
-        loadArticles(); // 刷新列表
+        newArticle();
+        loadArticles();
 
       } catch (error) {
         showToast('发布失败: ' + error.message, 'error');
       }
-
       showLoading(false);
     }
 
     function generateHTML(title, date, author, category, tags, content) {
-      const tagsHTML = tags.map(tag => `<a href="/tags/${tag}/" rel="tag">${tag}</a>`).join('\n      ');
+      const tagsHTML = tags.map(tag => `<a href="/tags/${encodeURIComponent(tag)}/" rel="tag">${tag}</a>`).join('\n      ');
       const categoryLink = category ? `<a href="/categories/${encodeURIComponent(category)}/" rel="category tag">${category}</a>` : '';
 
-      // 将 Markdown 转换为 HTML
       const articleHTML = markdownToHTML(content);
 
       return `<!doctype html>
@@ -637,12 +712,11 @@
 
       <div class="post-meta">
         <span class="post-date" itemprop="dateCreated">${date}</span>
-        <a href="/authors/${author}/" rel="author" itemprop="author">${author}</a>
-        ${categoryLink ? ` · ${categoryLink}` : ''}
+        <a href="/authors/${author}/" rel="author" itemprop="author">${author}</a>${categoryLink ? ' · ' + categoryLink : ''}
       </div>
 
       <div class="post-tags">
-        ${tagsHTML ? tagsHTML : ''}
+        ${tags.length > 0 ? tagsHTML : ''}
       </div>
 
       <div class="entry-content" itemprop="articleBody">
@@ -660,45 +734,6 @@
   <footer class="footer"> </footer>
 </body>
 </html>`;
-    }
-
-    // ============ 保存草稿 ============
-    function saveDraft() {
-      const title = document.getElementById('articleTitle').value;
-      const content = document.getElementById('editor').value;
-      const date = document.getElementById('articleDate').value;
-
-      if (!title && !content) {
-        showToast('没有内容可保存', 'error');
-        return;
-      }
-
-      const drafts = JSON.parse(localStorage.getItem('lvc_drafts') || '[]');
-      const draft = {
-        id: Date.now(),
-        title,
-        content,
-        date,
-        author: document.getElementById('authorSelect').value,
-        category: document.getElementById('categorySelect').value,
-        tags: document.getElementById('articleTags').value,
-        savedAt: new Date().toISOString()
-      };
-
-      // 更新现有草稿或添加新草稿
-      if (currentArticle && currentArticle.dirPath) {
-        const idx = drafts.findIndex(d => d.dirPath === currentArticle.dirPath);
-        if (idx >= 0) {
-          drafts[idx] = { ...draft, dirPath: currentArticle.dirPath };
-        } else {
-          drafts.push({ ...draft, dirPath: currentArticle.dirPath });
-        }
-      } else {
-        drafts.push(draft);
-      }
-
-      localStorage.setItem('lvc_drafts', JSON.stringify(drafts));
-      showToast('草稿已保存', 'success');
     }
 
     // ============ 删除文章 ============
@@ -728,8 +763,34 @@
       } catch (error) {
         showToast('删除失败: ' + error.message, 'error');
       }
-
       showLoading(false);
+    }
+
+    // ============ 草稿保存 ============
+    function saveDraft() {
+      const title = document.getElementById('articleTitle').value;
+      const content = document.getElementById('editor').value;
+
+      if (!title && !content) {
+        showToast('没有内容可保存', 'error');
+        return;
+      }
+
+      const drafts = JSON.parse(localStorage.getItem('lvc_drafts') || '[]');
+      const draft = {
+        id: Date.now(),
+        title,
+        content,
+        date: document.getElementById('articleDate').value,
+        author: document.getElementById('authorSelect').value,
+        category: document.getElementById('categorySelect').value,
+        tags: document.getElementById('articleTags').value,
+        savedAt: new Date().toISOString()
+      };
+
+      drafts.push(draft);
+      localStorage.setItem('lvc_drafts', JSON.stringify(drafts));
+      showToast('草稿已保存到本地', 'success');
     }
 
     // ============ 图片上传 ============
@@ -738,7 +799,7 @@
       if (!file) return;
 
       if (!githubToken) {
-        showToast('请先设置 GitHub Token', 'error');
+        showToast('请先在设置中配置 GitHub Token', 'error');
         showSettings();
         return;
       }
@@ -746,11 +807,11 @@
       showLoading(true);
 
       try {
-        // 读取文件
         const reader = new FileReader();
         reader.onload = async (e) => {
           const base64 = e.target.result.split(',')[1];
-          const fileName = `images/${Date.now()}-${file.name}`;
+          const ext = file.name.split('.').pop() || 'png';
+          const fileName = `images/${Date.now()}-${Math.random().toString(36).substr(2, 9)}.${ext}`;
 
           await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/${fileName}`, {
             message: `上传图片: ${file.name}`,
@@ -758,10 +819,13 @@
             branch: BRANCH
           });
 
-          // 在编辑器中插入图片链接
           const imageUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${fileName}`;
           const editor = document.getElementById('editor');
-          editor.value += `\n![${file.name}](${imageUrl})\n`;
+          const pos = editor.selectionStart;
+          const text = editor.value;
+          editor.value = text.substring(0, pos) + `\n![${file.name}](${imageUrl})\n` + text.substring(pos);
+          editor.focus();
+          editor.selectionStart = editor.selectionEnd = pos + imageUrl.length + 5;
           updatePreview();
 
           showToast('图片上传成功！', 'success');
