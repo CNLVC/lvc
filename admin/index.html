@@ -27,16 +27,8 @@
     .header a { color: white; text-decoration: none; margin-left: 20px; cursor: pointer; }
     .header a:hover { text-decoration: underline; }
 
-    /* 工具栏 */
-    .toolbar { background: #f6f8fa; border-bottom: 1px solid #d1d5da; padding: 10px 20px; display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
-    .toolbar button { padding: 6px 12px; background: white; border: 1px solid #d1d5da; border-radius: 4px; cursor: pointer; font-size: 14px; }
-    .toolbar button:hover { background: #f0f0f0; }
-    .toolbar button.active { background: #e1e4e8; border-color: #0366d6; color: #0366d6; }
-    .toolbar select { padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 4px; font-size: 14px; }
-    .toolbar .separator { width: 1px; height: 24px; background: #d1d5da; margin: 0 10px; }
-
     /* 主容器 */
-    .main-container { display: flex; height: calc(100vh - 120px); }
+    .main-container { display: flex; height: calc(100vh - 60px); }
     .sidebar { width: 280px; background: white; border-right: 1px solid #d1d5da; overflow-y: auto; padding: 15px; }
     .sidebar h3 { font-size: 14px; color: #586069; margin-bottom: 10px; text-transform: uppercase; }
     .article-list { list-style: none; }
@@ -53,28 +45,24 @@
     .editor-header { padding: 15px 20px; border-bottom: 1px solid #d1d5da; }
     .editor-header input { width: 100%; padding: 10px; font-size: 20px; border: 1px solid #d1d5da; border-radius: 4px; }
     .editor-header input:focus { outline: none; border-color: #0366d6; }
-    .meta-row { display: flex; gap: 15px; margin-top: 10px; flex-wrap: wrap; }
+    .meta-row { display: flex; gap: 15px; margin-top: 10px; flex-wrap: wrap; align-items: center; }
     .meta-row select, .meta-row input { padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 4px; font-size: 14px; }
     .meta-row label { font-size: 14px; color: #586069; }
 
-    .editor-body { flex: 1; display: flex; overflow: hidden; }
-    .editor-pane { flex: 1; padding: 20px; overflow-y: auto; }
-    .editor-pane textarea {
-      width: 100%; height: 100%; border: none; resize: none;
-      font-family: 'Monaco', 'Menlo', monospace; font-size: 14px; line-height: 1.6;
-      padding: 10px; background: #fafafa; border-radius: 4px;
-    }
-    .editor-pane textarea:focus { outline: none; border: 1px solid #0366d6; }
-    .preview-pane { flex: 1; padding: 20px; border-left: 1px solid #d1d5da; overflow-y: auto; background: #fafafa; }
-    .preview-pane h1 { font-size: 28px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #e1e4e8; }
-    .preview-pane h2 { font-size: 24px; margin: 20px 0 10px; }
-    .preview-pane h3 { font-size: 20px; margin: 15px 0 8px; }
-    .preview-pane p { margin: 10px 0; line-height: 1.8; }
-    .preview-pane blockquote { border-left: 4px solid #d1d5da; padding-left: 15px; color: #6a737d; margin: 15px 0; }
-    .preview-pane ul, .preview-pane ol { margin: 10px 0; padding-left: 25px; }
-    .preview-pane code { background: #f0f0f0; padding: 2px 5px; border-radius: 3px; font-family: monospace; }
-    .preview-pane pre { background: #f6f8fa; padding: 15px; border-radius: 4px; overflow-x: auto; margin: 15px 0; }
-    .preview-pane img { max-width: 100%; height: auto; }
+    /* 编辑器容器 */
+    .editor-wrapper { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+    .editor-container { flex: 1; overflow: hidden; }
+    .CodeMirror { height: 100% !important; font-size: 15px; line-height: 1.6; }
+    .editor-preview { padding: 20px; overflow-y: auto; background: #fafafa; border-top: 1px solid #d1d5da; max-height: 40vh; }
+    .editor-preview h1 { font-size: 28px; margin-bottom: 15px; }
+    .editor-preview h2 { font-size: 24px; margin: 20px 0 10px; }
+    .editor-preview h3 { font-size: 20px; margin: 15px 0 8px; }
+    .editor-preview p { margin: 10px 0; line-height: 1.8; }
+    .editor-preview blockquote { border-left: 4px solid #d1d5da; padding-left: 15px; color: #6a737d; margin: 15px 0; }
+    .editor-preview ul, .editor-preview ol { margin: 10px 0; padding-left: 25px; }
+    .editor-preview code { background: #f0f0f0; padding: 2px 5px; border-radius: 3px; font-family: monospace; }
+    .editor-preview pre { background: #f6f8fa; padding: 15px; border-radius: 4px; overflow-x: auto; margin: 15px 0; }
+    .editor-preview img { max-width: 100%; height: auto; }
 
     /* 底部操作栏 */
     .action-bar { padding: 15px 20px; border-top: 1px solid #d1d5da; display: flex; gap: 10px; justify-content: flex-end; background: #f6f8fa; }
@@ -111,8 +99,16 @@
 
     /* 提示文字 */
     .hint { background: #fff8e5; border: 1px solid #ffe58f; padding: 10px 15px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; color: #8a6d3b; }
-    .hint a { color: #1890ff; }
+
+    /* 图片上传 */
+    .image-upload-btn { padding: 8px 15px; background: #f6f8fa; border: 1px solid #d1d5da; border-radius: 4px; cursor: pointer; font-size: 13px; margin-left: 10px; }
+    .image-upload-btn:hover { background: #e1e4e8; }
+    input[type="file"] { display: none; }
   </style>
+
+  <!-- SimpleMDE Markdown Editor -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplemde-editor@5.2.2/dist/simplemde.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/simplemde-editor@5.2.2/dist/simplemde.min.js"></script>
 </head>
 <body>
 
@@ -131,30 +127,12 @@
     <div class="header">
       <h1>LVC 文章管理</h1>
       <div>
+        <label class="image-upload-btn">
+          上传图片<input type="file" id="imageInput" accept="image/*" onchange="handleImageUpload(event)">
+        </label>
         <a onclick="showSettings()">设置</a>
         <a onclick="logout()">退出</a>
       </div>
-    </div>
-
-    <div class="toolbar">
-      <button onclick="insertFormat('**', '**')" title="加粗"><b>B</b></button>
-      <button onclick="insertFormat('*', '*')" title="斜体"><i>I</i></button>
-      <button onclick="insertFormat('<u>', '</u>')" title="下划线"><u>U</u></button>
-      <div class="separator"></div>
-      <button onclick="insertAtLineStart('# ')">H1</button>
-      <button onclick="insertAtLineStart('## ')">H2</button>
-      <button onclick="insertAtLineStart('### ')">H3</button>
-      <div class="separator"></div>
-      <button onclick="insertFormat('> ', '')">引用</button>
-      <button onclick="insertAtLineStart('- ')">列表</button>
-      <button onclick="insertAtLineStart('1. ')">数字列表</button>
-      <div class="separator"></div>
-      <button onclick="insertFormat('`', '`')">行内代码</button>
-      <button onclick="insertFormat('```\n', '\n```')">代码块</button>
-      <div class="separator"></div>
-      <label style="display: inline-flex; align-items: center; cursor: pointer; padding: 6px 12px; background: white; border: 1px solid #d1d5da; border-radius: 4px; font-size: 14px;">
-        上传图片<input type="file" id="imageInput" accept="image/*" style="display:none" onchange="handleImageUpload(event)">
-      </label>
     </div>
 
     <div class="main-container">
@@ -163,7 +141,7 @@
         <h3>文章列表</h3>
         <ul class="article-list" id="articleList">
           <li style="color:#999;font-size:13px;padding:20px;text-align:center;">
-            请先在设置中配置 GitHub Token
+            加载中...
           </li>
         </ul>
       </div>
@@ -216,26 +194,14 @@
             <input type="text" id="articleTags" placeholder="多个标签用逗号分隔" style="width: 180px;">
           </div>
         </div>
-        <div class="editor-body">
-          <div class="editor-pane">
-            <textarea id="editor" placeholder="在这里写文章内容...
 
-支持的格式：
-# 标题1
-## 标题2
-### 标题3
-**加粗文字**
-*斜体文字*
-> 引用
-- 列表项
-1. 有序列表
-
-上传图片后会自动插入图片链接"></textarea>
+        <div class="editor-wrapper">
+          <div class="editor-container">
+            <textarea id="editor"></textarea>
           </div>
-          <div class="preview-pane" id="preview">
-            <p style="color:#999">预览区域</p>
-          </div>
+          <div class="editor-preview" id="preview"></div>
         </div>
+
         <div class="action-bar">
           <button class="btn-cancel" onclick="clearEditor()">清空</button>
           <button class="btn-delete" onclick="deleteArticle()">删除</button>
@@ -275,6 +241,7 @@
 
   <script>
     // ============ 全局变量 ============
+    let simplemde = null;
     let currentArticle = null;
     let articles = [];
     let githubToken = '';
@@ -295,7 +262,6 @@
         document.getElementById('githubToken').value = githubToken;
       }
 
-      document.getElementById('editor').addEventListener('input', updatePreview);
       document.getElementById('articleDate').value = new Date().toISOString().split('T')[0];
     });
 
@@ -306,6 +272,7 @@
         localStorage.setItem('lvc_access_password', password);
         document.getElementById('loginPage').style.display = 'none';
         document.getElementById('app').classList.add('active');
+        initEditor();
         loadArticles();
       } else {
         document.getElementById('loginError').style.display = 'block';
@@ -315,6 +282,32 @@
     function logout() {
       document.getElementById('app').classList.remove('active');
       document.getElementById('loginPage').style.display = 'flex';
+    }
+
+    // ============ 初始化编辑器 ============
+    function initEditor() {
+      if (simplemde) return;
+
+      simplemde = new SimpleMDE({
+        element: document.getElementById('editor'),
+        spellChecker: false,
+        autofocus: true,
+        placeholder: '在这里写文章内容...\n\n支持的格式：\n# 标题1\n## 标题2\n**加粗** *斜体*\n> 引用\n- 列表项',
+        renderingConfig: {
+          codeSyntaxHighlighting: false
+        }
+      });
+
+      // 实时预览
+      simplemde.codemirror.on('change', () => {
+        updatePreview();
+      });
+    }
+
+    function updatePreview() {
+      const content = simplemde ? simplemde.value() : '';
+      const html = simplemde.markdown(content);
+      document.getElementById('preview').innerHTML = html || '<p style="color:#999">预览区域</p>';
     }
 
     // ============ 设置 ============
@@ -335,82 +328,6 @@
         closeSettings();
         loadArticles();
       }
-    }
-
-    // ============ 编辑器工具 ============
-    function insertFormat(before, after) {
-      const editor = document.getElementById('editor');
-      const start = editor.selectionStart;
-      const end = editor.selectionEnd;
-      const text = editor.value;
-      const selected = text.substring(start, end);
-
-      editor.value = text.substring(0, start) + before + selected + after + text.substring(end);
-      editor.focus();
-      editor.selectionStart = start + before.length;
-      editor.selectionEnd = start + before.length + selected.length;
-      updatePreview();
-    }
-
-    function insertAtLineStart(prefix) {
-      const editor = document.getElementById('editor');
-      const start = editor.selectionStart;
-      const text = editor.value;
-
-      // 找到当前行的开始
-      let lineStart = start;
-      while (lineStart > 0 && text[lineStart - 1] !== '\n') {
-        lineStart--;
-      }
-
-      editor.value = text.substring(0, lineStart) + prefix + text.substring(lineStart);
-      editor.focus();
-      editor.selectionStart = editor.selectionEnd = start + prefix.length;
-      updatePreview();
-    }
-
-    function updatePreview() {
-      const content = document.getElementById('editor').value;
-      const html = markdownToHTML(content);
-      document.getElementById('preview').innerHTML = html || '<p style="color:#999">预览区域</p>';
-    }
-
-    function markdownToHTML(md) {
-      if (!md) return '';
-
-      return md
-        .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
-        .replace(/`([^`]+)`/g, '<code>$1</code>')
-        .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-        .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-        .replace(/^# (.+)$/gm, '<h1>$1</h1>')
-        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\*(.+?)\*/g, '<em>$1</em>')
-        .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
-        .replace(/^- (.+)$/gm, '<li>$1</li>')
-        .replace(/^(\d+)\. (.+)$/gm, '<li>$2</li>')
-        .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">')
-        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
-        .replace(/\n\n+/g, '</p><p>')
-        .replace(/\n/g, '<br>');
-    }
-
-    function clearEditor() {
-      if (confirm('确定要清空编辑器吗？')) {
-        newArticle();
-      }
-    }
-
-    function newArticle() {
-      currentArticle = null;
-      document.getElementById('articleTitle').value = '';
-      document.getElementById('articleDate').value = new Date().toISOString().split('T')[0];
-      document.getElementById('authorSelect').value = 'Jeremy';
-      document.getElementById('articleTags').value = '';
-      document.getElementById('categorySelect').value = '';
-      document.getElementById('editor').value = '';
-      updatePreview();
-      document.querySelectorAll('.article-list li').forEach(li => li.classList.remove('active'));
     }
 
     // ============ GitHub API ============
@@ -464,7 +381,7 @@
           .map(item => item.path);
 
         articles = [];
-        for (const path of articlePaths) {
+        for (const path of articlePaths.slice(0, 100)) {
           const dirPath = path.replace('/index.html', '');
           const [year, month, day, ...titleParts] = dirPath.split('/');
           const rawTitle = titleParts.join('/');
@@ -496,7 +413,6 @@
 
       } catch (error) {
         showToast('加载文章失败: ' + error.message, 'error');
-        console.error(error);
       }
       showLoading(false);
     }
@@ -549,7 +465,10 @@
         const [year, month, day, ...titleParts] = dirPath.split('/');
         document.getElementById('articleTitle').value = titleParts.join('/');
         document.getElementById('articleDate').value = `${year}-${month}-${day}`;
-        document.getElementById('editor').value = articleContent;
+
+        if (simplemde) {
+          simplemde.value(articleContent);
+        }
 
         // 提取作者
         const authorMatch = content.match(/rel="author"[^>]*>([^<]+)<\/a>/);
@@ -618,6 +537,26 @@
         .trim();
     }
 
+    function clearEditor() {
+      if (confirm('确定要清空编辑器吗？')) {
+        newArticle();
+      }
+    }
+
+    function newArticle() {
+      currentArticle = null;
+      document.getElementById('articleTitle').value = '';
+      document.getElementById('articleDate').value = new Date().toISOString().split('T')[0];
+      document.getElementById('authorSelect').value = 'Jeremy';
+      document.getElementById('articleTags').value = '';
+      document.getElementById('categorySelect').value = '';
+      if (simplemde) {
+        simplemde.value('');
+      }
+      updatePreview();
+      document.querySelectorAll('.article-list li').forEach(li => li.classList.remove('active'));
+    }
+
     // ============ 发布文章 ============
     async function publishArticle() {
       const title = document.getElementById('articleTitle').value.trim();
@@ -625,38 +564,21 @@
       const author = document.getElementById('authorSelect').value;
       const category = document.getElementById('categorySelect').value;
       const tags = document.getElementById('articleTags').value.split(',').map(t => t.trim()).filter(t => t);
-      const content = document.getElementById('editor').value;
+      const content = simplemde ? simplemde.value() : '';
 
-      if (!title) {
-        showToast('请填写文章标题', 'error');
-        return;
-      }
-      if (!date) {
-        showToast('请选择日期', 'error');
-        return;
-      }
-      if (!content) {
-        showToast('请填写文章内容', 'error');
-        return;
-      }
-
-      if (!githubToken) {
-        showToast('请先在设置中配置 GitHub Token', 'error');
-        showSettings();
-        return;
-      }
+      if (!title) { showToast('请填写文章标题', 'error'); return; }
+      if (!date) { showToast('请选择日期', 'error'); return; }
+      if (!content) { showToast('请填写文章内容', 'error'); return; }
+      if (!githubToken) { showToast('请先在设置中配置 GitHub Token', 'error'); showSettings(); return; }
 
       showLoading(true);
-
       try {
         const dateParts = date.split('-');
         const dirPath = `${dateParts[0]}/${dateParts[1]}/${dateParts[2]}/${title}`;
         const path = `${dirPath}/index.html`;
 
-        // 生成 HTML
         const html = generateHTML(title, date, author, category, tags, content);
 
-        // 检查文件是否已存在
         let sha = null;
         if (currentArticle) {
           sha = currentArticle.sha;
@@ -664,12 +586,9 @@
           try {
             const existing = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${path}`);
             sha = existing.sha;
-          } catch (e) {
-            // 文件不存在
-          }
+          } catch (e) {}
         }
 
-        // 写入文件
         await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/${path}`, {
           message: `发布文章: ${title}`,
           content: btoa(unescape(encodeURIComponent(html))),
@@ -691,7 +610,7 @@
       const tagsHTML = tags.map(tag => `<a href="/tags/${encodeURIComponent(tag)}/" rel="tag">${tag}</a>`).join('\n      ');
       const categoryLink = category ? `<a href="/categories/${encodeURIComponent(category)}/" rel="category tag">${category}</a>` : '';
 
-      const articleHTML = markdownToHTML(content);
+      const articleHTML = simplemde.markdown(content);
 
       return `<!doctype html>
 <html class="theme-next mist use-motion" lang="zh-Hans">
@@ -705,32 +624,25 @@
 </head>
 <body itemscope itemtype="http://schema.org/Article">
   <header class="header"> </header>
-
   <div class="main">
     <article class="article" itemscope itemtype="https://schema.org/Article">
       <h1 class="title" itemprop="name">${title}</h1>
-
       <div class="post-meta">
         <span class="post-date" itemprop="dateCreated">${date}</span>
         <a href="/authors/${author}/" rel="author" itemprop="author">${author}</a>${categoryLink ? ' · ' + categoryLink : ''}
       </div>
-
       <div class="post-tags">
         ${tags.length > 0 ? tagsHTML : ''}
       </div>
-
       <div class="entry-content" itemprop="articleBody">
         ${articleHTML}
       </div>
-
       <div class="post-shares"> </div>
     </article>
-
     <nav class="article-nav">
       <a href="/" class="prev">返回首页</a>
     </nav>
   </div>
-
   <footer class="footer"> </footer>
 </body>
 </html>`;
@@ -738,28 +650,19 @@
 
     // ============ 删除文章 ============
     async function deleteArticle() {
-      if (!currentArticle) {
-        showToast('请先选择要删除的文章', 'error');
-        return;
-      }
-
-      if (!confirm('确定要删除这篇文章吗？')) {
-        return;
-      }
+      if (!currentArticle) { showToast('请先选择要删除的文章', 'error'); return; }
+      if (!confirm('确定要删除这篇文章吗？')) return;
 
       showLoading(true);
-
       try {
         await githubRequest('DELETE', `/repos/${OWNER}/${REPO}/contents/${currentArticle.path}`, {
           message: `删除文章: ${currentArticle.dirPath}`,
           sha: currentArticle.sha,
           branch: BRANCH
         });
-
         showToast('文章已删除', 'success');
         newArticle();
         loadArticles();
-
       } catch (error) {
         showToast('删除失败: ' + error.message, 'error');
       }
@@ -768,27 +671,17 @@
 
     // ============ 草稿保存 ============
     function saveDraft() {
-      const title = document.getElementById('articleTitle').value;
-      const content = document.getElementById('editor').value;
-
-      if (!title && !content) {
-        showToast('没有内容可保存', 'error');
-        return;
-      }
-
       const drafts = JSON.parse(localStorage.getItem('lvc_drafts') || '[]');
-      const draft = {
+      drafts.push({
         id: Date.now(),
-        title,
-        content,
+        title: document.getElementById('articleTitle').value,
+        content: simplemde ? simplemde.value() : '',
         date: document.getElementById('articleDate').value,
         author: document.getElementById('authorSelect').value,
         category: document.getElementById('categorySelect').value,
         tags: document.getElementById('articleTags').value,
         savedAt: new Date().toISOString()
-      };
-
-      drafts.push(draft);
+      });
       localStorage.setItem('lvc_drafts', JSON.stringify(drafts));
       showToast('草稿已保存到本地', 'success');
     }
@@ -797,15 +690,9 @@
     async function handleImageUpload(event) {
       const file = event.target.files[0];
       if (!file) return;
-
-      if (!githubToken) {
-        showToast('请先在设置中配置 GitHub Token', 'error');
-        showSettings();
-        return;
-      }
+      if (!githubToken) { showToast('请先在设置中配置 GitHub Token', 'error'); showSettings(); return; }
 
       showLoading(true);
-
       try {
         const reader = new FileReader();
         reader.onload = async (e) => {
@@ -820,19 +707,18 @@
           });
 
           const imageUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${fileName}`;
-          const editor = document.getElementById('editor');
-          const pos = editor.selectionStart;
-          const text = editor.value;
-          editor.value = text.substring(0, pos) + `\n![${file.name}](${imageUrl})\n` + text.substring(pos);
-          editor.focus();
-          editor.selectionStart = editor.selectionEnd = pos + imageUrl.length + 5;
-          updatePreview();
+          const markdown = `\n![${file.name}](${imageUrl})\n`;
+
+          if (simplemde) {
+            const pos = simplemde.codemirror.getCursor();
+            simplemde.codemirror.replaceSelection(markdown);
+            simplemde.codemirror.setCursor(pos.line + 1, 0);
+          }
 
           showToast('图片上传成功！', 'success');
           showLoading(false);
         };
         reader.readAsDataURL(file);
-
       } catch (error) {
         showToast('图片上传失败: ' + error.message, 'error');
         showLoading(false);
@@ -848,9 +734,7 @@
       const toast = document.getElementById('toast');
       toast.textContent = message;
       toast.className = 'toast show ' + type;
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000);
+      setTimeout(() => toast.classList.remove('show'), 3000);
     }
   </script>
 </body>
