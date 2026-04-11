@@ -305,6 +305,15 @@
       }
     }
 
+    function base64ToUtf8(base64) {
+      const binary = atob(base64);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+      }
+      return new TextDecoder('utf-8').decode(bytes);
+    }
+
     async function loadArticle(filename, path) {
       try {
         // 高亮选中项
@@ -312,7 +321,7 @@
         event.currentTarget.classList.add('active');
 
         const data = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${path}`);
-        const content = decodeURIComponent(escape(atob(data.content)));
+        const content = base64ToUtf8(data.content);
 
         // 解析 front matter
         const frontMatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
