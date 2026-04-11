@@ -93,6 +93,8 @@
 
     .image-upload-btn { padding: 6px 12px; background: white; border: 1px solid #d1d5da; border-radius: 4px; cursor: pointer; font-size: 14px; }
     input[type="file"] { display: none; }
+
+    .error-msg { color: #cb2431; padding: 20px; text-align: center; }
   </style>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.css">
@@ -119,6 +121,7 @@
       </div>
       <div id="loading" class="loading">加载中...</div>
       <div id="empty" class="empty" style="display:none">暂无文章</div>
+      <div id="error" class="error-msg" style="display:none"></div>
       <ul class="article-list" id="articleList"></ul>
     </div>
 
@@ -225,7 +228,7 @@
 
     let simplemde = null;
     let articles = [];
-    let currentArticle = null; // { path, sha, filename }
+    let currentArticle = null;
     let githubToken = '';
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -246,10 +249,6 @@
       });
 
       simplemde.codemirror.on('change', updatePreview);
-      ['articleTitle', 'authorInput', 'articleTags'].forEach(id => {
-        document.getElementById(id).addEventListener('input', () => {});
-      });
-      document.getElementById('categorySelect').addEventListener('change', () => {});
     }
 
     function updatePreview() {
@@ -257,12 +256,40 @@
       document.getElementById('preview').innerHTML = simplemde.markdown(content) || '<p style="color:#999">预览区域</p>';
     }
 
+    // Base64 解码 - 正确处理 UTF-8
+    function decodeBase64(base64String) {
+      try {
+        const binaryString = atob(base64String);
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+        return new TextDecoder('utf-8').decode(bytes);
+      } catch (e) {
+        console.error('Base64 解码失败:', e);
+        return binaryString;
+      }
+    }
+
+    // Base64 编码
+    function encodeBase64(content) {
+      return btoa(unescape(encodeURIComponent(content)));
+    }
+
     async function githubRequest(method, path, data = null) {
-      if (!githubToken) { showToast('请先配置 GitHub Token', 'error'); showSettings(); throw new Error('No token'); }
+      if (!githubToken) {
+        showToast('请先配置 GitHub Token', 'error');
+        showSettings();
+        throw new Error('No token');
+      }
       const url = `https://api.github.com${path}`;
       const options = {
         method,
-        headers: { 'Authorization': `token ${githubToken}`, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' }
+        headers: {
+          'Authorization': `token ${githubToken}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/vnd.github.v3+json'
+        }
       };
       if (data) options.body = JSON.stringify(data);
       const response = await fetch(url, options);
@@ -276,6 +303,7 @@
     async function loadArticleList() {
       document.getElementById('loading').style.display = 'block';
       document.getElementById('articleList').innerHTML = '';
+      document.getElementById('error').style.display = 'none';
 
       try {
         const data = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${POSTS_PATH}`);
@@ -289,39 +317,55 @@
           return;
         }
 
-        document.getElementById('articleList').innerHTML = articles.map(art => {
+        // 使用 textContent 安全渲染
+        const ul = document.getElementById('articleList');
+        articles.forEach((art, index) => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = '#';
+          a.dataset.index = index;
+          a.onclick = function() { loadArticleByIndex(index); return false; };
+
+          const titleDiv = document.createElement('div');
           const filename = art.name.replace('.md', '');
           const date = filename.substring(0, 10);
           const title = filename.substring(11) || date;
-          return `<li><a href="#" onclick="loadArticle('${art.name}', '${art.path}'); return false;">
-            <div>${title.replace(/-/g, ' ')}</div>
-            <div class="date">${date}</div>
-          </a></li>`;
-        }).join('');
+          titleDiv.textContent = title.replace(/-/g, ' ');
+
+          const dateDiv = document.createElement('div');
+          dateDiv.className = 'date';
+          dateDiv.textContent = date;
+
+          a.appendChild(titleDiv);
+          a.appendChild(dateDiv);
+          li.appendChild(a);
+          ul.appendChild(li);
+        });
 
       } catch (error) {
         document.getElementById('loading').style.display = 'none';
+        document.getElementById('error').style.display = 'block';
+        document.getElementById('error').textContent = '加载失败: ' + error.message;
         showToast('加载文章列表失败: ' + error.message, 'error');
       }
     }
 
-    function base64ToUtf8(base64) {
-      const binary = atob(base64);
-      const bytes = new Uint8Array(binary.length);
-      for (let i = 0; i < binary.length; i++) {
-        bytes[i] = binary.charCodeAt(i);
-      }
-      return new TextDecoder('utf-8').decode(bytes);
-    }
+    async function loadArticleByIndex(index) {
+      const art = articles[index];
+      if (!art) return;
 
-    async function loadArticle(filename, path) {
+      // 高亮选中项
+      document.querySelectorAll('.article-list a').forEach(a => a.classList.remove('active'));
+      document.querySelectorAll('.article-list a')[index].classList.add('active');
+
       try {
-        // 高亮选中项
-        document.querySelectorAll('.article-list a').forEach(a => a.classList.remove('active'));
-        event.currentTarget.classList.add('active');
+        // URL 编码路径
+        const encodedPath = art.path.split('/').map(p => encodeURIComponent(p)).join('/');
+        const data = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${encodedPath}`);
 
-        const data = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${path}`);
-        const content = base64ToUtf8(data.content);
+        // 正确解码 UTF-8
+        const content = decodeBase64(data.content);
+        console.log('加载内容前100字:', content.substring(0, 100));
 
         // 解析 front matter
         const frontMatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
@@ -340,7 +384,7 @@
           document.getElementById('articleTitle').value = titleMatch ? titleMatch[1].replace(/"/g, '') : '';
           document.getElementById('articleDate').value = dateMatch ? dateMatch[1] : '';
           document.getElementById('authorInput').value = authorMatch ? authorMatch[1] : 'Jeremy';
-          document.getElementById('categorySelect').value = categoryMatch ? categoryMatch[1] : '';
+          document.getElementById('categorySelect').value = categoryMatch ? categoryMatch[1].trim() : '';
 
           if (tagsMatch) {
             const tags = tagsMatch[0].match(/-\s*(.+)/g).map(t => t.replace(/-\s*/, '').trim());
@@ -354,10 +398,11 @@
           simplemde.value(content);
         }
 
-        currentArticle = { filename, path, sha: data.sha };
+        currentArticle = { filename: art.name, path: art.path, sha: data.sha };
         updatePreview();
 
       } catch (error) {
+        console.error('加载文章失败:', error);
         showToast('加载文章失败: ' + error.message, 'error');
       }
     }
@@ -372,7 +417,6 @@
       simplemde.value('');
       updatePreview();
 
-      // 取消列表选中状态
       document.querySelectorAll('.article-list a').forEach(a => a.classList.remove('active'));
     }
 
@@ -389,7 +433,7 @@
       if (!content) { showToast('请填写文章内容', 'error'); return; }
 
       // 生成文件名
-      const safeTitle = title.replace(/[:\/\?]/g, '-').substring(0, 80);
+      const safeTitle = title.replace(/[<>:"/\\|?*]/g, '-').substring(0, 80);
       const filename = `${date}-${safeTitle}.md`;
 
       // 构建 front matter
@@ -409,30 +453,25 @@ author: ${author || 'Jeremy'}`;
 
       try {
         let sha = null;
-        let path = `${POSTS_PATH}/${filename}`;
+        const path = `${POSTS_PATH}/${filename}`;
+        const encodedPath = path.split('/').map(p => encodeURIComponent(p)).join('/');
 
-        if (currentArticle && currentArticle.filename === filename) {
-          // 更新现有文件
-          sha = currentArticle.sha;
-        } else {
-          // 检查文件是否已存在
-          try {
-            const existing = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${path}`);
-            sha = existing.sha;
-          } catch (e) {
-            // 文件不存在，使用新路径
-          }
+        // 检查文件是否已存在
+        try {
+          const existing = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${encodedPath}`);
+          sha = existing.sha;
+        } catch (e) {
+          // 文件不存在
         }
 
-        await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/${path}`, {
+        await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/${encodedPath}`, {
           message: `更新文章: ${title}`,
-          content: btoa(unescape(encodeURIComponent(fullContent))),
+          content: encodeBase64(fullContent),
           sha: sha,
           branch: BRANCH
         });
 
         showToast('保存成功！', 'success');
-        currentArticle = { filename, path, sha };
         loadArticleList();
 
       } catch (error) {
@@ -457,7 +496,8 @@ author: ${author || 'Jeremy'}`;
       if (!currentArticle) return;
 
       try {
-        await githubRequest('DELETE', `/repos/${OWNER}/${REPO}/contents/${currentArticle.path}`, {
+        const encodedPath = currentArticle.path.split('/').map(p => encodeURIComponent(p)).join('/');
+        await githubRequest('DELETE', `/repos/${OWNER}/${REPO}/contents/${encodedPath}`, {
           message: `删除文章: ${currentArticle.filename}`,
           sha: currentArticle.sha,
           branch: BRANCH
@@ -515,14 +555,15 @@ author: ${author || 'Jeremy'}`;
           const base64 = e.target.result.split(',')[1];
           const ext = file.name.split('.').pop() || 'png';
           const fileName = `images/${Date.now()}-${Math.random().toString(36).substr(2, 9)}.${ext}`;
+          const encodedPath = `images/${encodeURIComponent(fileName)}`;
 
-          await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/${fileName}`, {
+          await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/${encodedPath}`, {
             message: `上传图片: ${file.name}`,
             content: base64,
             branch: BRANCH
           });
 
-          const imageUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${fileName}`;
+          const imageUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${encodedPath}`;
           if (simplemde) simplemde.codemirror.replaceSelection(`\n![${file.name}](${imageUrl})\n`);
           showToast('图片上传成功！', 'success');
         };
