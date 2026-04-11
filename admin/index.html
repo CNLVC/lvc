@@ -695,22 +695,46 @@ author: ${author || 'Jeremy'}`;
       }
     }
 
-    // 触发 GitHub Pages 重新构建
+    // 触发 GitHub Actions 工作流重新构建
     async function triggerPagesBuild() {
-      const url = `https://api.github.com/repos/${OWNER}/${REPO}/pages/builds`;
-      const options = {
+      // 首先获取 workflows 列表找到 pages.yml 的 workflow ID
+      const workflowsResponse = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/actions/workflows`, {
+        headers: {
+          'Authorization': `token ${githubToken}`,
+          'Accept': 'application/vnd.github.v3+json'
+        }
+      });
+
+      if (!workflowsResponse.ok) {
+        throw new Error('获取工作流列表失败');
+      }
+
+      const workflowsData = await workflowsResponse.json();
+      const pagesWorkflow = workflowsData.workflows.find(w => w.name === 'Pages' || w.path === '.github/workflows/pages.yml');
+
+      if (!pagesWorkflow) {
+        throw new Error('未找到 Pages 工作流');
+      }
+
+      // 触发 workflow dispatch
+      const dispatchResponse = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/actions/workflows/${pagesWorkflow.id}/dispatches`, {
         method: 'POST',
         headers: {
           'Authorization': `token ${githubToken}`,
           'Accept': 'application/vnd.github.v3+json',
-          'Content-Length': '0'
-        }
-      };
-      const response = await fetch(url, options);
-      if (!response.ok) {
-        throw new Error('触发构建失败');
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ref: BRANCH
+        })
+      });
+
+      if (!dispatchResponse.ok) {
+        const error = await dispatchResponse.json().catch(() => ({ message: '触发构建失败' }));
+        throw new Error(error.message || '触发构建失败');
       }
-      return response.json();
+
+      return { success: true };
     }
 
     function showDeleteModal() {
