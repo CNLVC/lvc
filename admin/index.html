@@ -364,8 +364,11 @@
         const data = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${encodedPath}`);
 
         // 正确解码 UTF-8
-        const content = decodeBase64(data.content);
+        let content = decodeBase64(data.content);
         console.log('加载内容前100字:', content.substring(0, 100));
+
+        // 规范化换行符 (Windows \r\n -> Unix \n)
+        content = content.replace(/\r\n/g, '\n');
 
         // 解析 front matter
         const frontMatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
