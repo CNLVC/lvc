@@ -26,6 +26,7 @@
     .article-list a:hover { background: #f6f8fa; }
     .article-list a.active { background: #e8f0fe; border-left: 3px solid #0366d6; }
     .article-list .date { font-size: 12px; color: #586069; margin-top: 4px; }
+    .article-list .draft { opacity: 0.5; }
 
     .editor-area { flex: 1; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; flex-direction: column; min-height: calc(100vh - 120px); }
     .editor-header { padding: 15px 20px; border-bottom: 1px solid #e1e4e8; }
@@ -33,10 +34,12 @@
     .editor-header input:focus { outline: none; border-color: #0366d6; }
     .meta-row { display: flex; gap: 15px; margin-top: 10px; flex-wrap: wrap; align-items: center; }
     .meta-row input, .meta-row select { padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 4px; font-size: 14px; }
+    .meta-row label { font-size: 14px; color: #586069; }
 
     .editor-toolbar { padding: 10px 20px; background: #f6f8fa; border-bottom: 1px solid #d1d5da; display: flex; gap: 5px; flex-wrap: wrap; }
     .editor-toolbar button { padding: 6px 12px; background: white; border: 1px solid #d1d5da; border-radius: 4px; cursor: pointer; font-size: 14px; }
     .editor-toolbar button:hover { background: #f0f0f0; }
+    .editor-toolbar button:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .editor-content { flex: 1; display: flex; overflow: hidden; }
     .editor-content textarea { flex: 1; border: none; padding: 20px; font-size: 15px; font-family: 'Consolas', 'Monaco', monospace; line-height: 1.6; resize: none; }
@@ -55,16 +58,20 @@
     .preview-pane li { margin: 5px 0; line-height: 1.6; }
     .preview-pane img { max-width: 100%; height: auto; margin: 10px 0; border-radius: 4px; }
 
+    .status-bar { padding: 8px 20px; background: #f6f8fa; border-top: 1px solid #e1e4e8; font-size: 12px; color: #586069; display: flex; justify-content: space-between; }
+    .status-bar .draft-status { color: #cb2431; }
+    .status-bar .published-status { color: #2ea44f; }
+
     .action-bar { padding: 15px 20px; border-top: 1px solid #d1d5da; display: flex; gap: 10px; justify-content: flex-end; background: #f6f8fa; }
     .action-bar button { padding: 10px 20px; border-radius: 4px; font-size: 14px; cursor: pointer; border: none; }
-    .btn-save { background: #2ea44f; color: white; }
-    .btn-save:hover { background: #2c974b; }
-    .btn-publish { background: #0366d6; color: white; }
-    .btn-publish:hover { background: #0256b3; }
+    .btn-save { background: #6a737d; color: white; }
+    .btn-save:hover { background: #586069; }
+    .btn-publish { background: #2ea44f; color: white; }
+    .btn-publish:hover { background: #2c974b; }
+    .btn-unpublish { background: #f0ad4e; color: white; }
+    .btn-unpublish:hover { background: #ec971f; }
     .btn-delete { background: #cb2431; color: white; }
     .btn-delete:hover { background: #a11e28; }
-
-    .image-upload { display: none; }
 
     .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
     .modal.active { display: flex; }
@@ -172,10 +179,16 @@
         </div>
       </div>
 
+      <div class="status-bar">
+        <span id="saveStatus">未保存</span>
+        <span id="publishStatus"></span>
+      </div>
+
       <div class="action-bar">
         <button class="btn-delete" onclick="showDeleteModal()">删除</button>
+        <button class="btn-unpublish" id="btnUnpublish" onclick="unpublishArticle()">撤销发布</button>
         <button class="btn-save" onclick="saveArticle()">保存</button>
-        <button class="btn-publish" onclick="publishArticle()">发布</button>
+        <button class="btn-publish" id="btnPublish" onclick="publishArticle()">发布</button>
       </div>
     </div>
   </div>
@@ -214,6 +227,9 @@
     let articles = [];
     let currentArticle = null;
     let githubToken = '';
+    let isDraft = false;
+    let autoSaveTimer = null;
+    let hasUnsavedChanges = false;
 
     document.addEventListener('DOMContentLoaded', () => {
       githubToken = localStorage.getItem('lvc_github_token') || '';
@@ -312,6 +328,13 @@
       const art = articles[index];
       if (!art) return;
 
+      // 如果有未保存的更改，先提示
+      if (hasUnsavedChanges) {
+        if (!confirm('有未保存的更改，确定要切换文章吗？')) {
+          return;
+        }
+      }
+
       // 高亮选中项
       document.querySelectorAll('.article-list a').forEach(a => a.classList.remove('active'));
       document.querySelectorAll('.article-list a')[index].classList.add('active');
@@ -322,13 +345,20 @@
 
         // 解码内容
         let content = base64ToUtf8(data.content);
+        content = content.replace(/\r\n/g, '\n');
 
         // 解析 front matter
         const frontMatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+        isDraft = false;
 
         if (frontMatterMatch) {
           const frontMatter = frontMatterMatch[1];
           const body = frontMatterMatch[2];
+
+          // 检查是否为草稿
+          if (frontMatter.match(/draft:\s*true/) || frontMatter.match(/published:\s*false/)) {
+            isDraft = true;
+          }
 
           // 解析字段
           const titleMatch = frontMatter.match(/title:\s*"?([^"\n]+)"?/);
@@ -355,6 +385,8 @@
         }
 
         currentArticle = { filename: art.name, path: art.path, sha: data.sha };
+        hasUnsavedChanges = false;
+        updatePublishStatus();
         updatePreview();
 
       } catch (error) {
@@ -363,7 +395,14 @@
     }
 
     function createNewArticle() {
+      if (hasUnsavedChanges) {
+        if (!confirm('有未保存的更改，确定要新建文章吗？')) {
+          return;
+        }
+      }
+
       currentArticle = null;
+      isDraft = false;
       document.getElementById('articleTitle').value = '';
       document.getElementById('articleDate').value = new Date().toISOString().split('T')[0];
       document.getElementById('authorInput').value = 'Jeremy';
@@ -371,7 +410,33 @@
       document.getElementById('articleTags').value = '';
       document.getElementById('editor').value = '';
       document.querySelectorAll('.article-list a').forEach(a => a.classList.remove('active'));
+      hasUnsavedChanges = false;
+      updatePublishStatus();
       updatePreview();
+    }
+
+    function updatePublishStatus() {
+      const publishStatus = document.getElementById('publishStatus');
+      const btnPublish = document.getElementById('btnPublish');
+      const btnUnpublish = document.getElementById('btnUnpublish');
+
+      if (currentArticle) {
+        if (isDraft) {
+          publishStatus.innerHTML = '<span class="draft-status">草稿（未发布）</span>';
+          btnPublish.textContent = '发布';
+          btnUnpublish.style.display = 'none';
+        } else {
+          publishStatus.innerHTML = '<span class="published-status">已发布</span>';
+          btnPublish.textContent = '更新发布';
+          btnUnpublish.style.display = 'inline-block';
+        }
+      } else {
+        publishStatus.textContent = '';
+        btnPublish.textContent = '发布';
+        btnUnpublish.style.display = 'none';
+      }
+
+      document.getElementById('saveStatus').textContent = hasUnsavedChanges ? '有更改' : '已保存';
     }
 
     function updatePreview() {
@@ -383,25 +448,23 @@
         return;
       }
 
-      // 解析 Markdown 为 HTML
       let html = parseMarkdown(content);
       preview.innerHTML = '<div class="md-content">' + html + '</div>';
     }
 
     // 简单的 Markdown 解析器
     function parseMarkdown(text) {
-      // 转义 HTML
       text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-      // 处理代码块 ```...```
+      // 处理代码块
       text = text.replace(/```(\w*)\n([\s\S]*?)```/g, (match, lang, code) => {
         return '<pre><code>' + code.trim() + '</code></pre>';
       });
 
-      // 处理行内代码 `...`
+      // 处理行内代码
       text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
 
-      // 处理图片 ![alt](url)
+      // 处理图片
       text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
 
       // 处理标题
@@ -409,7 +472,7 @@
       text = text.replace(/^## (.+)$/gm, '<h2>$1</h2>');
       text = text.replace(/^# (.+)$/gm, '<h1>$1</h1>');
 
-      // 处理引用块（多行）
+      // 处理引用块
       text = text.replace(/^(&gt; .+(\n&gt; .+)*)/gm, function(match) {
         const lines = match.split('\n');
         const content = lines.map(l => l.replace(/^&gt; /, '')).join('<br>');
@@ -428,8 +491,6 @@
 
       for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
-
-        // 检查无序列表
         if (line.match(/^- /)) {
           if (!inList || listTag !== 'ul') {
             if (inList) result.push('</' + listTag + '>');
@@ -453,20 +514,65 @@
       }
 
       text = result.join('\n');
-
-      // 处理段落（双换行分隔）
       text = text.replace(/\n\n/g, '</p><p>');
-
-      // 单换行转<br>（不在标签内）
       text = text.replace(/\n/g, '<br>');
 
       return '<p>' + text + '</p>';
     }
 
+    // 监听编辑器输入 - 标记有更改并启动自动保存
+    document.getElementById('editor').addEventListener('input', () => {
+      hasUnsavedChanges = true;
+      updatePublishStatus();
+      updatePreview();
+
+      // 清除之前的定时器
+      if (autoSaveTimer) {
+        clearTimeout(autoSaveTimer);
+      }
+
+      // 3秒后自动保存
+      autoSaveTimer = setTimeout(() => {
+        if (hasUnsavedChanges && currentArticle) {
+          autoSave();
+        }
+      }, 3000);
+    });
+
+    // 监听标题和元数据更改
+    ['articleTitle', 'authorInput', 'articleDate', 'categorySelect', 'articleTags'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => {
+        hasUnsavedChanges = true;
+        updatePublishStatus();
+
+        if (autoSaveTimer) {
+          clearTimeout(autoSaveTimer);
+        }
+        autoSaveTimer = setTimeout(() => {
+          if (hasUnsavedChanges && currentArticle) {
+            autoSave();
+          }
+        }, 3000);
+      });
+    });
+
+    // 自动保存（不触发构建）
+    async function autoSave() {
+      if (!currentArticle || !hasUnsavedChanges) return;
+
+      try {
+        await saveArticleInner(false);
+        hasUnsavedChanges = false;
+        updatePublishStatus();
+      } catch (error) {
+        console.error('自动保存失败:', error);
+      }
+    }
+
     // 监听编辑器输入
     document.getElementById('editor').addEventListener('input', updatePreview);
 
-    async function saveArticleInner() {
+    async function saveArticleInner(withDraftFlag, publish = null) {
       const title = document.getElementById('articleTitle').value.trim();
       const date = document.getElementById('articleDate').value;
       const author = document.getElementById('authorInput').value.trim();
@@ -474,11 +580,10 @@
       const tags = document.getElementById('articleTags').value.split(',').map(t => t.trim()).filter(t => t);
       const bodyContent = document.getElementById('editor').value;
 
-      if (!title) { showToast('请填写文章标题', 'error'); return; }
-      if (!date) { showToast('请选择日期', 'error'); return; }
-      if (!bodyContent) { showToast('请填写文章内容', 'error'); return; }
+      if (!title) { throw new Error('请填写文章标题'); }
+      if (!date) { throw new Error('请选择日期'); }
+      if (!bodyContent) { throw new Error('请填写文章内容'); }
 
-      // 生成文件名
       const safeTitle = title.replace(/[<>:"/\\|?*]/g, '-').substring(0, 80);
       const filename = `${date}-${safeTitle}.md`;
 
@@ -493,6 +598,23 @@ author: ${author || 'Jeremy'}`;
       if (tags.length > 0) {
         frontMatter += `\ntags:\n  - ${tags.join('\n  - ')}`;
       }
+
+      // 处理草稿状态
+      // 如果 publish 为 true，表示要发布（draft: false）
+      // 如果 publish 为 false，表示要撤销发布（draft: true）
+      // 如果 publish 为 null，保持原状态
+      if (publish === true) {
+        frontMatter += `\ndraft: false`;
+        isDraft = false;
+      } else if (publish === false) {
+        frontMatter += `\ndraft: true`;
+        isDraft = true;
+      } else if (withDraftFlag) {
+        // 新文章默认是草稿
+        frontMatter += `\ndraft: true`;
+        isDraft = true;
+      }
+
       frontMatter += '\n---\n\n';
 
       const fullContent = frontMatter + bodyContent;
@@ -518,16 +640,77 @@ author: ${author || 'Jeremy'}`;
         branch: BRANCH
       });
 
+      currentArticle = { filename, path, sha };
       loadArticleList();
     }
 
     async function saveArticle() {
       try {
-        await saveArticleInner();
+        // 保存时保持当前发布状态
+        const publish = currentArticle && !isDraft ? false : null; // null 表示不改变状态
+        await saveArticleInner(true, publish === null ? null : null);
+        hasUnsavedChanges = false;
+        updatePublishStatus();
         showToast('保存成功！', 'success');
       } catch (error) {
         showToast('保存失败: ' + error.message, 'error');
       }
+    }
+
+    async function publishArticle() {
+      try {
+        showToast('正在发布...', 'info');
+
+        // 保存并设置为已发布
+        await saveArticleInner(true, true);
+
+        // 触发 GitHub Pages 重新构建
+        await triggerPagesBuild();
+
+        hasUnsavedChanges = false;
+        updatePublishStatus();
+        showToast('文章已发布，网站正在构建中...', 'success');
+      } catch (error) {
+        showToast('发布失败: ' + error.message, 'error');
+      }
+    }
+
+    async function unpublishArticle() {
+      if (!currentArticle) return;
+
+      try {
+        showToast('正在撤销发布...', 'info');
+
+        // 保存并设置为草稿
+        await saveArticleInner(false, false);
+
+        // 触发 GitHub Pages 重新构建
+        await triggerPagesBuild();
+
+        hasUnsavedChanges = false;
+        updatePublishStatus();
+        showToast('文章已撤销发布，网站正在构建中...', 'success');
+      } catch (error) {
+        showToast('撤销发布失败: ' + error.message, 'error');
+      }
+    }
+
+    // 触发 GitHub Pages 重新构建
+    async function triggerPagesBuild() {
+      const url = `https://api.github.com/repos/${OWNER}/${REPO}/pages/builds`;
+      const options = {
+        method: 'POST',
+        headers: {
+          'Authorization': `token ${githubToken}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Length': '0'
+        }
+      };
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        throw new Error('触发构建失败');
+      }
+      return response.json();
     }
 
     function showDeleteModal() {
@@ -535,7 +718,7 @@ author: ${author || 'Jeremy'}`;
         showToast('请先选择要删除的文章', 'error');
         return;
       }
-      document.getElementById('deleteMsg').textContent = `确定要删除「${currentArticle.filename}」吗？`;
+      document.getElementById('deleteMsg').textContent = `确定要删除「${currentArticle.filename}」吗？此操作不可恢复！`;
       document.getElementById('deleteModal').classList.add('active');
     }
 
@@ -574,6 +757,8 @@ author: ${author || 'Jeremy'}`;
       editor.focus();
       editor.selectionStart = start + before.length;
       editor.selectionEnd = start + before.length + selected.length;
+      hasUnsavedChanges = true;
+      updatePublishStatus();
       updatePreview();
     }
 
@@ -629,13 +814,14 @@ author: ${author || 'Jeremy'}`;
 
           const imageUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${encodedPath}`;
 
-          // 插入图片到编辑器
           const imgMarkdown = `\n![${file.name}](${imageUrl})\n`;
           const editor = document.getElementById('editor');
           const start = editor.selectionStart;
           const text = editor.value;
           editor.value = text.substring(0, start) + imgMarkdown + text.substring(start);
           editor.focus();
+          hasUnsavedChanges = true;
+          updatePublishStatus();
           updatePreview();
 
           showToast('图片上传成功！', 'success');
@@ -645,53 +831,7 @@ author: ${author || 'Jeremy'}`;
         showToast('图片上传失败: ' + error.message, 'error');
       }
 
-      // 清空 input 以便选择同一文件
       event.target.value = '';
-    }
-
-    // 发布文章
-    async function publishArticle() {
-      const title = document.getElementById('articleTitle').value.trim();
-      const date = document.getElementById('articleDate').value;
-
-      if (!title) { showToast('请填写文章标题', 'error'); return; }
-      if (!date) { showToast('请选择日期', 'error'); return; }
-
-      showToast('正在保存并发布...', 'info');
-
-      try {
-        // 先保存文章
-        await saveArticleInner();
-
-        // 触发 GitHub Pages 重新构建
-        await triggerPagesBuild();
-
-        // 显示文章链接
-        if (currentArticle) {
-          const articleUrl = `https://www.lightvalley.org/${date}/${currentArticle.filename.replace('.md', '')}`;
-          showToast('文章已发布，网站正在构建中...', 'success');
-        }
-      } catch (error) {
-        showToast('发布失败: ' + error.message, 'error');
-      }
-    }
-
-    // 触发 GitHub Pages 重新构建
-    async function triggerPagesBuild() {
-      const url = `https://api.github.com/repos/${OWNER}/${REPO}/pages/builds`;
-      const options = {
-        method: 'POST',
-        headers: {
-          'Authorization': `token ${githubToken}`,
-          'Accept': 'application/vnd.github.v3+json',
-          'Content-Length': '0'
-        }
-      };
-      const response = await fetch(url, options);
-      if (!response.ok) {
-        throw new Error('触发构建失败');
-      }
-      return response.json();
     }
   </script>
 </body>
