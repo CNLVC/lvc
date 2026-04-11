@@ -64,10 +64,14 @@
     input[type="file"] { display: none; }
 
     /* 编辑器容器 */
-    .editor-wrapper { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
-    .editor-container { flex: 1; overflow: hidden; }
-    .CodeMirror { height: 100% !important; font-size: 15px; line-height: 1.6; }
-    .editor-preview { padding: 20px; overflow-y: auto; background: #fafafa; border-top: 1px solid #d1d5da; max-height: 40vh; }
+    .editor-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-height: 400px; }
+    .editor-container { flex: 1; overflow: hidden; position: relative; }
+    .editor-container .CodeMirror { height: 100% !important; font-size: 15px; line-height: 1.6; position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
+    .editor-preview { padding: 20px; overflow-y: auto; background: #fafafa; border-top: 1px solid #d1d5da; flex: 1; min-height: 150px; max-height: 40vh; }
+
+    /* SimpleMDE 覆盖样式 */
+    .editor-toolbar + .editor-wrapper .CodeMirror { height: 100% !important; }
+    .editor-container textarea { width: 100% !important; height: 100% !important; }
     .editor-preview h1 { font-size: 28px; margin-bottom: 15px; }
     .editor-preview h2 { font-size: 24px; margin: 20px 0 10px; }
     .editor-preview h3 { font-size: 20px; margin: 15px 0 8px; }
