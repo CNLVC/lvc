@@ -235,7 +235,20 @@
       githubToken = localStorage.getItem('lvc_github_token') || '';
       if (githubToken) document.getElementById('githubToken').value = githubToken;
       initEditor();
-      loadArticleList();
+
+      // 检查 URL 是否有 file 参数
+      const urlParams = new URLSearchParams(window.location.search);
+      const fileParam = urlParams.get('file');
+
+      loadArticleList().then(() => {
+        if (fileParam) {
+          // 从 file 参数加载文章
+          const index = articles.findIndex(a => a.name === fileParam);
+          if (index >= 0) {
+            loadArticleByIndex(index);
+          }
+        }
+      });
     });
 
     function initEditor() {
