@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文章管理 - LVC</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; }
+
+    .header { background: #24292e; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+    .header h1 { font-size: 18px; }
+    .header a { color: white; text-decoration: none; margin-left: 20px; }
+    .header a:hover { text-decoration: underline; }
+
+    .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+    .page-title { font-size: 24px; margin-bottom: 20px; color: #24292e; }
+
+    .article-table { width: 100%; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .article-table th, .article-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e1e4e8; }
+    .article-table th { background: #f6f8fa; font-weight: 600; font-size: 14px; color: #586069; }
+    .article-table tr:last-child td { border-bottom: none; }
+    .article-table tr:hover td { background: #f6f8fa; }
+    .article-table .title { font-weight: 500; color: #24292e; max-width: 400px; }
+    .article-table .date { color: #586069; font-size: 14px; }
+    .article-table .author { color: #586069; font-size: 14px; }
+    .article-table .actions { text-align: right; }
+    .article-table .edit-btn { padding: 6px 12px; background: #0366d6; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; }
+    .article-table .edit-btn:hover { background: #0256b3; }
+    .article-table .delete-btn { padding: 6px 12px; background: #cb2431; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; margin-left: 8px; }
+    .article-table .delete-btn:hover { background: #a11e28; }
+
+    .loading { text-align: center; padding: 40px; color: #586069; }
+    .empty { text-align: center; padding: 40px; color: #999; }
+
+    .toast { position: fixed; bottom: 20px; right: 20px; padding: 15px 25px; background: #24292e; color: white; border-radius: 4px; font-size: 14px; z-index: 1000; opacity: 0; transition: opacity 0.3s; }
+    .toast.show { opacity: 1; }
+    .toast.success { background: #2ea44f; }
+    .toast.error { background: #cb2431; }
+
+    .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+    .modal.active { display: flex; }
+    .modal-content { background: white; padding: 30px; border-radius: 8px; width: 400px; }
+    .modal-content h3 { margin-bottom: 15px; }
+    .modal-content p { color: #586069; margin-bottom: 20px; }
+    .modal-content button { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px; }
+    .modal-content .btn-confirm { background: #cb2431; color: white; }
+    .modal-content .btn-cancel { background: #f6f8fa; border: 1px solid #d1d5da; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>LVC 文章管理</h1>
+    <div>
+      <a href="index.html">写文章</a>
+      <a href="list.html">文章列表</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2 class="page-title">文章列表</h2>
+
+    <div id="loading" class="loading">加载中...</div>
+    <div id="empty" class="empty" style="display:none">暂无文章</div>
+
+    <table class="article-table" id="table" style="display:none">
+      <thead>
+        <tr>
+          <th>标题</th>
+          <th>日期</th>
+          <th>作者</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody id="articleList"></tbody>
+    </table>
+  </div>
+
+  <!-- 删除确认弹窗 -->
+  <div class="modal" id="deleteModal">
+    <div class="modal-content">
+      <h3>确认删除</h3>
+      <p id="deleteMsg">确定要删除这篇文章吗？</p>
+      <button class="btn-cancel" onclick="closeDeleteModal()">取消</button>
+      <button class="btn-confirm" onclick="confirmDelete()">删除</button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const OWNER = 'CNLVC';
+    const REPO = 'lvc';
+    const BRANCH = 'master';
+
+    let articles = [];
+    let deleteTarget = null;
+    let githubToken = localStorage.getItem('lvc_github_token') || '';
+
+    document.addEventListener('DOMContentLoaded', loadArticles);
+
+    async function githubRequest(method, path, data = null) {
+      if (!githubToken) {
+        showToast('请先在编辑器页面配置 GitHub Token', 'error');
+        throw new Error('No token');
+      }
+
+      const url = `https://api.github.com${path}`;
+      const options = {
+        method,
+        headers: {
+          'Authorization': `token ${githubToken}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/vnd.github.v3+json'
+        }
+      };
+      if (data) options.body = JSON.stringify(data);
+
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({ message: response.statusText }));
+        throw new Error(error.message || '请求失败');
+      }
+      return response.json();
+    }
+
+    async function loadArticles() {
+      if (!githubToken) {
+        document.getElementById('loading').innerHTML = `
+          <p>请先在 <a href="index.html">编辑器页面</a> 配置 GitHub Token</p>`;
+        return;
+      }
+
+      try {
+        const data = await githubRequest('GET', `/repos/${OWNER}/${REPO}/git/trees/${BRANCH}?recursive=1`);
+        const tree = data.tree || [];
+
+        const articlePaths = tree
+          .filter(item => item.path.match(/^\d{4}\/\d{2}\/\d{2}\/.+\/index\.html$/))
+          .map(item => item.path);
+
+        articles = [];
+        for (const path of articlePaths) {
+          const dirPath = path.replace('/index.html', '');
+          const [year, month, day, ...titleParts] = dirPath.split('/');
+          const rawTitle = titleParts.join('/');
+
+          try {
+            const fileData = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${path}`);
+            const response = await fetch(fileData.download_url);
+            const content = await response.text();
+
+            const titleMatch = content.match(/<h1[^>]*>([^<]+)<\/h1>/);
+            const authorMatch = content.match(/rel="author"[^>]*>([^<]+)<\/a>/);
+
+            articles.push({
+              path,
+              dirPath,
+              title: titleMatch ? titleMatch[1].trim() : rawTitle,
+              date: `${year}-${month}-${day}`,
+              author: authorMatch ? authorMatch[1] : '',
+              sha: fileData.sha
+            });
+          } catch (e) {
+            console.error('加载失败:', path, e);
+          }
+        }
+
+        articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+        renderArticles();
+
+      } catch (error) {
+        document.getElementById('loading').textContent = '加载失败: ' + error.message;
+        showToast('加载失败: ' + error.message, 'error');
+      }
+    }
+
+    function renderArticles() {
+      document.getElementById('loading').style.display = 'none';
+
+      if (articles.length === 0) {
+        document.getElementById('empty').style.display = 'block';
+        return;
+      }
+
+      document.getElementById('table').style.display = 'table';
+      document.getElementById('articleList').innerHTML = articles.map(article => `
+        <tr>
+          <td class="title">${escapeHtml(article.title)}</td>
+          <td class="date">${article.date}</td>
+          <td class="author">${escapeHtml(article.author)}</td>
+          <td class="actions">
+            <button class="edit-btn" onclick="editArticle('${article.dirPath.replace(/'/g, "\\'")}')">编辑</button>
+            <button class="delete-btn" onclick="showDeleteModal('${article.dirPath.replace(/'/g, "\\'")}', '${escapeHtml(article.title).replace(/'/g, "\\'")}')">删除</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function editArticle(dirPath) {
+      window.location.href = `index.html?path=${encodeURIComponent(dirPath)}`;
+    }
+
+    function showDeleteModal(dirPath, title) {
+      deleteTarget = dirPath;
+      document.getElementById('deleteMsg').textContent = `确定要删除「${title}」吗？`;
+      document.getElementById('deleteModal').classList.add('active');
+    }
+
+    function closeDeleteModal() {
+      document.getElementById('deleteModal').classList.remove('active');
+      deleteTarget = null;
+    }
+
+    async function confirmDelete() {
+      if (!deleteTarget) return;
+
+      try {
+        const path = `${deleteTarget}/index.html`;
+        const article = articles.find(a => a.dirPath === deleteTarget);
+
+        await githubRequest('DELETE', `/repos/${OWNER}/${REPO}/contents/${path}`, {
+          message: `删除文章: ${deleteTarget}`,
+          sha: article.sha,
+          branch: BRANCH
+        });
+
+        showToast('删除成功', 'success');
+        closeDeleteModal();
+        loadArticles();
+
+      } catch (error) {
+        showToast('删除失败: ' + error.message, 'error');
+      }
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function showToast(message, type = 'info') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = 'toast show ' + type;
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+  </script>
+</body>
+</html>

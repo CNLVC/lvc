@@ -3,47 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LVC 文章管理后台</title>
+  <title>写文章 - LVC</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; }
 
-    /* 登录页面 */
-    .login-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
-    .login-box { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 350px; }
-    .login-box h1 { font-size: 24px; margin-bottom: 20px; text-align: center; color: #333; }
-    .login-box input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }
-    .login-box button { width: 100%; padding: 12px; background: #4183c4; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; }
-    .login-box button:hover { background: #3876b3; }
-    .login-error { color: red; font-size: 14px; text-align: center; margin-top: 10px; display: none; }
-
-    /* 主应用 */
-    .app { display: none; }
-    .app.active { display: block; }
-
-    /* 顶部导航 */
     .header { background: #24292e; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
     .header h1 { font-size: 18px; }
-    .header a { color: white; text-decoration: none; margin-left: 20px; cursor: pointer; }
+    .header a { color: white; text-decoration: none; margin-left: 20px; }
     .header a:hover { text-decoration: underline; }
     .header .save-status { font-size: 12px; color: #8b949e; margin-left: 20px; }
     .header .save-status.saving { color: #f0ad4e; }
     .header .save-status.saved { color: #2ea44f; }
 
-    /* 主容器 */
-    .main-container { display: flex; height: calc(100vh - 60px); }
+    .container { display: flex; height: calc(100vh - 60px); }
     .sidebar { width: 280px; background: white; border-right: 1px solid #d1d5da; overflow-y: auto; padding: 15px; }
     .sidebar h3 { font-size: 14px; color: #586069; margin-bottom: 10px; text-transform: uppercase; }
-    .article-list { list-style: none; }
-    .article-list li { padding: 10px; border-radius: 4px; cursor: pointer; margin-bottom: 5px; }
-    .article-list li:hover { background: #f6f8fa; }
-    .article-list li.active { background: #e1e4e8; }
-    .article-list li .title { font-size: 14px; font-weight: 500; color: #24292e; }
-    .article-list li .date { font-size: 12px; color: #586069; margin-top: 4px; }
     .new-article-btn { width: 100%; padding: 10px; background: #2ea44f; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; margin-bottom: 15px; }
     .new-article-btn:hover { background: #2c974b; }
 
-    /* 编辑区 */
     .editor-area { flex: 1; display: flex; flex-direction: column; background: white; overflow: hidden; }
     .editor-header { padding: 15px 20px; border-bottom: 1px solid #d1d5da; }
     .editor-header input[type="text"] { width: 100%; padding: 10px; font-size: 20px; border: 1px solid #d1d5da; border-radius: 4px; }
@@ -51,27 +29,18 @@
     .meta-row { display: flex; gap: 15px; margin-top: 10px; flex-wrap: wrap; align-items: center; }
     .meta-row input[type="text"], .meta-row input[type="date"], .meta-row select { padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 4px; font-size: 14px; }
     .meta-row label { font-size: 14px; color: #586069; }
-    .meta-row input.author-input { width: 100px; }
 
-    /* 工具栏 - 放到作者行下方 */
     .editor-toolbar { padding: 10px 20px; background: #f6f8fa; border-bottom: 1px solid #d1d5da; display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
     .editor-toolbar button { padding: 6px 12px; background: white; border: 1px solid #d1d5da; border-radius: 4px; cursor: pointer; font-size: 14px; }
     .editor-toolbar button:hover { background: #f0f0f0; }
-    .editor-toolbar button.active { background: #e1e4e8; border-color: #0366d6; color: #0366d6; }
     .editor-toolbar .separator { width: 1px; height: 24px; background: #d1d5da; margin: 0 10px; }
     .image-upload-btn { padding: 6px 12px; background: white; border: 1px solid #d1d5da; border-radius: 4px; cursor: pointer; font-size: 14px; }
-    .image-upload-btn:hover { background: #f0f0f0; }
     input[type="file"] { display: none; }
 
-    /* 编辑器容器 */
     .editor-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-height: 400px; }
     .editor-container { flex: 1; overflow: hidden; position: relative; }
-    .editor-container .CodeMirror { height: 100% !important; font-size: 15px; line-height: 1.6; position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
+    .CodeMirror { height: 100% !important; font-size: 15px; line-height: 1.6; position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
     .editor-preview { padding: 20px; overflow-y: auto; background: #fafafa; border-top: 1px solid #d1d5da; flex: 1; min-height: 150px; max-height: 40vh; }
-
-    /* SimpleMDE 覆盖样式 */
-    .editor-toolbar + .editor-wrapper .CodeMirror { height: 100% !important; }
-    .editor-container textarea { width: 100% !important; height: 100% !important; }
     .editor-preview h1 { font-size: 28px; margin-bottom: 15px; }
     .editor-preview h2 { font-size: 24px; margin: 20px 0 10px; }
     .editor-preview h3 { font-size: 20px; margin: 15px 0 8px; }
@@ -82,18 +51,14 @@
     .editor-preview pre { background: #f6f8fa; padding: 15px; border-radius: 4px; overflow-x: auto; margin: 15px 0; }
     .editor-preview img { max-width: 100%; height: auto; }
 
-    /* 底部操作栏 */
     .action-bar { padding: 15px 20px; border-top: 1px solid #d1d5da; display: flex; gap: 10px; justify-content: flex-end; background: #f6f8fa; }
     .action-bar button { padding: 10px 20px; border-radius: 4px; font-size: 14px; cursor: pointer; border: none; }
     .btn-save { background: #0366d6; color: white; }
     .btn-save:hover { background: #0256b3; }
     .btn-publish { background: #2ea44f; color: white; }
     .btn-publish:hover { background: #2c974b; }
-    .btn-delete { background: #cb2431; color: white; }
-    .btn-delete:hover { background: #a11e28; }
     .btn-cancel { background: #f6f8fa; border: 1px solid #d1d5da !important; color: #24292e; }
 
-    /* 设置弹窗 */
     .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
     .modal.active { display: flex; }
     .modal-content { background: white; padding: 30px; border-radius: 8px; width: 450px; max-width: 90%; }
@@ -103,131 +68,102 @@
     .modal-content button { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px; }
     .modal-content .btn-primary { background: #4183c4; color: white; }
 
-    /* Toast */
     .toast { position: fixed; bottom: 20px; right: 20px; padding: 15px 25px; background: #24292e; color: white; border-radius: 4px; font-size: 14px; transform: translateY(100px); opacity: 0; transition: all 0.3s; z-index: 1000; }
     .toast.show { transform: translateY(0); opacity: 1; }
     .toast.success { background: #2ea44f; }
     .toast.error { background: #cb2431; }
 
-    /* Loading */
-    .loading { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8); z-index: 999; align-items: center; justify-content: center; }
-    .loading.active { display: flex; }
+    .loading { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8); z-index: 999; display: flex; align-items: center; justify-content: center; }
     .spinner { width: 40px; height: 40px; border: 3px solid #f3f3f3; border-top-color: #4183c4; border-radius: 50%; animation: spin 1s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* 提示文字 */
     .hint { background: #fff8e5; border: 1px solid #ffe58f; padding: 10px 15px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; color: #8a6d3b; }
   </style>
 
-  <!-- SimpleMDE Markdown Editor -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.js"></script>
 </head>
 <body>
 
-  <!-- 登录页面 -->
-  <div class="login-container" id="loginPage">
-    <div class="login-box">
-      <h1>LVC 文章管理后台</h1>
-      <input type="password" id="passwordInput" placeholder="请输入访问密码" onkeypress="if(event.key==='Enter')login()">
-      <button onclick="login()">登录</button>
-      <p class="login-error" id="loginError">密码错误</p>
+  <div class="header">
+    <h1>LVC 文章管理</h1>
+    <div style="display:flex;align-items:center;">
+      <span class="save-status" id="saveStatus"></span>
+      <label class="image-upload-btn">
+        上传图片<input type="file" id="imageInput" accept="image/*" onchange="handleImageUpload(event)">
+      </label>
+      <a href="list.html">文章列表</a>
+      <a href="index.html">写文章</a>
+      <a onclick="showSettings()">设置</a>
     </div>
   </div>
 
-  <!-- 主应用 -->
-  <div class="app" id="app">
-    <div class="header">
-      <h1>LVC 文章管理</h1>
-      <div>
-        <span class="save-status" id="saveStatus"></span>
-        <label class="image-upload-btn">
-          上传图片<input type="file" id="imageInput" accept="image/*" onchange="handleImageUpload(event)">
-        </label>
-        <a onclick="showSettings()">设置</a>
-        <a onclick="logout()">退出</a>
+  <div class="container">
+    <div class="editor-area">
+      <div class="editor-header">
+        <input type="text" id="articleTitle" placeholder="文章标题">
+        <div class="meta-row">
+          <label>作者:</label>
+          <input type="text" id="authorInput" value="Jeremy" style="width:100px;">
+          <label>日期:</label>
+          <input type="date" id="articleDate" style="width:150px;">
+          <label>分类:</label>
+          <select id="categorySelect">
+            <option value="">选择分类</option>
+            <option value="未分类">未分类</option>
+            <option value="诗篇">诗篇</option>
+            <option value="马可福音">马可福音</option>
+            <option value="约翰福音">约翰福音</option>
+            <option value="路加福音">路加福音</option>
+            <option value="马太福音">马太福音</option>
+            <option value="创世记">创世记</option>
+            <option value="罗马书">罗马书</option>
+            <option value="加拉太书">加拉太书</option>
+            <option value="以弗所书">以弗所书</option>
+            <option value="腓立比书">腓立比书</option>
+            <option value="歌罗西书">歌罗西书</option>
+            <option value="希伯来书">希伯来书</option>
+            <option value="雅各书">雅各书</option>
+            <option value="约翰一书">约翰一书</option>
+            <option value="启示录">启示录</option>
+            <option value="使徒行传">使徒行传</option>
+            <option value="见证">见证</option>
+            <option value="圣诞节">圣诞节</option>
+            <option value="复活节">复活节</option>
+          </select>
+          <label>标签:</label>
+          <input type="text" id="articleTags" placeholder="多个标签用逗号分隔" style="width:180px;">
+        </div>
       </div>
-    </div>
 
-    <div class="main-container">
-      <div class="sidebar">
-        <button class="new-article-btn" onclick="newArticle()">+ 新建文章</button>
-        <h3>文章列表</h3>
-        <ul class="article-list" id="articleList">
-          <li style="color:#999;font-size:13px;padding:20px;text-align:center;">
-            加载中...
-          </li>
-        </ul>
+      <div class="editor-toolbar">
+        <button onclick="insertMd('**', '**')"><b>B</b></button>
+        <button onclick="insertMd('*', '*')"><i>I</i></button>
+        <button onclick="insertMd('<u>', '</u>')"><u>U</u></button>
+        <div class="separator"></div>
+        <button onclick="insertMdAtLine('# ')">H1</button>
+        <button onclick="insertMdAtLine('## ')">H2</button>
+        <button onclick="insertMdAtLine('### ')">H3</button>
+        <div class="separator"></div>
+        <button onclick="insertMd('> ', '')">引用</button>
+        <button onclick="insertMdAtLine('- ')">列表</button>
+        <button onclick="insertMdAtLine('1. ')">数字列表</button>
+        <div class="separator"></div>
+        <button onclick="insertMd('`', '`')">代码</button>
+        <button onclick="insertMd('```\n', '\n```')">代码块</button>
       </div>
 
-      <div class="editor-area">
-        <div class="editor-header">
-          <input type="text" id="articleTitle" placeholder="文章标题">
-          <div class="meta-row">
-            <label>作者:</label>
-            <input type="text" id="authorInput" class="author-input" value="Jeremy" placeholder="作者名">
-            <label>日期:</label>
-            <input type="date" id="articleDate" style="width:150px;">
-            <label>分类:</label>
-            <select id="categorySelect">
-              <option value="">选择分类</option>
-              <option value="未分类">未分类</option>
-              <option value="诗篇">诗篇</option>
-              <option value="马可福音">马可福音</option>
-              <option value="约翰福音">约翰福音</option>
-              <option value="路加福音">路加福音</option>
-              <option value="马太福音">马太福音</option>
-              <option value="创世记">创世记</option>
-              <option value="罗马书">罗马书</option>
-              <option value="加拉太书">加拉太书</option>
-              <option value="以弗所书">以弗所书</option>
-              <option value="腓立比书">腓立比书</option>
-              <option value="歌罗西书">歌罗西书</option>
-              <option value="希伯来书">希伯来书</option>
-              <option value="雅各书">雅各书</option>
-              <option value="约翰一书">约翰一书</option>
-              <option value="启示录">启示录</option>
-              <option value="使徒行传">使徒行传</option>
-              <option value="见证">见证</option>
-              <option value="圣诞节">圣诞节</option>
-              <option value="复活节">复活节</option>
-            </select>
-            <label>标签:</label>
-            <input type="text" id="articleTags" placeholder="多个标签用逗号分隔" style="width: 180px;">
-          </div>
+      <div class="editor-wrapper">
+        <div class="editor-container">
+          <textarea id="editor"></textarea>
         </div>
+        <div class="editor-preview" id="preview"></div>
+      </div>
 
-        <!-- 工具栏移到作者行下方 -->
-        <div class="editor-toolbar">
-          <button onclick="insertMd('**', '**')" title="加粗"><b>B</b></button>
-          <button onclick="insertMd('*', '*')" title="斜体"><i>I</i></button>
-          <button onclick="insertMd('<u>', '</u>')" title="下划线"><u>U</u></button>
-          <div class="separator"></div>
-          <button onclick="insertMdAtLine('# ')">H1</button>
-          <button onclick="insertMdAtLine('## ')">H2</button>
-          <button onclick="insertMdAtLine('### ')">H3</button>
-          <div class="separator"></div>
-          <button onclick="insertMd('> ', '')">引用</button>
-          <button onclick="insertMdAtLine('- ')">列表</button>
-          <button onclick="insertMdAtLine('1. ')">数字列表</button>
-          <div class="separator"></div>
-          <button onclick="insertMd('`', '`')">行内代码</button>
-          <button onclick="insertMd('```\n', '\n```')">代码块</button>
-        </div>
-
-        <div class="editor-wrapper">
-          <div class="editor-container">
-            <textarea id="editor"></textarea>
-          </div>
-          <div class="editor-preview" id="preview"></div>
-        </div>
-
-        <div class="action-bar">
-          <button class="btn-cancel" onclick="clearEditor()">清空</button>
-          <button class="btn-delete" onclick="deleteArticle()">删除</button>
-          <button class="btn-save" onclick="saveDraftLocal()">保存草稿</button>
-          <button class="btn-publish" onclick="publishArticle()">发布</button>
-        </div>
+      <div class="action-bar">
+        <button class="btn-cancel" onclick="clearEditor()">清空</button>
+        <button class="btn-save" onclick="saveDraftLocal()">保存草稿</button>
+        <button class="btn-publish" onclick="publishArticle()">发布</button>
       </div>
     </div>
   </div>
@@ -242,74 +178,42 @@
         1. 登录 GitHub → 点击头像 → Settings<br>
         2. 左侧底部 "Developer settings"<br>
         3. Personal access tokens → Generate new token<br>
-        4. 勾选 <b>repo</b> 权限<br>
-        5. 生成后复制 token 粘贴到下方
+        4. 勾选 <b>repo</b> 权限
       </div>
       <input type="text" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
       <button class="btn-primary" onclick="saveSettings()">保存</button>
-      <button onclick="closeSettings()" style="background: #f6f8fa; border: 1px solid #d1d5da;">取消</button>
+      <button onclick="closeSettings()" style="background:#f6f8fa;border:1px solid #d1d5da;">取消</button>
     </div>
   </div>
 
-  <!-- Toast -->
   <div class="toast" id="toast"></div>
 
-  <!-- Loading -->
-  <div class="loading" id="loading">
-    <div class="spinner"></div>
-  </div>
-
   <script>
-    // ============ 全局变量 ============
     let simplemde = null;
     let currentArticle = null;
-    let articles = [];
     let githubToken = '';
-    let accessPassword = '';
     let autoSaveTimer = null;
     let hasUnsavedChanges = false;
     const OWNER = 'CNLVC';
     const REPO = 'lvc';
     const BRANCH = 'master';
 
-    // ============ 初始化 ============
     document.addEventListener('DOMContentLoaded', () => {
-      accessPassword = localStorage.getItem('lvc_access_password') || '';
       githubToken = localStorage.getItem('lvc_github_token') || '';
-
-      if (accessPassword) {
-        document.getElementById('passwordInput').value = accessPassword;
-      }
       if (githubToken) {
         document.getElementById('githubToken').value = githubToken;
       }
-
       document.getElementById('articleDate').value = new Date().toISOString().split('T')[0];
+      initEditor();
+
+      // 检查 URL 参数中是否有文章路径
+      const params = new URLSearchParams(window.location.search);
+      const path = params.get('path');
+      if (path) {
+        loadArticle(path);
+      }
     });
 
-    // ============ 登录 ============
-    function login() {
-      const password = document.getElementById('passwordInput').value;
-      if (password === 'zukzew-1mupno-Tiwman') {
-        localStorage.setItem('lvc_access_password', password);
-        document.getElementById('loginPage').style.display = 'none';
-        document.getElementById('app').classList.add('active');
-        initEditor();
-        loadArticles();
-      } else {
-        document.getElementById('loginError').style.display = 'block';
-      }
-    }
-
-    function logout() {
-      if (hasUnsavedChanges) {
-        if (!confirm('有未保存的更改，确定要退出吗？')) return;
-      }
-      document.getElementById('app').classList.remove('active');
-      document.getElementById('loginPage').style.display = 'flex';
-    }
-
-    // ============ 初始化编辑器 ============
     function initEditor() {
       if (simplemde) return;
 
@@ -317,20 +221,16 @@
         element: document.getElementById('editor'),
         spellChecker: false,
         autofocus: true,
-        placeholder: '在这里写文章内容...\n\n支持的格式：\n# 标题1\n## 标题2\n**加粗** *斜体*\n> 引用\n- 列表项',
-        renderingConfig: {
-          codeSyntaxHighlighting: false
-        }
+        placeholder: '在这里写文章内容...',
+        renderingConfig: { codeSyntaxHighlighting: false }
       });
 
-      // 监听内容变化，触发自动保存
       simplemde.codemirror.on('change', () => {
         hasUnsavedChanges = true;
         updatePreview();
         scheduleAutoSave();
       });
 
-      // 监听标题、作者等变化
       ['articleTitle', 'authorInput', 'articleTags', 'categorySelect'].forEach(id => {
         document.getElementById(id).addEventListener('input', () => {
           hasUnsavedChanges = true;
@@ -347,13 +247,10 @@
       document.getElementById('preview').innerHTML = html || '<p style="color:#999">预览区域</p>';
     }
 
-    // ============ 自动保存 ============
     function scheduleAutoSave() {
       if (autoSaveTimer) clearTimeout(autoSaveTimer);
       updateSaveStatus('有未保存的更改', 'saving');
-      autoSaveTimer = setTimeout(() => {
-        autoSaveToLocal();
-      }, 2000);
+      autoSaveTimer = setTimeout(() => autoSaveToLocal(), 2000);
     }
 
     function autoSaveToLocal() {
@@ -361,18 +258,16 @@
       const content = simplemde ? simplemde.value() : '';
       if (!title && !content) return;
 
-      const draft = {
+      localStorage.setItem('lvc_current_draft', JSON.stringify({
         id: currentArticle ? currentArticle.path : ('draft-' + Date.now()),
-        title: title,
-        content: content,
+        title, content,
         date: document.getElementById('articleDate').value,
         author: document.getElementById('authorInput').value,
         category: document.getElementById('categorySelect').value,
         tags: document.getElementById('articleTags').value,
         savedAt: new Date().toISOString()
-      };
+      }));
 
-      localStorage.setItem('lvc_current_draft', JSON.stringify(draft));
       hasUnsavedChanges = false;
       updateSaveStatus('已自动保存 ' + new Date().toLocaleTimeString(), 'saved');
     }
@@ -383,7 +278,6 @@
       el.className = 'save-status ' + status;
     }
 
-    // ============ Markdown 插入工具 ============
     function insertMd(before, after) {
       if (!simplemde) return;
       const cm = simplemde.codemirror;
@@ -401,14 +295,8 @@
       cm.focus();
     }
 
-    // ============ 设置 ============
-    function showSettings() {
-      document.getElementById('settingsModal').classList.add('active');
-    }
-
-    function closeSettings() {
-      document.getElementById('settingsModal').classList.remove('active');
-    }
+    function showSettings() { document.getElementById('settingsModal').classList.add('active'); }
+    function closeSettings() { document.getElementById('settingsModal').classList.remove('active'); }
 
     function saveSettings() {
       const token = document.getElementById('githubToken').value.trim();
@@ -417,14 +305,12 @@
         githubToken = token;
         showToast('设置已保存', 'success');
         closeSettings();
-        loadArticles();
       }
     }
 
-    // ============ GitHub API ============
     async function githubRequest(method, path, data = null) {
       if (!githubToken) {
-        showToast('请先在设置中配置 GitHub Token', 'error');
+        showToast('请先配置 GitHub Token', 'error');
         showSettings();
         throw new Error('No token');
       }
@@ -438,10 +324,7 @@
           'Accept': 'application/vnd.github.v3+json'
         }
       };
-
-      if (data) {
-        options.body = JSON.stringify(data);
-      }
+      if (data) options.body = JSON.stringify(data);
 
       const response = await fetch(url, options);
       if (!response.ok) {
@@ -451,90 +334,10 @@
       return response.json();
     }
 
-    // ============ 文章管理 ============
-    async function loadArticles() {
-      if (!githubToken) {
-        document.getElementById('articleList').innerHTML = `
-          <li style="color:#cb2431;font-size:13px;padding:20px;text-align:center;">
-            需要配置 GitHub Token 才能加载文章<br>
-            <a onclick="showSettings()" style="cursor:pointer;color:#0366d6;text-decoration:underline">点击设置</a>
-          </li>`;
-        return;
-      }
-
-      showLoading(true);
-      try {
-        const data = await githubRequest('GET', `/repos/${OWNER}/${REPO}/git/trees/${BRANCH}?recursive=1`);
-        const tree = data.tree || [];
-
-        const articlePaths = tree
-          .filter(item => item.path.match(/^\d{4}\/\d{2}\/\d{2}\/.+\/index\.html$/))
-          .map(item => item.path);
-
-        articles = [];
-        for (const path of articlePaths.slice(0, 100)) {
-          const dirPath = path.replace('/index.html', '');
-          const [year, month, day, ...titleParts] = dirPath.split('/');
-          const rawTitle = titleParts.join('/');
-
-          try {
-            const fileData = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${path}`);
-            const response = await fetch(fileData.download_url);
-            const content = await response.text();
-
-            const titleMatch = content.match(/<h1[^>]*>([^<]+)<\/h1>/);
-            const title = titleMatch ? titleMatch[1].trim() : rawTitle;
-
-            articles.push({
-              path,
-              dirPath,
-              title,
-              rawTitle,
-              date: `${year}-${month}-${day}`,
-              sha: fileData.sha
-            });
-          } catch (e) {
-            console.error('加载文章失败:', path, e);
-          }
-        }
-
-        articles.sort((a, b) => new Date(b.date) - new Date(a.date));
-        renderArticleList();
-        showToast(`已加载 ${articles.length} 篇文章`, 'success');
-
-      } catch (error) {
-        showToast('加载文章失败: ' + error.message, 'error');
-      }
-      showLoading(false);
-    }
-
-    function renderArticleList() {
-      const list = document.getElementById('articleList');
-      if (articles.length === 0) {
-        list.innerHTML = '<li style="color:#999;font-size:13px;padding:20px;text-align:center;">暂无文章</li>';
-        return;
-      }
-
-      list.innerHTML = articles.map(article => `
-        <li onclick="loadArticle('${article.dirPath.replace(/'/g, "\\'")}')">
-          <div class="title">${escapeHtml(article.title)}</div>
-          <div class="date">${article.date}</div>
-        </li>
-      `).join('');
-    }
-
-    function escapeHtml(text) {
-      const div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML;
-    }
-
     async function loadArticle(dirPath) {
-      showLoading(true);
       try {
         const path = `${dirPath}/index.html`;
         const data = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${path}`);
-
         const response = await fetch(data.download_url);
         const content = await response.text();
 
@@ -547,16 +350,13 @@
         const [year, month, day, ...titleParts] = dirPath.split('/');
         document.getElementById('articleTitle').value = titleParts.join('/');
         document.getElementById('articleDate').value = `${year}-${month}-${day}`;
-
         if (simplemde) simplemde.value(articleContent);
 
         const authorMatch = content.match(/rel="author"[^>]*>([^<]+)<\/a>/);
         if (authorMatch) document.getElementById('authorInput').value = authorMatch[1];
 
         const tagsMatch = content.match(/rel="tag"[^>]*>([^<]+)<\/a>/g);
-        if (tagsMatch) {
-          document.getElementById('articleTags').value = tagsMatch.map(t => t.match(/>([^<]+)</)[1]).join(', ');
-        }
+        if (tagsMatch) document.getElementById('articleTags').value = tagsMatch.map(t => t.match(/>([^<]+)</)[1]).join(', ');
 
         const categoryMatch = content.match(/href="\/categories\/([^"]+)"/);
         if (categoryMatch) document.getElementById('categorySelect').value = decodeURIComponent(categoryMatch[1]);
@@ -565,16 +365,9 @@
         hasUnsavedChanges = false;
         updateSaveStatus('', '');
 
-        document.querySelectorAll('.article-list li').forEach(li => li.classList.remove('active'));
-        const items = document.querySelectorAll('.article-list li');
-        items.forEach((li, i) => {
-          if (articles[i] && articles[i].dirPath === dirPath) li.classList.add('active');
-        });
-
       } catch (error) {
         showToast('加载文章失败: ' + error.message, 'error');
       }
-      showLoading(false);
     }
 
     function htmlToMarkdown(html) {
@@ -603,25 +396,25 @@
 
     function clearEditor() {
       if (confirm('确定要清空编辑器吗？')) {
-        newArticle();
+        currentArticle = null;
+        document.getElementById('articleTitle').value = '';
+        document.getElementById('articleDate').value = new Date().toISOString().split('T')[0];
+        document.getElementById('authorInput').value = 'Jeremy';
+        document.getElementById('articleTags').value = '';
+        document.getElementById('categorySelect').value = '';
+        if (simplemde) simplemde.value('');
+        updatePreview();
+        hasUnsavedChanges = false;
+        updateSaveStatus('', '');
+        history.replaceState({}, '', window.location.pathname);
       }
     }
 
-    function newArticle() {
-      currentArticle = null;
-      document.getElementById('articleTitle').value = '';
-      document.getElementById('articleDate').value = new Date().toISOString().split('T')[0];
-      document.getElementById('authorInput').value = 'Jeremy';
-      document.getElementById('articleTags').value = '';
-      document.getElementById('categorySelect').value = '';
-      if (simplemde) simplemde.value('');
-      updatePreview();
-      hasUnsavedChanges = false;
-      updateSaveStatus('', '');
-      document.querySelectorAll('.article-list li').forEach(li => li.classList.remove('active'));
+    function saveDraftLocal() {
+      autoSaveToLocal();
+      showToast('草稿已保存', 'success');
     }
 
-    // ============ 发布文章 ============
     async function publishArticle() {
       const title = document.getElementById('articleTitle').value.trim();
       const date = document.getElementById('articleDate').value;
@@ -634,20 +427,12 @@
       if (!date) { showToast('请选择日期', 'error'); return; }
       if (!content) { showToast('请填写文章内容', 'error'); return; }
       if (!author) { showToast('请填写作者', 'error'); return; }
-      if (!githubToken) { showToast('请先在设置中配置 GitHub Token', 'error'); showSettings(); return; }
-
-      showLoading(true);
 
       try {
         const dateParts = date.split('-');
         const dirPath = `${dateParts[0]}/${dateParts[1]}/${dateParts[2]}/${title}`;
         const path = `${dirPath}/index.html`;
-
         const html = generateHTML(title, date, author, category, tags, content);
-
-        // console.log 调试
-        console.log('Publishing to path:', path);
-        console.log('HTML length:', html.length);
 
         let sha = null;
         if (currentArticle) {
@@ -659,26 +444,24 @@
           } catch (e) {}
         }
 
-        const result = await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/${path}`, {
+        await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/${path}`, {
           message: `发布文章: ${title}`,
           content: btoa(unescape(encodeURIComponent(html))),
           sha: sha,
           branch: BRANCH
         });
 
-        console.log('Publish result:', result);
-
-        showToast('文章发布成功！', 'success');
+        showToast('发布成功！', 'success');
         hasUnsavedChanges = false;
         localStorage.removeItem('lvc_current_draft');
-        newArticle();
-        loadArticles();
+
+        setTimeout(() => {
+          window.location.href = 'list.html';
+        }, 1500);
 
       } catch (error) {
-        console.error('Publish error:', error);
         showToast('发布失败: ' + error.message, 'error');
       }
-      showLoading(false);
     }
 
     function generateHTML(title, date, author, category, tags, content) {
@@ -705,57 +488,22 @@
         <span class="post-date" itemprop="dateCreated">${date}</span>
         <a href="/authors/${encodeURIComponent(author)}/" rel="author" itemprop="author">${author}</a>${categoryLink ? ' · ' + categoryLink : ''}
       </div>
-      <div class="post-tags">
-        ${tags.length > 0 ? tagsHTML : ''}
-      </div>
-      <div class="entry-content" itemprop="articleBody">
-        ${articleHTML}
-      </div>
+      <div class="post-tags">${tags.length > 0 ? tagsHTML : ''}</div>
+      <div class="entry-content" itemprop="articleBody">${articleHTML}</div>
       <div class="post-shares"> </div>
     </article>
-    <nav class="article-nav">
-      <a href="/" class="prev">返回首页</a>
-    </nav>
+    <nav class="article-nav"><a href="/" class="prev">返回首页</a></nav>
   </div>
   <footer class="footer"> </footer>
 </body>
 </html>`;
     }
 
-    // ============ 删除文章 ============
-    async function deleteArticle() {
-      if (!currentArticle) { showToast('请先选择要删除的文章', 'error'); return; }
-      if (!confirm('确定要删除这篇文章吗？')) return;
-
-      showLoading(true);
-      try {
-        await githubRequest('DELETE', `/repos/${OWNER}/${REPO}/contents/${currentArticle.path}`, {
-          message: `删除文章: ${currentArticle.dirPath}`,
-          sha: currentArticle.sha,
-          branch: BRANCH
-        });
-        showToast('文章已删除', 'success');
-        newArticle();
-        loadArticles();
-      } catch (error) {
-        showToast('删除失败: ' + error.message, 'error');
-      }
-      showLoading(false);
-    }
-
-    // ============ 本地草稿保存 ============
-    function saveDraftLocal() {
-      autoSaveToLocal();
-      showToast('草稿已保存', 'success');
-    }
-
-    // ============ 图片上传 ============
     async function handleImageUpload(event) {
       const file = event.target.files[0];
       if (!file) return;
-      if (!githubToken) { showToast('请先在设置中配置 GitHub Token', 'error'); showSettings(); return; }
+      if (!githubToken) { showToast('请先配置 GitHub Token', 'error'); showSettings(); return; }
 
-      showLoading(true);
       try {
         const reader = new FileReader();
         reader.onload = async (e) => {
@@ -770,27 +518,15 @@
           });
 
           const imageUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${fileName}`;
-          const markdown = `\n![${file.name}](${imageUrl})\n`;
-
           if (simplemde) {
-            const pos = simplemde.codemirror.getCursor();
-            simplemde.codemirror.replaceSelection(markdown);
-            simplemde.codemirror.setCursor(pos.line + 1, 0);
+            simplemde.codemirror.replaceSelection(`\n![${file.name}](${imageUrl})\n`);
           }
-
           showToast('图片上传成功！', 'success');
-          showLoading(false);
         };
         reader.readAsDataURL(file);
       } catch (error) {
         showToast('图片上传失败: ' + error.message, 'error');
-        showLoading(false);
       }
-    }
-
-    // ============ 工具函数 ============
-    function showLoading(show) {
-      document.getElementById('loading').classList.toggle('active', show);
     }
 
     function showToast(message, type = 'info') {
