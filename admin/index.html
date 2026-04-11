@@ -12,14 +12,26 @@
     .header h1 { font-size: 18px; }
     .header a { color: white; text-decoration: none; margin-left: 20px; }
     .header a:hover { text-decoration: underline; }
-    .header .save-status { font-size: 12px; color: #8b949e; margin-left: 20px; }
-    .header .save-status.saving { color: #f0ad4e; }
-    .header .save-status.saved { color: #2ea44f; }
 
-    .container { display: flex; height: calc(100vh - 60px); }
-    .editor-area { flex: 1; display: flex; flex-direction: column; background: white; overflow: hidden; }
-    .editor-header { padding: 15px 20px; border-bottom: 1px solid #d1d5da; }
-    .editor-header input[type="text"] { width: 100%; padding: 10px; font-size: 20px; border: 1px solid #d1d5da; border-radius: 4px; }
+    .container { max-width: 1400px; margin: 20px auto; padding: 0 20px; display: flex; gap: 20px; }
+    .sidebar { width: 280px; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); max-height: calc(100vh - 120px); overflow-y: auto; }
+    .sidebar-header { padding: 15px; border-bottom: 1px solid #e1e4e8; display: flex; justify-content: space-between; align-items: center; }
+    .sidebar-header h2 { font-size: 14px; color: #586069; }
+    .sidebar-header button { padding: 5px 10px; background: #0366d6; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; }
+    .sidebar-header button:hover { background: #0256b3; }
+
+    .article-list { list-style: none; }
+    .article-list li { border-bottom: 1px solid #e1e4e8; }
+    .article-list li:last-child { border-bottom: none; }
+    .article-list a { display: block; padding: 12px 15px; color: #24292e; text-decoration: none; font-size: 14px; }
+    .article-list a:hover { background: #f6f8fa; }
+    .article-list a.active { background: #e8f0fe; border-left: 3px solid #0366d6; }
+
+    .article-list .date { font-size: 12px; color: #586069; margin-top: 4px; }
+
+    .editor-area { flex: 1; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; flex-direction: column; min-height: calc(100vh - 120px); }
+    .editor-header { padding: 15px 20px; border-bottom: 1px solid #e1e4e8; }
+    .editor-header input[type="text"] { width: 100%; padding: 10px; font-size: 18px; border: 1px solid #d1d5da; border-radius: 4px; }
     .editor-header input:focus { outline: none; border-color: #0366d6; }
     .meta-row { display: flex; gap: 15px; margin-top: 10px; flex-wrap: wrap; align-items: center; }
     .meta-row input, .meta-row select { padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 4px; font-size: 14px; }
@@ -29,13 +41,11 @@
     .editor-toolbar button { padding: 6px 12px; background: white; border: 1px solid #d1d5da; border-radius: 4px; cursor: pointer; font-size: 14px; }
     .editor-toolbar button:hover { background: #f0f0f0; }
     .editor-toolbar .separator { width: 1px; height: 24px; background: #d1d5da; margin: 0 10px; }
-    .image-upload-btn { padding: 6px 12px; background: white; border: 1px solid #d1d5da; border-radius: 4px; cursor: pointer; font-size: 14px; }
-    input[type="file"] { display: none; }
 
-    .editor-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-height: 400px; }
-    .editor-container { flex: 1; overflow: hidden; position: relative; }
+    .editor-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .editor-container { flex: 1; overflow: hidden; position: relative; min-height: 400px; }
     .CodeMirror { height: 100% !important; font-size: 15px; line-height: 1.6; position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
-    .editor-preview { padding: 20px; overflow-y: auto; background: #fafafa; border-top: 1px solid #d1d5da; flex: 1; min-height: 150px; max-height: 40vh; }
+    .editor-preview { padding: 20px; overflow-y: auto; background: #fafafa; border-top: 1px solid #d1e4e8; flex: 1; min-height: 150px; max-height: 40vh; }
     .editor-preview h1 { font-size: 28px; margin-bottom: 15px; }
     .editor-preview h2 { font-size: 24px; margin: 20px 0 10px; }
     .editor-preview h3 { font-size: 20px; margin: 15px 0 8px; }
@@ -48,28 +58,41 @@
 
     .action-bar { padding: 15px 20px; border-top: 1px solid #d1d5da; display: flex; gap: 10px; justify-content: flex-end; background: #f6f8fa; }
     .action-bar button { padding: 10px 20px; border-radius: 4px; font-size: 14px; cursor: pointer; border: none; }
-    .btn-publish { background: #2ea44f; color: white; }
-    .btn-publish:hover { background: #2c974b; }
+    .btn-save { background: #2ea44f; color: white; }
+    .btn-save:hover { background: #2c974b; }
+    .btn-delete { background: #cb2431; color: white; }
+    .btn-delete:hover { background: #a11e28; }
 
     .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
     .modal.active { display: flex; }
-    .modal-content { background: white; padding: 30px; border-radius: 8px; width: 450px; }
-    .modal-content h2 { margin-bottom: 20px; }
-    .modal-content input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; }
-    .modal-content p { font-size: 12px; color: #666; margin-bottom: 15px; line-height: 1.5; }
+    .modal-content { background: white; padding: 30px; border-radius: 8px; width: 400px; }
+    .modal-content h3 { margin-bottom: 15px; }
+    .modal-content p { color: #586069; margin-bottom: 20px; }
     .modal-content button { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px; }
-    .modal-content .btn-primary { background: #4183c4; color: white; }
+    .modal-content .btn-confirm { background: #cb2431; color: white; }
+    .modal-content .btn-cancel { background: #f6f8fa; border: 1px solid #d1d5da; }
 
-    .toast { position: fixed; bottom: 20px; right: 20px; padding: 15px 25px; background: #24292e; color: white; border-radius: 4px; font-size: 14px; transform: translateY(100px); opacity: 0; transition: all 0.3s; z-index: 1000; }
-    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast { position: fixed; bottom: 20px; right: 20px; padding: 15px 25px; background: #24292e; color: white; border-radius: 4px; font-size: 14px; z-index: 1000; opacity: 0; transition: opacity 0.3s; }
+    .toast.show { opacity: 1; }
     .toast.success { background: #2ea44f; }
     .toast.error { background: #cb2431; }
 
-    .loading { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8); z-index: 999; display: flex; align-items: center; justify-content: center; }
-    .spinner { width: 40px; height: 40px; border: 3px solid #f3f3f3; border-top-color: #4183c4; border-radius: 50%; animation: spin 1s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading { text-align: center; padding: 40px; color: #586069; }
+    .empty { text-align: center; padding: 40px; color: #999; }
+
+    .modal-settings { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+    .modal-settings.active { display: flex; }
+    .modal-settings .modal-content { background: white; padding: 30px; border-radius: 8px; width: 450px; }
+    .modal-settings .modal-content h2 { margin-bottom: 20px; }
+    .modal-settings .modal-content input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; }
+    .modal-settings .modal-content p { font-size: 12px; color: #666; margin-bottom: 15px; line-height: 1.5; }
+    .modal-settings .modal-content button { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px; }
+    .modal-settings .btn-primary { background: #4183c4; color: white; }
 
     .hint { background: #fff8e5; border: 1px solid #ffe58f; padding: 10px 15px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; color: #8a6d3b; }
+
+    .image-upload-btn { padding: 6px 12px; background: white; border: 1px solid #d1d5da; border-radius: 4px; cursor: pointer; font-size: 14px; }
+    input[type="file"] { display: none; }
   </style>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.css">
@@ -80,7 +103,6 @@
   <div class="header">
     <h1>LVC 文章管理</h1>
     <div style="display:flex;align-items:center;">
-      <span class="save-status" id="saveStatus"></span>
       <label class="image-upload-btn">
         上传图片<input type="file" id="imageInput" accept="image/*" onchange="handleImageUpload(event)">
       </label>
@@ -90,6 +112,16 @@
   </div>
 
   <div class="container">
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h2>文章列表</h2>
+        <button onclick="createNewArticle()">新建文章</button>
+      </div>
+      <div id="loading" class="loading">加载中...</div>
+      <div id="empty" class="empty" style="display:none">暂无文章</div>
+      <ul class="article-list" id="articleList"></ul>
+    </div>
+
     <div class="editor-area">
       <div class="editor-header">
         <input type="text" id="articleTitle" placeholder="文章标题">
@@ -147,16 +179,20 @@
         <div class="editor-container">
           <textarea id="editor"></textarea>
         </div>
-        <div class="editor-preview" id="preview"></div>
+        <div class="editor-preview" id="preview">
+          <p style="color:#999">选择一篇文章开始编辑...</p>
+        </div>
       </div>
 
       <div class="action-bar">
-        <button class="btn-publish" onclick="publishArticle()">发布文章</button>
+        <button class="btn-delete" onclick="showDeleteModal()">删除</button>
+        <button class="btn-save" onclick="saveArticle()">保存</button>
       </div>
     </div>
   </div>
 
-  <div class="modal" id="settingsModal">
+  <!-- 设置弹窗 -->
+  <div class="modal-settings" id="settingsModal">
     <div class="modal-content">
       <h2>设置</h2>
       <div class="hint">
@@ -169,27 +205,34 @@
     </div>
   </div>
 
+  <!-- 删除确认弹窗 -->
+  <div class="modal" id="deleteModal">
+    <div class="modal-content">
+      <h3>确认删除</h3>
+      <p id="deleteMsg">确定要删除这篇文章吗？</p>
+      <button class="btn-cancel" onclick="closeDeleteModal()">取消</button>
+      <button class="btn-confirm" onclick="confirmDelete()">删除</button>
+    </div>
+  </div>
+
   <div class="toast" id="toast"></div>
 
   <script>
-    let simplemde = null;
-    let currentArticle = null;
-    let githubToken = '';
-    let autoSaveTimer = null;
-    let hasUnsavedChanges = false;
     const OWNER = 'CNLVC';
     const REPO = 'lvc';
     const BRANCH = 'master';
+    const POSTS_PATH = '_posts';
+
+    let simplemde = null;
+    let articles = [];
+    let currentArticle = null; // { path, sha, filename }
+    let githubToken = '';
 
     document.addEventListener('DOMContentLoaded', () => {
       githubToken = localStorage.getItem('lvc_github_token') || '';
       if (githubToken) document.getElementById('githubToken').value = githubToken;
-      document.getElementById('articleDate').value = new Date().toISOString().split('T')[0];
       initEditor();
-
-      const params = new URLSearchParams(window.location.search);
-      const path = params.get('path');
-      if (path) loadArticle(path);
+      loadArticleList();
     });
 
     function initEditor() {
@@ -197,78 +240,21 @@
       simplemde = new SimpleMDE({
         element: document.getElementById('editor'),
         spellChecker: false,
-        autofocus: true,
+        autofocus: false,
         placeholder: '在这里写文章内容...',
         renderingConfig: { codeSyntaxHighlighting: false }
       });
 
-      simplemde.codemirror.on('change', () => { hasUnsavedChanges = true; updatePreview(); scheduleAutoSave(); });
-      ['articleTitle', 'authorInput', 'articleTags', 'categorySelect'].forEach(id => {
-        document.getElementById(id).addEventListener('input', () => { hasUnsavedChanges = true; scheduleAutoSave(); });
+      simplemde.codemirror.on('change', updatePreview);
+      ['articleTitle', 'authorInput', 'articleTags'].forEach(id => {
+        document.getElementById(id).addEventListener('input', () => {});
       });
-      updatePreview();
+      document.getElementById('categorySelect').addEventListener('change', () => {});
     }
 
     function updatePreview() {
       const content = simplemde ? simplemde.value() : '';
       document.getElementById('preview').innerHTML = simplemde.markdown(content) || '<p style="color:#999">预览区域</p>';
-    }
-
-    function scheduleAutoSave() {
-      if (autoSaveTimer) clearTimeout(autoSaveTimer);
-      updateSaveStatus('有未保存的更改', 'saving');
-      autoSaveTimer = setTimeout(() => autoSaveToLocal(), 2000);
-    }
-
-    function autoSaveToLocal() {
-      const title = document.getElementById('articleTitle').value;
-      const content = simplemde ? simplemde.value() : '';
-      if (!title && !content) return;
-      localStorage.setItem('lvc_current_draft', JSON.stringify({
-        title, content,
-        date: document.getElementById('articleDate').value,
-        author: document.getElementById('authorInput').value,
-        category: document.getElementById('categorySelect').value,
-        tags: document.getElementById('articleTags').value,
-        savedAt: new Date().toISOString()
-      }));
-      hasUnsavedChanges = false;
-      updateSaveStatus('已自动保存 ' + new Date().toLocaleTimeString(), 'saved');
-    }
-
-    function updateSaveStatus(text, status) {
-      const el = document.getElementById('saveStatus');
-      el.textContent = text; el.className = 'save-status ' + status;
-    }
-
-    function insertMd(before, after) {
-      if (!simplemde) return;
-      const cm = simplemde.codemirror;
-      const start = cm.getSelection();
-      cm.replaceSelection(before + start + after);
-      cm.focus();
-    }
-
-    function insertMdAtLine(prefix) {
-      if (!simplemde) return;
-      const cm = simplemde.codemirror;
-      const pos = cm.getCursor();
-      const line = cm.getLine(pos.line);
-      cm.replaceRange(prefix + line, { line: pos.line, ch: 0 }, { line: pos.line, ch: line.length });
-      cm.focus();
-    }
-
-    function showSettings() { document.getElementById('settingsModal').classList.add('active'); }
-    function closeSettings() { document.getElementById('settingsModal').classList.remove('active'); }
-
-    function saveSettings() {
-      const token = document.getElementById('githubToken').value.trim();
-      if (token) {
-        localStorage.setItem('lvc_github_token', token);
-        githubToken = token;
-        showToast('设置已保存', 'success');
-        closeSettings();
-      }
     }
 
     async function githubRequest(method, path, data = null) {
@@ -287,67 +273,101 @@
       return response.json();
     }
 
-    async function loadArticle(dirPath) {
+    async function loadArticleList() {
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('articleList').innerHTML = '';
+
       try {
-        const path = `${dirPath}/index.html`;
+        const data = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${POSTS_PATH}`);
+
+        articles = data.filter(f => f.name.endsWith('.md')).sort((a, b) => b.name.localeCompare(a.name));
+
+        document.getElementById('loading').style.display = 'none';
+
+        if (articles.length === 0) {
+          document.getElementById('empty').style.display = 'block';
+          return;
+        }
+
+        document.getElementById('articleList').innerHTML = articles.map(art => {
+          const filename = art.name.replace('.md', '');
+          const date = filename.substring(0, 10);
+          const title = filename.substring(11) || date;
+          return `<li><a href="#" onclick="loadArticle('${art.name}', '${art.path}'); return false;">
+            <div>${title.replace(/-/g, ' ')}</div>
+            <div class="date">${date}</div>
+          </a></li>`;
+        }).join('');
+
+      } catch (error) {
+        document.getElementById('loading').style.display = 'none';
+        showToast('加载文章列表失败: ' + error.message, 'error');
+      }
+    }
+
+    async function loadArticle(filename, path) {
+      try {
+        // 高亮选中项
+        document.querySelectorAll('.article-list a').forEach(a => a.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+
         const data = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${path}`);
-        const response = await fetch(data.download_url);
-        const content = await response.text();
+        const content = atob(data.content);
 
-        const contentMatch = content.match(/<div class="entry-content"[^>]*>([\s\S]*?)<div class="post-shares">/);
-        let articleContent = contentMatch ? contentMatch[1] : '';
-        articleContent = htmlToMarkdown(articleContent);
+        // 解析 front matter
+        const frontMatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
 
-        currentArticle = { path, dirPath, sha: data.sha };
+        if (frontMatterMatch) {
+          const frontMatter = frontMatterMatch[1];
+          const body = frontMatterMatch[2];
 
-        const [year, month, day, ...titleParts] = dirPath.split('/');
-        document.getElementById('articleTitle').value = titleParts.join('/');
-        document.getElementById('articleDate').value = `${year}-${month}-${day}`;
-        if (simplemde) simplemde.value(articleContent);
+          // 解析 front matter 字段
+          const titleMatch = frontMatter.match(/title:\s*"?([^"\n]+)"?/);
+          const dateMatch = frontMatter.match(/date:\s*(\d{4}-\d{2}-\d{2})/);
+          const authorMatch = frontMatter.match(/author:\s*"?([^"\n]+)"?/);
+          const categoryMatch = frontMatter.match(/categories:\s*\n\s*-\s*(.+)/);
+          const tagsMatch = frontMatter.match(/tags:\s*\n(\s*-\s*.+\n)+/);
 
-        const authorMatch = content.match(/rel="author"[^>]*>([^<]+)<\/a>/);
-        if (authorMatch) document.getElementById('authorInput').value = authorMatch[1];
+          document.getElementById('articleTitle').value = titleMatch ? titleMatch[1].replace(/"/g, '') : '';
+          document.getElementById('articleDate').value = dateMatch ? dateMatch[1] : '';
+          document.getElementById('authorInput').value = authorMatch ? authorMatch[1] : 'Jeremy';
+          document.getElementById('categorySelect').value = categoryMatch ? categoryMatch[1] : '';
 
-        const tagsMatch = content.match(/rel="tag"[^>]*>([^<]+)<\/a>/g);
-        if (tagsMatch) document.getElementById('articleTags').value = tagsMatch.map(t => t.match(/>([^<]+)</)[1]).join(', ');
+          if (tagsMatch) {
+            const tags = tagsMatch[0].match(/-\s*(.+)/g).map(t => t.replace(/-\s*/, '').trim());
+            document.getElementById('articleTags').value = tags.join(', ');
+          } else {
+            document.getElementById('articleTags').value = '';
+          }
 
-        const categoryMatch = content.match(/href="\/categories\/([^"]+)"/);
-        if (categoryMatch) document.getElementById('categorySelect').value = decodeURIComponent(categoryMatch[1]);
+          simplemde.value(body.trim());
+        } else {
+          simplemde.value(content);
+        }
 
+        currentArticle = { filename, path, sha: data.sha };
         updatePreview();
-        hasUnsavedChanges = false;
-        updateSaveStatus('', '');
 
       } catch (error) {
         showToast('加载文章失败: ' + error.message, 'error');
       }
     }
 
-    function htmlToMarkdown(html) {
-      if (!html) return '';
-      return html
-        .replace(/<h1[^>]*>([^<]+)<\/h1>/gi, '# $1\n')
-        .replace(/<h2[^>]*>([^<]+)<\/h2>/gi, '## $1\n')
-        .replace(/<h3[^>]*>([^<]+)<\/h3>/gi, '### $1\n')
-        .replace(/<strong>([^<]+)<\/strong>/gi, '**$1**')
-        .replace(/<b>([^<]+)<\/b>/gi, '**$1**')
-        .replace(/<em>([^<]+)<\/em>/gi, '*$1*')
-        .replace(/<i>([^<]+)<\/i>/gi, '*$1*')
-        .replace(/<u>([^<]+)<\/u>/gi, '<u>$1</u>')
-        .replace(/<blockquote[^>]*>([\s\S]*?)<\/blockquote>/gi, '> $1\n')
-        .replace(/<li[^>]*>([\s\S]*?)<\/li>/gi, '- $1\n')
-        .replace(/<img[^>]*src="([^"]+)"[^>]*alt="([^"]+)"[^>]*>/gi, '![$2]($1)')
-        .replace(/<img[^>]*alt="([^"]+)"[^>]*src="([^"]+)"[^>]*>/gi, '![$1]($2)')
-        .replace(/<img[^>]*src="([^"]+)"[^>]*>/gi, '![]($1)')
-        .replace(/<a[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/gi, '[$2]($1)')
-        .replace(/<br\s*\/?>/gi, '\n')
-        .replace(/<p[^>]*>([\s\S]*?)<\/p>/gi, '$1\n\n')
-        .replace(/<[^>]+>/g, '')
-        .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")
-        .replace(/\n{3,}/g, '\n\n').trim();
+    function createNewArticle() {
+      currentArticle = null;
+      document.getElementById('articleTitle').value = '';
+      document.getElementById('articleDate').value = new Date().toISOString().split('T')[0];
+      document.getElementById('authorInput').value = 'Jeremy';
+      document.getElementById('categorySelect').value = '';
+      document.getElementById('articleTags').value = '';
+      simplemde.value('');
+      updatePreview();
+
+      // 取消列表选中状态
+      document.querySelectorAll('.article-list a').forEach(a => a.classList.remove('active'));
     }
 
-    async function publishArticle() {
+    async function saveArticle() {
       const title = document.getElementById('articleTitle').value.trim();
       const date = document.getElementById('articleDate').value;
       const author = document.getElementById('authorInput').value.trim();
@@ -358,186 +378,121 @@
       if (!title) { showToast('请填写文章标题', 'error'); return; }
       if (!date) { showToast('请选择日期', 'error'); return; }
       if (!content) { showToast('请填写文章内容', 'error'); return; }
-      if (!author) { showToast('请填写作者', 'error'); return; }
 
-      showLoading(true);
+      // 生成文件名
+      const safeTitle = title.replace(/[:\/\?]/g, '-').substring(0, 80);
+      const filename = `${date}-${safeTitle}.md`;
+
+      // 构建 front matter
+      let frontMatter = `---
+title: "${title}"
+date: ${date}
+author: ${author || 'Jeremy'}`;
+      if (category) {
+        frontMatter += `\ncategories:\n  - ${category}`;
+      }
+      if (tags.length > 0) {
+        frontMatter += `\ntags:\n  - ${tags.join('\n  - ')}`;
+      }
+      frontMatter += '\n---\n\n';
+
+      const fullContent = frontMatter + content;
 
       try {
-        const dateParts = date.split('-');
-        const dirPath = `${dateParts[0]}/${dateParts[1]}/${dateParts[2]}/${title}`;
-        const path = `${dirPath}/index.html`;
-
-        // 计算相对路径层级 (用于 CSS/JS)
-        const depth = 4; // YYYY/MM/DD/title => 4层
-        const rel = '../'.repeat(depth);
-
-        // 生成文章 HTML
-        const html = generateArticleHTML(title, date, author, category, tags, content, rel);
-
         let sha = null;
-        if (currentArticle) {
+        let path = `${POSTS_PATH}/${filename}`;
+
+        if (currentArticle && currentArticle.filename === filename) {
+          // 更新现有文件
           sha = currentArticle.sha;
         } else {
+          // 检查文件是否已存在
           try {
             const existing = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${path}`);
             sha = existing.sha;
-          } catch (e) {}
+          } catch (e) {
+            // 文件不存在，使用新路径
+          }
         }
 
-        // 1. 先创建文章
         await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/${path}`, {
-          message: `发布文章: ${title}`,
-          content: btoa(unescape(encodeURIComponent(html))),
+          message: `更新文章: ${title}`,
+          content: btoa(unescape(encodeURIComponent(fullContent))),
           sha: sha,
           branch: BRANCH
         });
 
-        // 2. 更新首页
-        await updateHomepage(title, date, author, dirPath);
-
-        // 3. 更新归档页
-        await updateArchives(date, dirPath, title);
-
-        showToast('发布成功！', 'success');
-        hasUnsavedChanges = false;
-        localStorage.removeItem('lvc_current_draft');
-
-        setTimeout(() => { window.location.href = 'list.html'; }, 1500);
+        showToast('保存成功！', 'success');
+        currentArticle = { filename, path, sha };
+        loadArticleList();
 
       } catch (error) {
-        console.error('发布失败:', error);
-        showToast('发布失败: ' + error.message, 'error');
+        showToast('保存失败: ' + error.message, 'error');
       }
-
-      showLoading(false);
     }
 
-    function generateArticleHTML(title, date, author, category, tags, content, rel) {
-      const tagsHTML = tags.map(tag => `<a href="${rel}tags/${encodeURIComponent(tag)}/" rel="tag">${tag}</a>`).join('\n      ');
-      const categoryLink = category ? `<a href="${rel}categories/${encodeURIComponent(category)}/" rel="category tag">${category}</a>` : '';
-      const articleHTML = simplemde.markdown(content);
-
-      return `<!doctype html>
-<html class="theme-next mist use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="google-site-verification" content="6-kfKiMN1djwrSTRVFWOSZdyJt9e89jigOxrsdV9hsZA" />
-  <meta name="baidu-site-verification" content="12uBeLpYi9" />
-  <link href="${rel}lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-  <meta name="keywords" content="${tags.join(',')}," />
-  <link rel="alternate" href="/atom.xml" title="光谷教会 | Light Valley Church" type="application/atom+xml" />
-  <link rel="canonical" href="http://www.lightvalley.org/${date.replace(/-/g, '/')}/${title}/"/>
-  <title>${title} | 光谷教会</title>
-</head>
-<body itemscope itemtype="http://schema.org/Article">
-  <header class="header"> </header>
-  <div class="main">
-    <article class="article" itemscope itemtype="https://schema.org/Article">
-      <h1 class="title" itemprop="name">${title}</h1>
-      <div class="post-meta">
-        <span class="post-date" itemprop="dateCreated">${date}</span>
-        <a href="${rel}authors/${encodeURIComponent(author)}/" rel="author" itemprop="author">${author}</a>${categoryLink ? ' · ' + categoryLink : ''}
-      </div>
-      <div class="post-tags">${tags.length > 0 ? tagsHTML : ''}</div>
-      <div class="entry-content" itemprop="articleBody">${articleHTML}</div>
-      <div class="post-shares"> </div>
-    </article>
-    <nav class="article-nav"><a href="${rel}" class="prev">返回首页</a></nav>
-  </div>
-  <footer class="footer"> </footer>
-</body>
-</html>`;
+    function showDeleteModal() {
+      if (!currentArticle) {
+        showToast('请先选择要删除的文章', 'error');
+        return;
+      }
+      document.getElementById('deleteMsg').textContent = `确定要删除「${currentArticle.filename}」吗？`;
+      document.getElementById('deleteModal').classList.add('active');
     }
 
-    async function updateHomepage(title, date, author, dirPath) {
+    function closeDeleteModal() {
+      document.getElementById('deleteModal').classList.remove('active');
+    }
+
+    async function confirmDelete() {
+      if (!currentArticle) return;
+
       try {
-        // 获取首页
-        const homeData = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/index.html`);
-        const homeResponse = await fetch(homeData.download_url);
-        let homeContent = await homeResponse.text();
-
-        // 构建新文章的链接
-        const articleUrl = `/${dirPath}/`;
-        const articleLink = `
-            <a class="post-title-link" href="${articleUrl}" itemprop="url">${title}</a>`;
-
-        // 在 <head> 中添加 og:url meta
-        const ogUrlMeta = `\n  <meta property="og:url" content="http://www.lightvalley.org${articleUrl}"/>`;
-        homeContent = homeContent.replace('</head>', ogUrlMeta + '\n</head>');
-
-        // 在文章列表开头插入新文章链接（在最后一个 2019 文章之前）
-        const last2019Pos = homeContent.indexOf('href="/2019/');
-        if (last2019Pos > -1) {
-          homeContent = homeContent.slice(0, last2019Pos) + articleLink + '\n' + homeContent.slice(last2019Pos);
-        } else {
-          // 如果没找到，在 </div> 后面的某个位置插入
-          const insertPos = homeContent.indexOf('<a class="post-title-link" href="/20');
-          if (insertPos > -1) {
-            homeContent = homeContent.slice(0, insertPos) + articleLink + '\n' + homeContent.slice(insertPos);
-          }
-        }
-
-        // 更新首页
-        await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/index.html`, {
-          message: `更新首页: 添加文章 ${title}`,
-          content: btoa(unescape(encodeURIComponent(homeContent))),
-          sha: homeData.sha,
+        await githubRequest('DELETE', `/repos/${OWNER}/${REPO}/contents/${currentArticle.path}`, {
+          message: `删除文章: ${currentArticle.filename}`,
+          sha: currentArticle.sha,
           branch: BRANCH
         });
 
-      } catch (e) {
-        console.error('更新首页失败:', e);
-        // 不中断发布流程
+        showToast('删除成功', 'success');
+        closeDeleteModal();
+        createNewArticle();
+        loadArticleList();
+
+      } catch (error) {
+        showToast('删除失败: ' + error.message, 'error');
       }
     }
 
-    async function updateArchives(date, dirPath, title) {
-      try {
-        const [year, month] = date.split('-');
+    function showSettings() { document.getElementById('settingsModal').classList.add('active'); }
+    function closeSettings() { document.getElementById('settingsModal').classList.remove('active'); }
 
-        // 获取年份归档页，如 2026/index.html
-        const yearPath = `${year}/index.html`;
-        const monthPath = `${year}/${month}/index.html`;
-
-        // 更新年归档
-        await updateArchivePage(yearPath, dirPath, title, date);
-
-        // 更新月归档
-        await updateArchivePage(monthPath, dirPath, title, date);
-
-      } catch (e) {
-        console.error('更新归档页失败:', e);
+    function saveSettings() {
+      const token = document.getElementById('githubToken').value.trim();
+      if (token) {
+        localStorage.setItem('lvc_github_token', token);
+        githubToken = token;
+        showToast('设置已保存', 'success');
+        closeSettings();
+        loadArticleList();
       }
     }
 
-    async function updateArchivePage(path, dirPath, title, date) {
-      try {
-        const data = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${path}`);
-        const response = await fetch(data.download_url);
-        let content = await response.text();
+    function insertMd(before, after) {
+      if (!simplemde) return;
+      const cm = simplemde.codemirror;
+      const start = cm.getSelection();
+      cm.replaceSelection(before + start + after);
+      cm.focus();
+    }
 
-        const articleUrl = `/${dirPath}/`;
-        const articleLink = `\n            <a class="post-title-link" href="${articleUrl}" itemprop="url">${title}</a>`;
-
-        // 找到最后一篇文章的位置，在其之前插入
-        const lastArticlePos = content.lastIndexOf('<a class="post-title-link" href="/20');
-        if (lastArticlePos > -1) {
-          // 找到这个位置的换行符
-          const insertPos = content.lastIndexOf('\n', lastArticlePos);
-          content = content.slice(0, insertPos) + articleLink + '\n' + content.slice(insertPos + 1);
-        }
-
-        await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/${path}`, {
-          message: `更新归档: 添加文章 ${title}`,
-          content: btoa(unescape(encodeURIComponent(content))),
-          sha: data.sha,
-          branch: BRANCH
-        });
-
-      } catch (e) {
-        // 归档页可能不存在，忽略错误
-        console.log(`归档页 ${path} 不存在，跳过`);
-      }
+    function insertMdAtLine(prefix) {
+      if (!simplemde) return;
+      const cm = simplemde.codemirror;
+      const pos = cm.getCursor();
+      const line = cm.getLine(pos.line);
+      cm.replaceRange(prefix + line, { line: pos.line, ch: 0 }, { line: pos.line, ch: line.length });
+      cm.focus();
     }
 
     async function handleImageUpload(event) {
@@ -565,14 +520,6 @@
         reader.readAsDataURL(file);
       } catch (error) {
         showToast('图片上传失败: ' + error.message, 'error');
-      }
-    }
-
-    function showLoading(show) {
-      const el = document.getElementById('toast');
-      if (show) {
-        el.className = 'toast show';
-        el.textContent = '处理中...';
       }
     }
 
