@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>文章管理 - LVC</title>
+  <title>文章列表 - LVC</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; }
@@ -15,8 +15,6 @@
 
     .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
     .page-title { font-size: 24px; margin-bottom: 20px; color: #24292e; }
-    .refresh-btn { padding: 8px 16px; background: #0366d6; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; margin-left: 20px; }
-    .refresh-btn:hover { background: #0256b3; }
 
     .article-table { width: 100%; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
     .article-table th, .article-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e1e4e8; }
@@ -30,10 +28,6 @@
     .article-table .actions { text-align: right; white-space: nowrap; }
     .article-table .edit-btn { padding: 6px 12px; background: #0366d6; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; text-decoration: none; }
     .article-table .edit-btn:hover { background: #0256b3; }
-    .article-table .delete-btn { padding: 6px 12px; background: #cb2431; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; margin-left: 8px; }
-    .article-table .delete-btn:hover { background: #a11e28; }
-    .article-table .view-btn { padding: 6px 12px; background: #586069; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; margin-right: 8px; text-decoration: none; }
-    .article-table .view-btn:hover { background: #444d56; }
 
     .loading { text-align: center; padding: 40px; color: #586069; }
     .empty { text-align: center; padding: 40px; color: #999; }
@@ -52,6 +46,17 @@
     .modal-content button { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px; }
     .modal-content .btn-confirm { background: #cb2431; color: white; }
     .modal-content .btn-cancel { background: #f6f8fa; border: 1px solid #d1d5da; }
+
+    .hint { background: #fff8e5; border: 1px solid #ffe58f; padding: 10px 15px; border-radius: 4px; margin-bottom: 20px; font-size: 13px; color: #8a6d3b; }
+
+    .modal-settings { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+    .modal-settings.active { display: flex; }
+    .modal-settings .modal-content { background: white; padding: 30px; border-radius: 8px; width: 450px; }
+    .modal-settings .modal-content h2 { margin-bottom: 20px; }
+    .modal-settings .modal-content input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; }
+    .modal-settings .modal-content p { font-size: 12px; color: #666; margin-bottom: 15px; line-height: 1.5; }
+    .modal-settings .modal-content button { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px; }
+    .modal-settings .btn-primary { background: #4183c4; color: white; }
   </style>
 </head>
 <body>
@@ -61,13 +66,14 @@
     <div>
       <a href="index.html">写文章</a>
       <a href="list.html">文章列表</a>
+      <a onclick="showSettings()">设置</a>
     </div>
   </div>
 
   <div class="container">
-    <div style="display:flex; align-items:center; margin-bottom:20px;">
-      <h2 class="page-title" style="margin:0;">文章列表</h2>
-      <button class="refresh-btn" onclick="loadArticles()">刷新</button>
+    <h2 class="page-title">文章列表</h2>
+    <div class="hint">
+      <b>提示：</b>现在可以直接在编辑器中编辑 Markdown 文件，文章会自动保存到 GitHub 仓库的 <code>_posts</code> 文件夹。
     </div>
 
     <div id="loading" class="loading">加载中...</div>
@@ -86,6 +92,20 @@
     </table>
   </div>
 
+  <!-- 设置弹窗 -->
+  <div class="modal-settings" id="settingsModal">
+    <div class="modal-content">
+      <h2>设置</h2>
+      <div class="hint">
+        <b>重要：</b>需要一个 GitHub Personal Access Token。<br>
+        生成方法：GitHub → Settings → Developer settings → Personal access tokens → Generate new token → 勾选 <b>repo</b>
+      </div>
+      <input type="text" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+      <button class="btn-primary" onclick="saveSettings()">保存</button>
+      <button onclick="closeSettings()" style="background:#f6f8fa;border:1px solid #d1d5da;">取消</button>
+    </div>
+  </div>
+
   <!-- 删除确认弹窗 -->
   <div class="modal" id="deleteModal">
     <div class="modal-content">
@@ -102,30 +122,28 @@
     const OWNER = 'CNLVC';
     const REPO = 'lvc';
     const BRANCH = 'master';
+    const POSTS_PATH = '_posts';
 
     let articles = [];
     let deleteTarget = null;
     let githubToken = localStorage.getItem('lvc_github_token') || '';
 
-    document.addEventListener('DOMContentLoaded', loadArticles);
+    document.addEventListener('DOMContentLoaded', () => {
+      if (githubToken) document.getElementById('githubToken').value = githubToken;
+      loadArticles();
+    });
 
     async function githubRequest(method, path, data = null) {
       if (!githubToken) {
-        showToast('请先在编辑器页面配置 GitHub Token', 'error');
+        showToast('请先在设置中配置 GitHub Token', 'error');
         throw new Error('No token');
       }
-
       const url = `https://api.github.com${path}`;
       const options = {
         method,
-        headers: {
-          'Authorization': `token ${githubToken}`,
-          'Content-Type': 'application/json',
-          'Accept': 'application/vnd.github.v3+json'
-        }
+        headers: { 'Authorization': `token ${githubToken}`, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' }
       };
       if (data) options.body = JSON.stringify(data);
-
       const response = await fetch(url, options);
       if (!response.ok) {
         const error = await response.json().catch(() => ({ message: response.statusText }));
@@ -140,32 +158,9 @@
       document.getElementById('table').style.display = 'none';
 
       try {
-        // 从归档页获取文章列表（快速）
-        const response = await fetch('https://www.lightvalley.org/archives/');
-        const html = await response.text();
+        const data = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${POSTS_PATH}`);
 
-        // 解析文章链接
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const links = doc.querySelectorAll('a.post-title-link');
-
-        articles = [];
-        links.forEach(link => {
-          const href = link.getAttribute('href');
-          const title = link.textContent.trim();
-
-          // 从 href 提取日期，如 /2019/01/20/2019-01-20/ -> 2019-01-20
-          const match = href.match(/\/(\d{4})\/(\d{2})\/(\d{2})\/[^/]+\//);
-          if (match) {
-            const [, year, month, day] = match;
-            articles.push({
-              path: href.replace(/^\/|\/$/g, ''), // 去掉首尾斜杠
-              dirPath: href.replace(/^\/|\/$/g, ''),
-              title: title,
-              date: `${year}-${month}-${day}`
-            });
-          }
-        });
+        articles = data.filter(f => f.name.endsWith('.md')).sort((a, b) => b.name.localeCompare(a.name));
 
         renderArticles();
 
@@ -186,68 +181,45 @@
       }
 
       document.getElementById('table').style.display = 'table';
-      document.getElementById('articleList').innerHTML = articles.map(article => `
-        <tr>
-          <td class="title">
-            <a href="https://www.lightvalley.org/${article.path}/" target="_blank">${escapeHtml(article.title)}</a>
-          </td>
-          <td class="date">${article.date}</td>
-          <td class="actions">
-            <a href="https://www.lightvalley.org/${article.path}/" target="_blank" class="view-btn">查看</a>
-            <button class="edit-btn" onclick="editArticle('${article.path.replace(/'/g, "\\'")}')">编辑</button>
-            <button class="delete-btn" onclick="showDeleteModal('${article.path.replace(/'/g, "\\'")}', '${escapeHtml(article.title).replace(/'/g, "\\'")}')">删除</button>
-          </td>
-        </tr>
-      `).join('');
+      document.getElementById('articleList').innerHTML = articles.map(article => {
+        const filename = article.name.replace('.md', '');
+        const date = filename.substring(0, 10);
+        const title = filename.substring(11) || date;
+
+        return `
+          <tr>
+            <td class="title">${escapeHtml(title.replace(/-/g, ' '))}</td>
+            <td class="date">${date}</td>
+            <td class="actions">
+              <button class="edit-btn" onclick="editArticle('${article.name}')">编辑</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
     }
 
-    function editArticle(path) {
-      window.location.href = `index.html?path=${encodeURIComponent(path)}`;
-    }
-
-    function showDeleteModal(path, title) {
-      if (!githubToken) {
-        showToast('请先在编辑器页面配置 GitHub Token', 'error');
-        return;
-      }
-      deleteTarget = { path, title };
-      document.getElementById('deleteMsg').textContent = `确定要删除「${title}」吗？`;
-      document.getElementById('deleteModal').classList.add('active');
-    }
-
-    function closeDeleteModal() {
-      document.getElementById('deleteModal').classList.remove('active');
-      deleteTarget = null;
-    }
-
-    async function confirmDelete() {
-      if (!deleteTarget) return;
-
-      try {
-        const path = `${deleteTarget.path}/index.html`;
-
-        // 先获取文件的 SHA
-        const data = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${path}`);
-
-        await githubRequest('DELETE', `/repos/${OWNER}/${REPO}/contents/${path}`, {
-          message: `删除文章: ${deleteTarget.path}`,
-          sha: data.sha,
-          branch: BRANCH
-        });
-
-        showToast('删除成功', 'success');
-        closeDeleteModal();
-        loadArticles();
-
-      } catch (error) {
-        showToast('删除失败: ' + error.message, 'error');
-      }
+    function editArticle(filename) {
+      window.location.href = `index.html?file=${encodeURIComponent(filename)}`;
     }
 
     function escapeHtml(text) {
       const div = document.createElement('div');
       div.textContent = text;
       return div.innerHTML;
+    }
+
+    function showSettings() { document.getElementById('settingsModal').classList.add('active'); }
+    function closeSettings() { document.getElementById('settingsModal').classList.remove('active'); }
+
+    function saveSettings() {
+      const token = document.getElementById('githubToken').value.trim();
+      if (token) {
+        localStorage.setItem('lvc_github_token', token);
+        githubToken = token;
+        showToast('设置已保存', 'success');
+        closeSettings();
+        loadArticles();
+      }
     }
 
     function showToast(message, type = 'info') {
