@@ -312,7 +312,7 @@
         event.currentTarget.classList.add('active');
 
         const data = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${path}`);
-        const content = atob(data.content);
+        const content = decodeURIComponent(escape(atob(data.content)));
 
         // 解析 front matter
         const frontMatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
