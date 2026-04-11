@@ -466,7 +466,7 @@
     // 监听编辑器输入
     document.getElementById('editor').addEventListener('input', updatePreview);
 
-    async function saveArticle() {
+    async function saveArticleInner() {
       const title = document.getElementById('articleTitle').value.trim();
       const date = document.getElementById('articleDate').value;
       const author = document.getElementById('authorInput').value.trim();
@@ -497,31 +497,34 @@ author: ${author || 'Jeremy'}`;
 
       const fullContent = frontMatter + bodyContent;
 
+      let sha = null;
+      const path = `${POSTS_PATH}/${filename}`;
+      const encodedPath = path.split('/').map(p => encodeURIComponent(p)).join('/');
+
+      // 检查文件是否已存在
+      if (currentArticle && currentArticle.filename === filename) {
+        sha = currentArticle.sha;
+      } else {
+        try {
+          const existing = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${encodedPath}`);
+          sha = existing.sha;
+        } catch (e) {}
+      }
+
+      await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/${encodedPath}`, {
+        message: `更新文章: ${title}`,
+        content: utf8ToBase64(fullContent),
+        sha: sha,
+        branch: BRANCH
+      });
+
+      loadArticleList();
+    }
+
+    async function saveArticle() {
       try {
-        let sha = null;
-        const path = `${POSTS_PATH}/${filename}`;
-        const encodedPath = path.split('/').map(p => encodeURIComponent(p)).join('/');
-
-        // 检查文件是否已存在
-        if (currentArticle && currentArticle.filename === filename) {
-          sha = currentArticle.sha;
-        } else {
-          try {
-            const existing = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${encodedPath}`);
-            sha = existing.sha;
-          } catch (e) {}
-        }
-
-        await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/${encodedPath}`, {
-          message: `更新文章: ${title}`,
-          content: utf8ToBase64(fullContent),
-          sha: sha,
-          branch: BRANCH
-        });
-
+        await saveArticleInner();
         showToast('保存成功！', 'success');
-        loadArticleList();
-
       } catch (error) {
         showToast('保存失败: ' + error.message, 'error');
       }
@@ -654,14 +657,41 @@ author: ${author || 'Jeremy'}`;
       if (!title) { showToast('请填写文章标题', 'error'); return; }
       if (!date) { showToast('请选择日期', 'error'); return; }
 
-      // 保存就是发布
-      await saveArticle();
+      showToast('正在保存并发布...', 'info');
 
-      // 显示文章链接
-      if (currentArticle) {
-        const articleUrl = `https://www.lightvalley.org/${date}/${currentArticle.filename.replace('.md', '')}`;
-        showToast('文章已发布: ' + articleUrl, 'success');
+      try {
+        // 先保存文章
+        await saveArticleInner();
+
+        // 触发 GitHub Pages 重新构建
+        await triggerPagesBuild();
+
+        // 显示文章链接
+        if (currentArticle) {
+          const articleUrl = `https://www.lightvalley.org/${date}/${currentArticle.filename.replace('.md', '')}`;
+          showToast('文章已发布，网站正在构建中...', 'success');
+        }
+      } catch (error) {
+        showToast('发布失败: ' + error.message, 'error');
       }
+    }
+
+    // 触发 GitHub Pages 重新构建
+    async function triggerPagesBuild() {
+      const url = `https://api.github.com/repos/${OWNER}/${REPO}/pages/builds`;
+      const options = {
+        method: 'POST',
+        headers: {
+          'Authorization': `token ${githubToken}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Length': '0'
+        }
+      };
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        throw new Error('触发构建失败');
+      }
+      return response.json();
     }
   </script>
 </body>
