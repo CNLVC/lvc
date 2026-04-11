@@ -378,13 +378,17 @@
 
         // 正确解码 UTF-8
         let content = decodeBase64(data.content);
-        console.log('加载内容前100字:', content.substring(0, 100));
+        console.log('解码后前100字:', content.substring(0, 100));
+        console.log('内容包含换行符:', content.includes('\n'));
+        console.log('内容包含\\r:', content.includes('\r'));
 
         // 规范化换行符 (Windows \r\n -> Unix \n)
         content = content.replace(/\r\n/g, '\n');
+        console.log('规范化后前100字:', content.substring(0, 100));
 
         // 解析 front matter
         const frontMatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+        console.log('Front matter匹配成功:', !!frontMatterMatch);
 
         if (frontMatterMatch) {
           const frontMatter = frontMatterMatch[1];
