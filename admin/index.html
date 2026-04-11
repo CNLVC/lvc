@@ -17,17 +17,12 @@
     .header .save-status.saved { color: #2ea44f; }
 
     .container { display: flex; height: calc(100vh - 60px); }
-    .sidebar { width: 280px; background: white; border-right: 1px solid #d1d5da; overflow-y: auto; padding: 15px; }
-    .sidebar h3 { font-size: 14px; color: #586069; margin-bottom: 10px; text-transform: uppercase; }
-    .new-article-btn { width: 100%; padding: 10px; background: #2ea44f; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; margin-bottom: 15px; }
-    .new-article-btn:hover { background: #2c974b; }
-
     .editor-area { flex: 1; display: flex; flex-direction: column; background: white; overflow: hidden; }
     .editor-header { padding: 15px 20px; border-bottom: 1px solid #d1d5da; }
     .editor-header input[type="text"] { width: 100%; padding: 10px; font-size: 20px; border: 1px solid #d1d5da; border-radius: 4px; }
     .editor-header input:focus { outline: none; border-color: #0366d6; }
     .meta-row { display: flex; gap: 15px; margin-top: 10px; flex-wrap: wrap; align-items: center; }
-    .meta-row input[type="text"], .meta-row input[type="date"], .meta-row select { padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 4px; font-size: 14px; }
+    .meta-row input, .meta-row select { padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 4px; font-size: 14px; }
     .meta-row label { font-size: 14px; color: #586069; }
 
     .editor-toolbar { padding: 10px 20px; background: #f6f8fa; border-bottom: 1px solid #d1d5da; display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
@@ -47,22 +42,19 @@
     .editor-preview p { margin: 10px 0; line-height: 1.8; }
     .editor-preview blockquote { border-left: 4px solid #d1d5da; padding-left: 15px; color: #6a737d; margin: 15px 0; }
     .editor-preview ul, .editor-preview ol { margin: 10px 0; padding-left: 25px; }
-    .editor-preview code { background: #f0f0f0; padding: 2px 5px; border-radius: 3px; font-family: monospace; }
+    .editor-preview code { background: #f0f0f0; padding: 2px 5px; border-radius: 3px; }
     .editor-preview pre { background: #f6f8fa; padding: 15px; border-radius: 4px; overflow-x: auto; margin: 15px 0; }
     .editor-preview img { max-width: 100%; height: auto; }
 
     .action-bar { padding: 15px 20px; border-top: 1px solid #d1d5da; display: flex; gap: 10px; justify-content: flex-end; background: #f6f8fa; }
     .action-bar button { padding: 10px 20px; border-radius: 4px; font-size: 14px; cursor: pointer; border: none; }
-    .btn-save { background: #0366d6; color: white; }
-    .btn-save:hover { background: #0256b3; }
     .btn-publish { background: #2ea44f; color: white; }
     .btn-publish:hover { background: #2c974b; }
-    .btn-cancel { background: #f6f8fa; border: 1px solid #d1d5da !important; color: #24292e; }
 
     .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
     .modal.active { display: flex; }
-    .modal-content { background: white; padding: 30px; border-radius: 8px; width: 450px; max-width: 90%; }
-    .modal-content h2 { margin-bottom: 20px; font-size: 20px; }
+    .modal-content { background: white; padding: 30px; border-radius: 8px; width: 450px; }
+    .modal-content h2 { margin-bottom: 20px; }
     .modal-content input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; }
     .modal-content p { font-size: 12px; color: #666; margin-bottom: 15px; line-height: 1.5; }
     .modal-content button { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px; }
@@ -93,7 +85,6 @@
         上传图片<input type="file" id="imageInput" accept="image/*" onchange="handleImageUpload(event)">
       </label>
       <a href="list.html">文章列表</a>
-      <a href="index.html">写文章</a>
       <a onclick="showSettings()">设置</a>
     </div>
   </div>
@@ -110,7 +101,6 @@
           <label>分类:</label>
           <select id="categorySelect">
             <option value="">选择分类</option>
-            <option value="未分类">未分类</option>
             <option value="诗篇">诗篇</option>
             <option value="马可福音">马可福音</option>
             <option value="约翰福音">约翰福音</option>
@@ -130,6 +120,7 @@
             <option value="见证">见证</option>
             <option value="圣诞节">圣诞节</option>
             <option value="复活节">复活节</option>
+            <option value="未分类">未分类</option>
           </select>
           <label>标签:</label>
           <input type="text" id="articleTags" placeholder="多个标签用逗号分隔" style="width:180px;">
@@ -147,7 +138,6 @@
         <div class="separator"></div>
         <button onclick="insertMd('> ', '')">引用</button>
         <button onclick="insertMdAtLine('- ')">列表</button>
-        <button onclick="insertMdAtLine('1. ')">数字列表</button>
         <div class="separator"></div>
         <button onclick="insertMd('`', '`')">代码</button>
         <button onclick="insertMd('```\n', '\n```')">代码块</button>
@@ -161,24 +151,17 @@
       </div>
 
       <div class="action-bar">
-        <button class="btn-cancel" onclick="clearEditor()">清空</button>
-        <button class="btn-save" onclick="saveDraftLocal()">保存草稿</button>
-        <button class="btn-publish" onclick="publishArticle()">发布</button>
+        <button class="btn-publish" onclick="publishArticle()">发布文章</button>
       </div>
     </div>
   </div>
 
-  <!-- 设置弹窗 -->
   <div class="modal" id="settingsModal">
     <div class="modal-content">
       <h2>设置</h2>
       <div class="hint">
-        <b>重要：</b>需要一个 GitHub Personal Access Token 来操作仓库。<br>
-        生成方法：<br>
-        1. 登录 GitHub → 点击头像 → Settings<br>
-        2. 左侧底部 "Developer settings"<br>
-        3. Personal access tokens → Generate new token<br>
-        4. 勾选 <b>repo</b> 权限
+        <b>重要：</b>需要一个 GitHub Personal Access Token。<br>
+        生成方法：GitHub → Settings → Developer settings → Personal access tokens → Generate new token → 勾选 <b>repo</b>
       </div>
       <input type="text" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
       <button class="btn-primary" onclick="saveSettings()">保存</button>
@@ -200,23 +183,17 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       githubToken = localStorage.getItem('lvc_github_token') || '';
-      if (githubToken) {
-        document.getElementById('githubToken').value = githubToken;
-      }
+      if (githubToken) document.getElementById('githubToken').value = githubToken;
       document.getElementById('articleDate').value = new Date().toISOString().split('T')[0];
       initEditor();
 
-      // 检查 URL 参数中是否有文章路径
       const params = new URLSearchParams(window.location.search);
       const path = params.get('path');
-      if (path) {
-        loadArticle(path);
-      }
+      if (path) loadArticle(path);
     });
 
     function initEditor() {
       if (simplemde) return;
-
       simplemde = new SimpleMDE({
         element: document.getElementById('editor'),
         spellChecker: false,
@@ -225,26 +202,16 @@
         renderingConfig: { codeSyntaxHighlighting: false }
       });
 
-      simplemde.codemirror.on('change', () => {
-        hasUnsavedChanges = true;
-        updatePreview();
-        scheduleAutoSave();
-      });
-
+      simplemde.codemirror.on('change', () => { hasUnsavedChanges = true; updatePreview(); scheduleAutoSave(); });
       ['articleTitle', 'authorInput', 'articleTags', 'categorySelect'].forEach(id => {
-        document.getElementById(id).addEventListener('input', () => {
-          hasUnsavedChanges = true;
-          scheduleAutoSave();
-        });
+        document.getElementById(id).addEventListener('input', () => { hasUnsavedChanges = true; scheduleAutoSave(); });
       });
-
       updatePreview();
     }
 
     function updatePreview() {
       const content = simplemde ? simplemde.value() : '';
-      const html = simplemde.markdown(content);
-      document.getElementById('preview').innerHTML = html || '<p style="color:#999">预览区域</p>';
+      document.getElementById('preview').innerHTML = simplemde.markdown(content) || '<p style="color:#999">预览区域</p>';
     }
 
     function scheduleAutoSave() {
@@ -257,9 +224,7 @@
       const title = document.getElementById('articleTitle').value;
       const content = simplemde ? simplemde.value() : '';
       if (!title && !content) return;
-
       localStorage.setItem('lvc_current_draft', JSON.stringify({
-        id: currentArticle ? currentArticle.path : ('draft-' + Date.now()),
         title, content,
         date: document.getElementById('articleDate').value,
         author: document.getElementById('authorInput').value,
@@ -267,15 +232,13 @@
         tags: document.getElementById('articleTags').value,
         savedAt: new Date().toISOString()
       }));
-
       hasUnsavedChanges = false;
       updateSaveStatus('已自动保存 ' + new Date().toLocaleTimeString(), 'saved');
     }
 
     function updateSaveStatus(text, status) {
       const el = document.getElementById('saveStatus');
-      el.textContent = text;
-      el.className = 'save-status ' + status;
+      el.textContent = text; el.className = 'save-status ' + status;
     }
 
     function insertMd(before, after) {
@@ -309,23 +272,13 @@
     }
 
     async function githubRequest(method, path, data = null) {
-      if (!githubToken) {
-        showToast('请先配置 GitHub Token', 'error');
-        showSettings();
-        throw new Error('No token');
-      }
-
+      if (!githubToken) { showToast('请先配置 GitHub Token', 'error'); showSettings(); throw new Error('No token'); }
       const url = `https://api.github.com${path}`;
       const options = {
         method,
-        headers: {
-          'Authorization': `token ${githubToken}`,
-          'Content-Type': 'application/json',
-          'Accept': 'application/vnd.github.v3+json'
-        }
+        headers: { 'Authorization': `token ${githubToken}`, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' }
       };
       if (data) options.body = JSON.stringify(data);
-
       const response = await fetch(url, options);
       if (!response.ok) {
         const error = await response.json().catch(() => ({ message: response.statusText }));
@@ -345,7 +298,7 @@
         let articleContent = contentMatch ? contentMatch[1] : '';
         articleContent = htmlToMarkdown(articleContent);
 
-        currentArticle = { path, dirPath, sha: data.sha, content: articleContent };
+        currentArticle = { path, dirPath, sha: data.sha };
 
         const [year, month, day, ...titleParts] = dirPath.split('/');
         document.getElementById('articleTitle').value = titleParts.join('/');
@@ -394,27 +347,6 @@
         .replace(/\n{3,}/g, '\n\n').trim();
     }
 
-    function clearEditor() {
-      if (confirm('确定要清空编辑器吗？')) {
-        currentArticle = null;
-        document.getElementById('articleTitle').value = '';
-        document.getElementById('articleDate').value = new Date().toISOString().split('T')[0];
-        document.getElementById('authorInput').value = 'Jeremy';
-        document.getElementById('articleTags').value = '';
-        document.getElementById('categorySelect').value = '';
-        if (simplemde) simplemde.value('');
-        updatePreview();
-        hasUnsavedChanges = false;
-        updateSaveStatus('', '');
-        history.replaceState({}, '', window.location.pathname);
-      }
-    }
-
-    function saveDraftLocal() {
-      autoSaveToLocal();
-      showToast('草稿已保存', 'success');
-    }
-
     async function publishArticle() {
       const title = document.getElementById('articleTitle').value.trim();
       const date = document.getElementById('articleDate').value;
@@ -428,11 +360,19 @@
       if (!content) { showToast('请填写文章内容', 'error'); return; }
       if (!author) { showToast('请填写作者', 'error'); return; }
 
+      showLoading(true);
+
       try {
         const dateParts = date.split('-');
         const dirPath = `${dateParts[0]}/${dateParts[1]}/${dateParts[2]}/${title}`;
         const path = `${dirPath}/index.html`;
-        const html = generateHTML(title, date, author, category, tags, content);
+
+        // 计算相对路径层级 (用于 CSS/JS)
+        const depth = 4; // YYYY/MM/DD/title => 4层
+        const rel = '../'.repeat(depth);
+
+        // 生成文章 HTML
+        const html = generateArticleHTML(title, date, author, category, tags, content, rel);
 
         let sha = null;
         if (currentArticle) {
@@ -444,6 +384,7 @@
           } catch (e) {}
         }
 
+        // 1. 先创建文章
         await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/${path}`, {
           message: `发布文章: ${title}`,
           content: btoa(unescape(encodeURIComponent(html))),
@@ -451,32 +392,41 @@
           branch: BRANCH
         });
 
+        // 2. 更新首页
+        await updateHomepage(title, date, author, dirPath);
+
+        // 3. 更新归档页
+        await updateArchives(date, dirPath, title);
+
         showToast('发布成功！', 'success');
         hasUnsavedChanges = false;
         localStorage.removeItem('lvc_current_draft');
 
-        setTimeout(() => {
-          window.location.href = 'list.html';
-        }, 1500);
+        setTimeout(() => { window.location.href = 'list.html'; }, 1500);
 
       } catch (error) {
+        console.error('发布失败:', error);
         showToast('发布失败: ' + error.message, 'error');
       }
+
+      showLoading(false);
     }
 
-    function generateHTML(title, date, author, category, tags, content) {
-      const tagsHTML = tags.map(tag => `<a href="/tags/${encodeURIComponent(tag)}/" rel="tag">${tag}</a>`).join('\n      ');
-      const categoryLink = category ? `<a href="/categories/${encodeURIComponent(category)}/" rel="category tag">${category}</a>` : '';
+    function generateArticleHTML(title, date, author, category, tags, content, rel) {
+      const tagsHTML = tags.map(tag => `<a href="${rel}tags/${encodeURIComponent(tag)}/" rel="tag">${tag}</a>`).join('\n      ');
+      const categoryLink = category ? `<a href="${rel}categories/${encodeURIComponent(category)}/" rel="category tag">${category}</a>` : '';
       const articleHTML = simplemde.markdown(content);
 
       return `<!doctype html>
 <html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta name="google-site-verification" content="6-kfKiMN1djwrSTRVFWOSZdyJt9e89jigOxrsdV9hsZA" />
+  <meta name="baidu-site-verification" content="12uBeLpYi9" />
+  <link href="${rel}lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <meta name="keywords" content="${tags.join(',')}," />
   <link rel="alternate" href="/atom.xml" title="光谷教会 | Light Valley Church" type="application/atom+xml" />
-  <link rel="canonical" href="http://www.lightvalley.org/"/>
+  <link rel="canonical" href="http://www.lightvalley.org/${date.replace(/-/g, '/')}/${title}/"/>
   <title>${title} | 光谷教会</title>
 </head>
 <body itemscope itemtype="http://schema.org/Article">
@@ -486,17 +436,108 @@
       <h1 class="title" itemprop="name">${title}</h1>
       <div class="post-meta">
         <span class="post-date" itemprop="dateCreated">${date}</span>
-        <a href="/authors/${encodeURIComponent(author)}/" rel="author" itemprop="author">${author}</a>${categoryLink ? ' · ' + categoryLink : ''}
+        <a href="${rel}authors/${encodeURIComponent(author)}/" rel="author" itemprop="author">${author}</a>${categoryLink ? ' · ' + categoryLink : ''}
       </div>
       <div class="post-tags">${tags.length > 0 ? tagsHTML : ''}</div>
       <div class="entry-content" itemprop="articleBody">${articleHTML}</div>
       <div class="post-shares"> </div>
     </article>
-    <nav class="article-nav"><a href="/" class="prev">返回首页</a></nav>
+    <nav class="article-nav"><a href="${rel}" class="prev">返回首页</a></nav>
   </div>
   <footer class="footer"> </footer>
 </body>
 </html>`;
+    }
+
+    async function updateHomepage(title, date, author, dirPath) {
+      try {
+        // 获取首页
+        const homeData = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/index.html`);
+        const homeResponse = await fetch(homeData.download_url);
+        let homeContent = await homeResponse.text();
+
+        // 构建新文章的链接
+        const articleUrl = `/${dirPath}/`;
+        const articleLink = `
+            <a class="post-title-link" href="${articleUrl}" itemprop="url">${title}</a>`;
+
+        // 在 <head> 中添加 og:url meta
+        const ogUrlMeta = `\n  <meta property="og:url" content="http://www.lightvalley.org${articleUrl}"/>`;
+        homeContent = homeContent.replace('</head>', ogUrlMeta + '\n</head>');
+
+        // 在文章列表开头插入新文章链接（在最后一个 2019 文章之前）
+        const last2019Pos = homeContent.indexOf('href="/2019/');
+        if (last2019Pos > -1) {
+          homeContent = homeContent.slice(0, last2019Pos) + articleLink + '\n' + homeContent.slice(last2019Pos);
+        } else {
+          // 如果没找到，在 </div> 后面的某个位置插入
+          const insertPos = homeContent.indexOf('<a class="post-title-link" href="/20');
+          if (insertPos > -1) {
+            homeContent = homeContent.slice(0, insertPos) + articleLink + '\n' + homeContent.slice(insertPos);
+          }
+        }
+
+        // 更新首页
+        await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/index.html`, {
+          message: `更新首页: 添加文章 ${title}`,
+          content: btoa(unescape(encodeURIComponent(homeContent))),
+          sha: homeData.sha,
+          branch: BRANCH
+        });
+
+      } catch (e) {
+        console.error('更新首页失败:', e);
+        // 不中断发布流程
+      }
+    }
+
+    async function updateArchives(date, dirPath, title) {
+      try {
+        const [year, month] = date.split('-');
+
+        // 获取年份归档页，如 2026/index.html
+        const yearPath = `${year}/index.html`;
+        const monthPath = `${year}/${month}/index.html`;
+
+        // 更新年归档
+        await updateArchivePage(yearPath, dirPath, title, date);
+
+        // 更新月归档
+        await updateArchivePage(monthPath, dirPath, title, date);
+
+      } catch (e) {
+        console.error('更新归档页失败:', e);
+      }
+    }
+
+    async function updateArchivePage(path, dirPath, title, date) {
+      try {
+        const data = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${path}`);
+        const response = await fetch(data.download_url);
+        let content = await response.text();
+
+        const articleUrl = `/${dirPath}/`;
+        const articleLink = `\n            <a class="post-title-link" href="${articleUrl}" itemprop="url">${title}</a>`;
+
+        // 找到最后一篇文章的位置，在其之前插入
+        const lastArticlePos = content.lastIndexOf('<a class="post-title-link" href="/20');
+        if (lastArticlePos > -1) {
+          // 找到这个位置的换行符
+          const insertPos = content.lastIndexOf('\n', lastArticlePos);
+          content = content.slice(0, insertPos) + articleLink + '\n' + content.slice(insertPos + 1);
+        }
+
+        await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/${path}`, {
+          message: `更新归档: 添加文章 ${title}`,
+          content: btoa(unescape(encodeURIComponent(content))),
+          sha: data.sha,
+          branch: BRANCH
+        });
+
+      } catch (e) {
+        // 归档页可能不存在，忽略错误
+        console.log(`归档页 ${path} 不存在，跳过`);
+      }
     }
 
     async function handleImageUpload(event) {
@@ -518,14 +559,20 @@
           });
 
           const imageUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${fileName}`;
-          if (simplemde) {
-            simplemde.codemirror.replaceSelection(`\n![${file.name}](${imageUrl})\n`);
-          }
+          if (simplemde) simplemde.codemirror.replaceSelection(`\n![${file.name}](${imageUrl})\n`);
           showToast('图片上传成功！', 'success');
         };
         reader.readAsDataURL(file);
       } catch (error) {
         showToast('图片上传失败: ' + error.message, 'error');
+      }
+    }
+
+    function showLoading(show) {
+      const el = document.getElementById('toast');
+      if (show) {
+        el.className = 'toast show';
+        el.textContent = '处理中...';
       }
     }
 
