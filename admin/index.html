@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>写文章 - LVC</title>
+  <title>文章编辑 - LVC</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; }
@@ -11,50 +11,43 @@
     .header { background: #24292e; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
     .header h1 { font-size: 18px; }
     .header a { color: white; text-decoration: none; margin-left: 20px; }
-    .header a:hover { text-decoration: underline; }
 
     .container { max-width: 1400px; margin: 20px auto; padding: 0 20px; display: flex; gap: 20px; }
+
     .sidebar { width: 280px; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); max-height: calc(100vh - 120px); overflow-y: auto; }
     .sidebar-header { padding: 15px; border-bottom: 1px solid #e1e4e8; display: flex; justify-content: space-between; align-items: center; }
     .sidebar-header h2 { font-size: 14px; color: #586069; }
     .sidebar-header button { padding: 5px 10px; background: #0366d6; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; }
-    .sidebar-header button:hover { background: #0256b3; }
 
     .article-list { list-style: none; }
     .article-list li { border-bottom: 1px solid #e1e4e8; }
     .article-list li:last-child { border-bottom: none; }
-    .article-list a { display: block; padding: 12px 15px; color: #24292e; text-decoration: none; font-size: 14px; }
+    .article-list a { display: block; padding: 12px 15px; color: #24292e; text-decoration: none; font-size: 14px; cursor: pointer; }
     .article-list a:hover { background: #f6f8fa; }
     .article-list a.active { background: #e8f0fe; border-left: 3px solid #0366d6; }
-
     .article-list .date { font-size: 12px; color: #586069; margin-top: 4px; }
 
     .editor-area { flex: 1; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; flex-direction: column; min-height: calc(100vh - 120px); }
     .editor-header { padding: 15px 20px; border-bottom: 1px solid #e1e4e8; }
-    .editor-header input[type="text"] { width: 100%; padding: 10px; font-size: 18px; border: 1px solid #d1d5da; border-radius: 4px; }
+    .editor-header input { padding: 10px; font-size: 16px; border: 1px solid #d1d5da; border-radius: 4px; width: 100%; }
     .editor-header input:focus { outline: none; border-color: #0366d6; }
     .meta-row { display: flex; gap: 15px; margin-top: 10px; flex-wrap: wrap; align-items: center; }
     .meta-row input, .meta-row select { padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 4px; font-size: 14px; }
-    .meta-row label { font-size: 14px; color: #586069; }
 
-    .editor-toolbar { padding: 10px 20px; background: #f6f8fa; border-bottom: 1px solid #d1d5da; display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
+    .editor-toolbar { padding: 10px 20px; background: #f6f8fa; border-bottom: 1px solid #d1d5da; display: flex; gap: 5px; flex-wrap: wrap; }
     .editor-toolbar button { padding: 6px 12px; background: white; border: 1px solid #d1d5da; border-radius: 4px; cursor: pointer; font-size: 14px; }
     .editor-toolbar button:hover { background: #f0f0f0; }
-    .editor-toolbar .separator { width: 1px; height: 24px; background: #d1d5da; margin: 0 10px; }
 
-    .editor-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-    .editor-container { flex: 1; overflow: hidden; position: relative; min-height: 400px; }
-    .CodeMirror { height: 100% !important; font-size: 15px; line-height: 1.6; position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
-    .editor-preview { padding: 20px; overflow-y: auto; background: #fafafa; border-top: 1px solid #d1e4e8; flex: 1; min-height: 150px; max-height: 40vh; }
-    .editor-preview h1 { font-size: 28px; margin-bottom: 15px; }
-    .editor-preview h2 { font-size: 24px; margin: 20px 0 10px; }
-    .editor-preview h3 { font-size: 20px; margin: 15px 0 8px; }
-    .editor-preview p { margin: 10px 0; line-height: 1.8; }
-    .editor-preview blockquote { border-left: 4px solid #d1d5da; padding-left: 15px; color: #6a737d; margin: 15px 0; }
-    .editor-preview ul, .editor-preview ol { margin: 10px 0; padding-left: 25px; }
-    .editor-preview code { background: #f0f0f0; padding: 2px 5px; border-radius: 3px; }
-    .editor-preview pre { background: #f6f8fa; padding: 15px; border-radius: 4px; overflow-x: auto; margin: 15px 0; }
-    .editor-preview img { max-width: 100%; height: auto; }
+    .editor-content { flex: 1; display: flex; overflow: hidden; }
+    .editor-content textarea { flex: 1; border: none; padding: 20px; font-size: 15px; font-family: 'Consolas', 'Monaco', monospace; line-height: 1.6; resize: none; }
+    .editor-content textarea:focus { outline: none; }
+
+    .preview-pane { flex: 1; padding: 20px; overflow-y: auto; background: #fafafa; border-left: 1px solid #e1e4e8; }
+    .preview-pane h1 { font-size: 24px; margin-bottom: 15px; }
+    .preview-pane h2 { font-size: 20px; margin: 15px 0 10px; }
+    .preview-pane p { margin: 10px 0; line-height: 1.8; }
+    .preview-pane blockquote { border-left: 4px solid #d1d5da; padding-left: 15px; color: #6a737d; margin: 15px 0; }
+    .preview-pane pre { background: #f6f8fa; padding: 10px; border-radius: 4px; overflow-x: auto; }
 
     .action-bar { padding: 15px 20px; border-top: 1px solid #d1d5da; display: flex; gap: 10px; justify-content: flex-end; background: #f6f8fa; }
     .action-bar button { padding: 10px 20px; border-radius: 4px; font-size: 14px; cursor: pointer; border: none; }
@@ -90,24 +83,14 @@
     .modal-settings .btn-primary { background: #4183c4; color: white; }
 
     .hint { background: #fff8e5; border: 1px solid #ffe58f; padding: 10px 15px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; color: #8a6d3b; }
-
-    .image-upload-btn { padding: 6px 12px; background: white; border: 1px solid #d1d5da; border-radius: 4px; cursor: pointer; font-size: 14px; }
-    input[type="file"] { display: none; }
-
     .error-msg { color: #cb2431; padding: 20px; text-align: center; }
   </style>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.js"></script>
 </head>
 <body>
 
   <div class="header">
     <h1>LVC 文章管理</h1>
-    <div style="display:flex;align-items:center;">
-      <label class="image-upload-btn">
-        上传图片<input type="file" id="imageInput" accept="image/*" onchange="handleImageUpload(event)">
-      </label>
+    <div>
       <a href="list.html">文章列表</a>
       <a onclick="showSettings()">设置</a>
     </div>
@@ -117,7 +100,7 @@
     <div class="sidebar">
       <div class="sidebar-header">
         <h2>文章列表</h2>
-        <button onclick="createNewArticle()">新建文章</button>
+        <button onclick="createNewArticle()">新建</button>
       </div>
       <div id="loading" class="loading">加载中...</div>
       <div id="empty" class="empty" style="display:none">暂无文章</div>
@@ -153,37 +136,27 @@
             <option value="启示录">启示录</option>
             <option value="使徒行传">使徒行传</option>
             <option value="见证">见证</option>
-            <option value="圣诞节">圣诞节</option>
-            <option value="复活节">复活节</option>
             <option value="未分类">未分类</option>
           </select>
           <label>标签:</label>
-          <input type="text" id="articleTags" placeholder="多个标签用逗号分隔" style="width:180px;">
+          <input type="text" id="articleTags" placeholder="多个标签用逗号分隔" style="width:150px;">
         </div>
       </div>
 
       <div class="editor-toolbar">
         <button onclick="insertMd('**', '**')"><b>B</b></button>
         <button onclick="insertMd('*', '*')"><i>I</i></button>
-        <button onclick="insertMd('<u>', '</u>')"><u>U</u></button>
-        <div class="separator"></div>
-        <button onclick="insertMdAtLine('# ')">H1</button>
-        <button onclick="insertMdAtLine('## ')">H2</button>
-        <button onclick="insertMdAtLine('### ')">H3</button>
-        <div class="separator"></div>
         <button onclick="insertMd('> ', '')">引用</button>
-        <button onclick="insertMdAtLine('- ')">列表</button>
-        <div class="separator"></div>
+        <button onclick="insertMd('\n- ', '')">列表</button>
         <button onclick="insertMd('`', '`')">代码</button>
-        <button onclick="insertMd('```\n', '\n```')">代码块</button>
+        <button onclick="insertMd('\n## ', '')">H2</button>
+        <button onclick="insertMd('\n### ', '')">H3</button>
       </div>
 
-      <div class="editor-wrapper">
-        <div class="editor-container">
-          <textarea id="editor"></textarea>
-        </div>
-        <div class="editor-preview" id="preview">
-          <p style="color:#999">选择一篇文章开始编辑...</p>
+      <div class="editor-content">
+        <textarea id="editor" placeholder="选择一篇文章开始编辑，或点击新建..."></textarea>
+        <div class="preview-pane" id="preview">
+          <p style="color:#999">预览区域</p>
         </div>
       </div>
 
@@ -199,8 +172,7 @@
     <div class="modal-content">
       <h2>设置</h2>
       <div class="hint">
-        <b>重要：</b>需要一个 GitHub Personal Access Token。<br>
-        生成方法：GitHub → Settings → Developer settings → Personal access tokens → Generate new token → 勾选 <b>repo</b>
+        <b>重要：</b>需要一个 GitHub Personal Access Token。
       </div>
       <input type="text" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
       <button class="btn-primary" onclick="saveSettings()">保存</button>
@@ -226,7 +198,6 @@
     const BRANCH = 'master';
     const POSTS_PATH = '_posts';
 
-    let simplemde = null;
     let articles = [];
     let currentArticle = null;
     let githubToken = '';
@@ -234,59 +205,22 @@
     document.addEventListener('DOMContentLoaded', () => {
       githubToken = localStorage.getItem('lvc_github_token') || '';
       if (githubToken) document.getElementById('githubToken').value = githubToken;
-      initEditor();
-
-      // 检查 URL 是否有 file 参数
-      const urlParams = new URLSearchParams(window.location.search);
-      const fileParam = urlParams.get('file');
-
-      loadArticleList().then(() => {
-        if (fileParam) {
-          // 从 file 参数加载文章
-          const index = articles.findIndex(a => a.name === fileParam);
-          if (index >= 0) {
-            loadArticleByIndex(index);
-          }
-        }
-      });
+      loadArticleList();
     });
 
-    function initEditor() {
-      if (simplemde) return;
-      simplemde = new SimpleMDE({
-        element: document.getElementById('editor'),
-        spellChecker: false,
-        autofocus: false,
-        placeholder: '在这里写文章内容...',
-        renderingConfig: { codeSyntaxHighlighting: false }
-      });
-
-      simplemde.codemirror.on('change', updatePreview);
-    }
-
-    function updatePreview() {
-      const content = simplemde ? simplemde.value() : '';
-      document.getElementById('preview').innerHTML = simplemde.markdown(content) || '<p style="color:#999">预览区域</p>';
-    }
-
-    // Base64 解码 - 正确处理 UTF-8
-    function decodeBase64(base64String) {
-      try {
-        const binaryString = atob(base64String);
-        const bytes = new Uint8Array(binaryString.length);
-        for (let i = 0; i < binaryString.length; i++) {
-          bytes[i] = binaryString.charCodeAt(i);
-        }
-        return new TextDecoder('utf-8').decode(bytes);
-      } catch (e) {
-        console.error('Base64 解码失败:', e);
-        return binaryString;
+    // 解码 Base64 为 UTF-8
+    function base64ToUtf8(base64) {
+      const binary = atob(base64);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
       }
+      return new TextDecoder('utf-8').decode(bytes);
     }
 
-    // Base64 编码
-    function encodeBase64(content) {
-      return btoa(unescape(encodeURIComponent(content)));
+    // 编码 UTF-8 为 Base64
+    function utf8ToBase64(str) {
+      return btoa(unescape(encodeURIComponent(str)));
     }
 
     async function githubRequest(method, path, data = null) {
@@ -330,7 +264,6 @@
           return;
         }
 
-        // 使用 textContent 安全渲染
         const ul = document.getElementById('articleList');
         articles.forEach((art, index) => {
           const li = document.createElement('li');
@@ -359,7 +292,6 @@
         document.getElementById('loading').style.display = 'none';
         document.getElementById('error').style.display = 'block';
         document.getElementById('error').textContent = '加载失败: ' + error.message;
-        showToast('加载文章列表失败: ' + error.message, 'error');
       }
     }
 
@@ -372,29 +304,20 @@
       document.querySelectorAll('.article-list a')[index].classList.add('active');
 
       try {
-        // URL 编码路径
         const encodedPath = art.path.split('/').map(p => encodeURIComponent(p)).join('/');
         const data = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${encodedPath}`);
 
-        // 正确解码 UTF-8
-        let content = decodeBase64(data.content);
-        console.log('解码后前100字:', content.substring(0, 100));
-        console.log('内容包含换行符:', content.includes('\n'));
-        console.log('内容包含\\r:', content.includes('\r'));
-
-        // 规范化换行符 (Windows \r\n -> Unix \n)
-        content = content.replace(/\r\n/g, '\n');
-        console.log('规范化后前100字:', content.substring(0, 100));
+        // 解码内容
+        let content = base64ToUtf8(data.content);
 
         // 解析 front matter
         const frontMatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-        console.log('Front matter匹配成功:', !!frontMatterMatch);
 
         if (frontMatterMatch) {
           const frontMatter = frontMatterMatch[1];
           const body = frontMatterMatch[2];
 
-          // 解析 front matter 字段
+          // 解析字段
           const titleMatch = frontMatter.match(/title:\s*"?([^"\n]+)"?/);
           const dateMatch = frontMatter.match(/date:\s*(\d{4}-\d{2}-\d{2})/);
           const authorMatch = frontMatter.match(/author:\s*"?([^"\n]+)"?/);
@@ -413,16 +336,15 @@
             document.getElementById('articleTags').value = '';
           }
 
-          simplemde.value(body.trim());
+          document.getElementById('editor').value = body.trim();
         } else {
-          simplemde.value(content);
+          document.getElementById('editor').value = content;
         }
 
         currentArticle = { filename: art.name, path: art.path, sha: data.sha };
         updatePreview();
 
       } catch (error) {
-        console.error('加载文章失败:', error);
         showToast('加载文章失败: ' + error.message, 'error');
       }
     }
@@ -434,11 +356,39 @@
       document.getElementById('authorInput').value = 'Jeremy';
       document.getElementById('categorySelect').value = '';
       document.getElementById('articleTags').value = '';
-      simplemde.value('');
-      updatePreview();
-
+      document.getElementById('editor').value = '';
       document.querySelectorAll('.article-list a').forEach(a => a.classList.remove('active'));
+      updatePreview();
     }
+
+    function updatePreview() {
+      const content = document.getElementById('editor').value;
+      const preview = document.getElementById('preview');
+
+      if (!content.trim()) {
+        preview.innerHTML = '<p style="color:#999">预览区域</p>';
+        return;
+      }
+
+      // 简单的 Markdown 转 HTML
+      let html = content
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+        .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+        .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
+        .replace(/^- (.+)$/gm, '<li>$1</li>')
+        .replace(/\n/g, '<br>');
+
+      preview.innerHTML = '<div>' + html + '</div>';
+    }
+
+    // 监听编辑器输入
+    document.getElementById('editor').addEventListener('input', updatePreview);
 
     async function saveArticle() {
       const title = document.getElementById('articleTitle').value.trim();
@@ -446,11 +396,11 @@
       const author = document.getElementById('authorInput').value.trim();
       const category = document.getElementById('categorySelect').value;
       const tags = document.getElementById('articleTags').value.split(',').map(t => t.trim()).filter(t => t);
-      const content = simplemde ? simplemde.value() : '';
+      const bodyContent = document.getElementById('editor').value;
 
       if (!title) { showToast('请填写文章标题', 'error'); return; }
       if (!date) { showToast('请选择日期', 'error'); return; }
-      if (!content) { showToast('请填写文章内容', 'error'); return; }
+      if (!bodyContent) { showToast('请填写文章内容', 'error'); return; }
 
       // 生成文件名
       const safeTitle = title.replace(/[<>:"/\\|?*]/g, '-').substring(0, 80);
@@ -469,7 +419,7 @@ author: ${author || 'Jeremy'}`;
       }
       frontMatter += '\n---\n\n';
 
-      const fullContent = frontMatter + content;
+      const fullContent = frontMatter + bodyContent;
 
       try {
         let sha = null;
@@ -477,16 +427,18 @@ author: ${author || 'Jeremy'}`;
         const encodedPath = path.split('/').map(p => encodeURIComponent(p)).join('/');
 
         // 检查文件是否已存在
-        try {
-          const existing = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${encodedPath}`);
-          sha = existing.sha;
-        } catch (e) {
-          // 文件不存在
+        if (currentArticle && currentArticle.filename === filename) {
+          sha = currentArticle.sha;
+        } else {
+          try {
+            const existing = await githubRequest('GET', `/repos/${OWNER}/${REPO}/contents/${encodedPath}`);
+            sha = existing.sha;
+          } catch (e) {}
         }
 
         await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/${encodedPath}`, {
           message: `更新文章: ${title}`,
-          content: encodeBase64(fullContent),
+          content: utf8ToBase64(fullContent),
           sha: sha,
           branch: BRANCH
         });
@@ -533,6 +485,19 @@ author: ${author || 'Jeremy'}`;
       }
     }
 
+    function insertMd(before, after) {
+      const editor = document.getElementById('editor');
+      const start = editor.selectionStart;
+      const end = editor.selectionEnd;
+      const text = editor.value;
+      const selected = text.substring(start, end);
+      editor.value = text.substring(0, start) + before + selected + after + text.substring(end);
+      editor.focus();
+      editor.selectionStart = start + before.length;
+      editor.selectionEnd = start + before.length + selected.length;
+      updatePreview();
+    }
+
     function showSettings() { document.getElementById('settingsModal').classList.add('active'); }
     function closeSettings() { document.getElementById('settingsModal').classList.remove('active'); }
 
@@ -544,52 +509,6 @@ author: ${author || 'Jeremy'}`;
         showToast('设置已保存', 'success');
         closeSettings();
         loadArticleList();
-      }
-    }
-
-    function insertMd(before, after) {
-      if (!simplemde) return;
-      const cm = simplemde.codemirror;
-      const start = cm.getSelection();
-      cm.replaceSelection(before + start + after);
-      cm.focus();
-    }
-
-    function insertMdAtLine(prefix) {
-      if (!simplemde) return;
-      const cm = simplemde.codemirror;
-      const pos = cm.getCursor();
-      const line = cm.getLine(pos.line);
-      cm.replaceRange(prefix + line, { line: pos.line, ch: 0 }, { line: pos.line, ch: line.length });
-      cm.focus();
-    }
-
-    async function handleImageUpload(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      if (!githubToken) { showToast('请先配置 GitHub Token', 'error'); showSettings(); return; }
-
-      try {
-        const reader = new FileReader();
-        reader.onload = async (e) => {
-          const base64 = e.target.result.split(',')[1];
-          const ext = file.name.split('.').pop() || 'png';
-          const fileName = `images/${Date.now()}-${Math.random().toString(36).substr(2, 9)}.${ext}`;
-          const encodedPath = `images/${encodeURIComponent(fileName)}`;
-
-          await githubRequest('PUT', `/repos/${OWNER}/${REPO}/contents/${encodedPath}`, {
-            message: `上传图片: ${file.name}`,
-            content: base64,
-            branch: BRANCH
-          });
-
-          const imageUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${encodedPath}`;
-          if (simplemde) simplemde.codemirror.replaceSelection(`\n![${file.name}](${imageUrl})\n`);
-          showToast('图片上传成功！', 'success');
-        };
-        reader.readAsDataURL(file);
-      } catch (error) {
-        showToast('图片上传失败: ' + error.message, 'error');
       }
     }
 
