@@ -58,7 +58,7 @@ jobs:
 
           # Configure sidebar
           sed -i 's/^  display: post$/  display: always/' themes/next/_config.yml
-          sed -i 's|^  #url: #/images/avatar.gif$|  url: /images/logo90.png|' themes/next/_config.yml
+          sed -i 's|^  url: #/images/avatar.gif$|  url: /images/logo90.png|' themes/next/_config.yml
           sed -i 's/^  #rounded: false$/  rounded: true/' themes/next/_config.yml
 
           # Fix icon font class (remove trailing slash)
