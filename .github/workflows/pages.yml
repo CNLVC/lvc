@@ -49,6 +49,7 @@ jobs:
           sed -i 's/^  #tags: \/tags\/ || fa fa-tags$/  tags: \/tags\/ || fa fa-tags/' themes/next/_config.yml
           sed -i 's/^  #categories: \/categories\/ || fa fa-th$/  categories: \/categories\/ || fa fa-th/' themes/next/_config.yml
           sed -i 's/^  #archives: \/archives\/ || fa fa-archive$/  archives: \/archives\/ || fa fa-archive/' themes/next/_config.yml
+          sed -i 's/^  display: post$/  display: always/' themes/next/_config.yml
 
       - name: Build Hexo site
         run: npm run build
