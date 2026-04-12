@@ -42,17 +42,27 @@ jobs:
 
       - name: Configure theme language and menu
         run: |
+          # Configure theme scheme and language
           sed -i 's/^scheme: Muse$/scheme: Mist/' themes/next/_config.yml
           sed -i '/^scheme: Mist$/a language: zh-CN' themes/next/_config.yml
+
+          # Enable menu items
           sed -i 's/^  #home: \/ || fa fa-home$/  home: \/ || fa fa-home/' themes/next/_config.yml
           sed -i 's/^  #about: \/about\/ || fa fa-user$/  about: \/about\/ || fa fa-user/' themes/next/_config.yml
           sed -i 's/^  #tags: \/tags\/ || fa fa-tags$/  tags: \/tags\/ || fa fa-tags/' themes/next/_config.yml
           sed -i 's/^  #categories: \/categories\/ || fa fa-th$/  categories: \/categories\/ || fa fa-th/' themes/next/_config.yml
           sed -i 's/^  #archives: \/archives\/ || fa fa-archive$/  archives: \/archives\/ || fa fa-archive/' themes/next/_config.yml
+
+          # Add 新人 menu
           sed -i '/^  archives: \/archives\/ || fa fa-archive$/a\  new: \/new\/ || fa fa-user-plus/' themes/next/_config.yml
+
+          # Configure sidebar
           sed -i 's/^  display: post$/  display: always/' themes/next/_config.yml
-          sed -i 's/^  #url: #\/images\/avatar.gif$/  url: \/images\/logo90.png/' themes/next/_config.yml
+          sed -i 's|^  #url: #/images/avatar.gif$|  url: /images/logo90.png|' themes/next/_config.yml
           sed -i 's/^  #rounded: false$/  rounded: true/' themes/next/_config.yml
+
+          # Fix icon font class (remove trailing slash)
+          sed -i 's/fa-user-plus\//fa-user-plus/' themes/next/_config.yml
 
       - name: Build Hexo site
         run: npm run build
