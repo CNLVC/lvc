@@ -54,7 +54,7 @@ jobs:
           sed -i 's/^  #archives: \/archives\/ || fa fa-archive$/  archives: \/archives\/ || fa fa-archive/' themes/next/_config.yml
 
           # Add 新人 menu
-          sed -i '/^  archives: \/archives\/ || fa fa-archive$/a\  new: \/new\/ || fa fa-user-plus/' themes/next/_config.yml
+          sed -i '/^  archives: \/archives\/ || fa fa-archive$/a\  新人: \/new\/ || fa fa-user-plus/' themes/next/_config.yml
 
           # Configure sidebar
           sed -i 's/^  display: post$/  display: always/' themes/next/_config.yml
