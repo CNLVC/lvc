@@ -40,6 +40,10 @@ jobs:
           mkdir -p themes
           cp -r node_modules/hexo-theme-next themes/next
 
+      - name: Configure theme language
+        run: |
+          sed -i 's/^scheme: Muse$/scheme: Muse\nlanguage: zh-CN/' themes/next/_config.yml
+
       - name: Build Hexo site
         run: npm run build
 
