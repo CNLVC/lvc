@@ -42,8 +42,10 @@ jobs:
       - name: Build Hexo site
         run: npm run build
 
-      - name: Copy admin panel to public
-        run: cp -r admin public/
+      - name: Copy admin panel and CNAME to public
+        run: |
+          cp -r admin public/
+          cp CNAME public/ || true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
