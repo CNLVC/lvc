@@ -29,13 +29,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-
-      - name: Clone NexT theme
-        run: |
-          git clone --branch v8.0.0 --depth 1 https://github.com/next-theme/hexo-theme-next.git themes/next
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm install
+
+      - name: Setup theme
+        run: |
+          mkdir -p themes
+          cp -r node_modules/hexo-theme-next themes/next
 
       - name: Build Hexo site
         run: npm run build
