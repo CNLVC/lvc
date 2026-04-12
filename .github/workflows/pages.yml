@@ -84,6 +84,7 @@ jobs:
           cp -r images public/
           cp -r lib public/
           cp -r js public/
+          cp -r css public/
           cp source/js/truncate.js public/js/ 2>/dev/null || true
           # Add script tag to include truncate.js before </body>
           sed -i 's|</body>|<script src="/js/truncate.js"></script></body>|' public/index.html
