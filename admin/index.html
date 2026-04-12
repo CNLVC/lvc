@@ -273,6 +273,10 @@
         const error = await response.json().catch(() => ({ message: response.statusText }));
         throw new Error(error.message || '请求失败');
       }
+      // DELETE requests return 204 No Content
+      if (response.status === 204) {
+        return { success: true };
+      }
       return response.json();
     }
 
