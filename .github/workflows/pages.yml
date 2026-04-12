@@ -82,6 +82,9 @@ jobs:
           cp -r categories public/
           cp -r authors public/
           cp -r images public/
+          cp source/js/truncate.js public/js/ 2>/dev/null || true
+          # Add script tag to include truncate.js before </body>
+          sed -i 's|</body>|<script src="/js/truncate.js"></script></body>|' public/index.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
