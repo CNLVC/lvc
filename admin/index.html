@@ -644,9 +644,12 @@ author: ${author || 'Jeremy'}`;
     async function saveArticle() {
       try {
         // 保存时保持当前发布状态
-        // 新文章保持草稿状态，已发布的文章保持已发布状态
-        const publish = currentArticle ? null : true;
-        await saveArticleInner(true, publish);
+        // 新文章默认是草稿，已发布的文章保持已发布状态
+        // publish=true 设置 draft: false (发布)
+        // publish=false 设置 draft: true (草稿)
+        const isNewArticle = !currentArticle;
+        const shouldBePublished = isNewArticle ? false : !isDraft;
+        await saveArticleInner(true, shouldBePublished);
         hasUnsavedChanges = false;
         updatePublishStatus();
         showToast('保存成功！', 'success');
