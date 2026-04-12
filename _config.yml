@@ -57,8 +57,8 @@ index_generator:
   order_by: -date
 
 # Excerpt
-excerpt: true
-excerpt_length: 500
+excerpt:
+  length: 500
 
 # Category & Tag
 default_category: uncategorized
