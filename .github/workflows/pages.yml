@@ -56,10 +56,14 @@ jobs:
           # Add 新人 menu
           sed -i '/^  archives: \/archives\/ || fa fa-archive$/a\  新人: \/new\/ || fa fa-user-plus/' themes/next/_config.yml
 
-          # Configure sidebar
+          # Configure sidebar - move to right, always display
+          sed -i 's/^  position: left$/  position: right/' themes/next/_config.yml
           sed -i 's/^  display: post$/  display: always/' themes/next/_config.yml
           sed -i 's|^  url: #/images/avatar.gif$|  url: /images/logo90.png|' themes/next/_config.yml
           sed -i 's/^  #rounded: false$/  rounded: true/' themes/next/_config.yml
+
+          # Configure light/dark mode - use light theme
+          sed -i 's/^darkmode: true$/darkmode: false/' themes/next/_config.yml
 
           # Fix icon font class (remove trailing slash)
           sed -i 's/fa-user-plus\//fa-user-plus/' themes/next/_config.yml
