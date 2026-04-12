@@ -44,7 +44,6 @@ jobs:
 
       - name: Copy static files and admin panel to public
         run: |
-          cp index.html public/ || true
           cp CNAME public/ || true
           cp -r admin public/
 

@@ -16,7 +16,6 @@ pretty_urls:
   trailing_html: false
 
 # Directory
-source_dir: _posts
 public_dir: public
 tag_dir: tags
 archive_dir: archives
