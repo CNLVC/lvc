@@ -91,6 +91,12 @@ jobs:
               sed -i 's/"position":"left"/"position":"right"/g' "$f"
               sed -i 's/sidebar-position-left/sidebar-position-right/g' "$f"
               sed -i 's/darkmode": true/darkmode": false/g' "$f"
+              # Fix relative paths to absolute paths
+              sed -i 's|href="\.\./css/|href="/css/|g' "$f"
+              sed -i 's|href="\.\./lib/|href="/lib/|g' "$f"
+              sed -i 's|href="\.\./js/|href="/js/|g' "$f"
+              sed -i 's|src="\.\./js/|src="/js/|g' "$f"
+              sed -i 's|src="\.\./lib/|src="/lib/|g' "$f"
               # Add truncate.js script
               sed -i 's|</body>|<script src="/js/truncate.js"></script></body>|' "$f"
             fi
@@ -100,6 +106,12 @@ jobs:
           find public/about public/new public/archives public/tags public/categories -name "index.html" -exec sed -i 's/sidebar-position-left/sidebar-position-right/g' {} \;
           find public/about public/new public/archives public/tags public/categories -name "index.html" -exec sed -i 's/darkmode": true/darkmode": false/g' {} \;
           find public/about public/new public/archives public/tags public/categories -name "index.html" -exec sed -i 's|</body>|<script src="/js/truncate.js"></script></body>|' {} \;
+          # Fix relative paths in all subdirectory HTML files
+          find public/about public/new public/archives public/tags public/categories -name "index.html" -exec sed -i 's|href="\.\./css/|href="/css/|g' {} \;
+          find public/about public/new public/archives public/tags public/categories -name "index.html" -exec sed -i 's|href="\.\./lib/|href="/lib/|g' {} \;
+          find public/about public/new public/archives public/tags public/categories -name "index.html" -exec sed -i 's|href="\.\./js/|href="/js/|g' {} \;
+          find public/about public/new public/archives public/tags public/categories -name "index.html" -exec sed -i 's|src="\.\./js/|src="/js/|g' {} \;
+          find public/about public/new public/archives public/tags public/categories -name "index.html" -exec sed -i 's|src="\.\./lib/|src="/lib/|g' {} \;
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
