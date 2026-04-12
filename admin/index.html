@@ -569,9 +569,6 @@
       }
     }
 
-    // 监听编辑器输入
-    document.getElementById('editor').addEventListener('input', updatePreview);
-
     async function saveArticleInner(withDraftFlag, publish = null) {
       const title = document.getElementById('articleTitle').value.trim();
       const date = document.getElementById('articleDate').value;
@@ -647,8 +644,9 @@ author: ${author || 'Jeremy'}`;
     async function saveArticle() {
       try {
         // 保存时保持当前发布状态
-        const publish = currentArticle && !isDraft ? false : null; // null 表示不改变状态
-        await saveArticleInner(true, publish === null ? null : null);
+        // 新文章保持草稿状态，已发布的文章保持已发布状态
+        const publish = currentArticle ? null : true;
+        await saveArticleInner(true, publish);
         hasUnsavedChanges = false;
         updatePublishStatus();
         showToast('保存成功！', 'success');
