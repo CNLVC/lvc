@@ -85,6 +85,21 @@ jobs:
           cp source/js/truncate.js public/js/ 2>/dev/null || true
           # Add script tag to include truncate.js before </body>
           sed -i 's|</body>|<script src="/js/truncate.js"></script></body>|' public/index.html
+          # Fix static HTML pages - update sidebar position to right
+          for f in public/about/index.html public/new/index.html public/archives/index.html; do
+            if [ -f "$f" ]; then
+              sed -i 's/"position":"left"/"position":"right"/g' "$f"
+              sed -i 's/sidebar-position-left/sidebar-position-right/g' "$f"
+              sed -i 's/darkmode": true/darkmode": false/g' "$f"
+              # Add truncate.js script
+              sed -i 's|</body>|<script src="/js/truncate.js"></script></body>|' "$f"
+            fi
+          done
+          # Also fix all HTML files in subdirectories
+          find public/about public/new public/archives public/tags public/categories -name "index.html" -exec sed -i 's/"position":"left"/"position":"right"/g' {} \;
+          find public/about public/new public/archives public/tags public/categories -name "index.html" -exec sed -i 's/sidebar-position-left/sidebar-position-right/g' {} \;
+          find public/about public/new public/archives public/tags public/categories -name "index.html" -exec sed -i 's/darkmode": true/darkmode": false/g' {} \;
+          find public/about public/new public/archives public/tags public/categories -name "index.html" -exec sed -i 's|</body>|<script src="/js/truncate.js"></script></body>|' {} \;
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
