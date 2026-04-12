@@ -36,6 +36,7 @@ jobs:
 
       - name: Setup theme
         run: |
+          rm -rf themes
           mkdir -p themes
           cp -r node_modules/hexo-theme-next themes/next
 
