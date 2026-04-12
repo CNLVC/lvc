@@ -186,7 +186,6 @@
 
       <div class="action-bar">
         <button class="btn-delete" onclick="showDeleteModal()">删除</button>
-        <button class="btn-unpublish" id="btnUnpublish" onclick="unpublishArticle()">撤销发布</button>
         <button class="btn-save" onclick="saveArticle()">保存</button>
         <button class="btn-publish" id="btnPublish" onclick="publishArticle()">发布</button>
       </div>
@@ -422,22 +421,18 @@
     function updatePublishStatus() {
       const publishStatus = document.getElementById('publishStatus');
       const btnPublish = document.getElementById('btnPublish');
-      const btnUnpublish = document.getElementById('btnUnpublish');
 
       if (currentArticle) {
         if (isDraft) {
           publishStatus.innerHTML = '<span class="draft-status">草稿（未发布）</span>';
           btnPublish.textContent = '发布';
-          btnUnpublish.style.display = 'none';
         } else {
           publishStatus.innerHTML = '<span class="published-status">已发布</span>';
           btnPublish.textContent = '更新发布';
-          btnUnpublish.style.display = 'inline-block';
         }
       } else {
         publishStatus.textContent = '';
         btnPublish.textContent = '发布';
-        btnUnpublish.style.display = 'none';
       }
 
       document.getElementById('saveStatus').textContent = hasUnsavedChanges ? '有更改' : '已保存';
@@ -677,26 +672,6 @@ author: ${author || 'Jeremy'}`;
         showToast('文章已发布，网站正在构建中...', 'success');
       } catch (error) {
         showToast('发布失败: ' + error.message, 'error');
-      }
-    }
-
-    async function unpublishArticle() {
-      if (!currentArticle) return;
-
-      try {
-        showToast('正在撤销发布...', 'info');
-
-        // 保存并设置为草稿
-        await saveArticleInner(false, false);
-
-        // 触发 GitHub Pages 重新构建
-        await triggerPagesBuild();
-
-        hasUnsavedChanges = false;
-        updatePublishStatus();
-        showToast('文章已撤销发布，网站正在构建中...', 'success');
-      } catch (error) {
-        showToast('撤销发布失败: ' + error.message, 'error');
       }
     }
 
