@@ -55,6 +55,8 @@ jobs:
           cp -r new public/
           cp -r archives public/
           cp -r tags public/
+          # Use original static index.html instead of Hexo-generated one
+          cp index.html public/
           cp -r categories public/
           cp -r authors public/
           cp -r images public/
