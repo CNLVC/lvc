@@ -40,33 +40,9 @@ jobs:
           mkdir -p themes
           cp -r node_modules/hexo-theme-next themes/next
 
-      - name: Configure theme language and menu
+      - name: Configure theme with pre-configured settings
         run: |
-          # Configure theme scheme and language
-          sed -i 's/^scheme: Muse$/scheme: Mist/' themes/next/_config.yml
-          sed -i '/^scheme: Mist$/a language: zh-CN' themes/next/_config.yml
-
-          # Enable menu items
-          sed -i 's/^  #home: \/ || fa fa-home$/  home: \/ || fa fa-home/' themes/next/_config.yml
-          sed -i 's/^  #about: \/about\/ || fa fa-user$/  about: \/about\/ || fa fa-user/' themes/next/_config.yml
-          sed -i 's/^  #tags: \/tags\/ || fa fa-tags$/  tags: \/tags\/ || fa fa-tags/' themes/next/_config.yml
-          sed -i 's/^  #categories: \/categories\/ || fa fa-th$/  categories: \/categories\/ || fa fa-th/' themes/next/_config.yml
-          sed -i 's/^  #archives: \/archives\/ || fa fa-archive$/  archives: \/archives\/ || fa fa-archive/' themes/next/_config.yml
-
-          # Add 新人 menu
-          sed -i '/^  archives: \/archives\/ || fa fa-archive$/a\  新人: \/new\/ || fa fa-user-plus/' themes/next/_config.yml
-
-          # Configure sidebar - move to right, always display
-          sed -i 's/^  position: left$/  position: right/' themes/next/_config.yml
-          sed -i 's/^  display: post$/  display: always/' themes/next/_config.yml
-          sed -i 's|^  url: #/images/avatar.gif$|  url: /images/logo90.png|' themes/next/_config.yml
-          sed -i 's/^  #rounded: false$/  rounded: true/' themes/next/_config.yml
-
-          # Configure light/dark mode - use light theme
-          sed -i 's/^darkmode: true$/darkmode: false/' themes/next/_config.yml
-
-          # Fix icon font class (remove trailing slash)
-          sed -i 's/fa-user-plus\//fa-user-plus/' themes/next/_config.yml
+          cp theme_config/next_config.yml themes/next/_config.yml
 
       - name: Build Hexo site
         run: npm run build
