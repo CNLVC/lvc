@@ -40,6 +40,12 @@ jobs:
           mkdir -p themes
           cp -r node_modules/hexo-theme-next themes/next
 
+      - name: Apply v5 templates
+        run: |
+          cp theme_templates/_partials/header/brand.njk themes/next/layout/_partials/header/brand.njk
+          cp theme_templates/_partials/header/menu.njk themes/next/layout/_partials/header/menu.njk
+          cp theme_templates/_partials/header/menu-item.njk themes/next/layout/_partials/header/menu-item.njk
+
       - name: Configure theme with pre-configured settings
         run: |
           cp theme_config/next_config.yml themes/next/_config.yml
