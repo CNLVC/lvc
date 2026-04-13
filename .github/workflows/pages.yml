@@ -62,10 +62,10 @@ jobs:
           cp -r js public/
           cp -r css public/
           cp source/js/truncate.js public/js/ 2>/dev/null || true
-          cp source/js/transform-menu.js public/js/ 2>/dev/null || true
+          cp source/js/apply-v5-header.js public/js/ 2>/dev/null || true
           # Add script tags to include JS before </body>
           sed -i 's|</body>|<script src="/js/truncate.js"></script></body>|' public/index.html
-          sed -i 's|</body>|<script src="/js/transform-menu.js"></script></body>|' public/index.html
+          sed -i 's|</body>|<script src="/js/apply-v5-header.js"></script></body>|' public/index.html
           # Fix static HTML pages - update sidebar position to right
           for f in public/about/index.html public/new/index.html public/archives/index.html; do
             if [ -f "$f" ]; then
