@@ -1,0 +1,23 @@
+# Override NexT theme settings
+scheme: Mist
+language: zh-CN
+darkmode: false
+
+menu:
+  home: / || fa fa-home
+  about: /about/ || fa fa-user
+  tags: /tags/ || fa fa-tags
+  categories: /categories/ || fa fa-th
+  archives: /archives/ || fa fa-archive
+  新人: /new/ || fa fa-user-plus
+
+sidebar:
+  position: right
+  display: always
+  offset: 12
+  width_expanded: 320
+  width_dual_column: 240
+
+avatar:
+  url: /images/logo90.png
+  rounded: true
