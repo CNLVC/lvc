@@ -42,6 +42,8 @@ jobs:
 
       - name: Apply v5 templates
         run: |
+          mkdir -p themes/next/layout/_partials/header
+          mkdir -p themes/next/layout/_partials/sidebar
           cp -r theme_templates/_partials/header/* themes/next/layout/_partials/header/
           cp -r theme_templates/_partials/sidebar/* themes/next/layout/_partials/sidebar/
 
