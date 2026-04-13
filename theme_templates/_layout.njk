@@ -16,25 +16,24 @@
   </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage"{% if theme.motion.enable %} class="use-motion"{% endif %}>
-  <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"{% if theme.motion.enable %} class="use-motion"{% endif %}>
 
-  <main class="main">
-    <div class="column">
-      <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="container sidebar-position-left">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
         {%- include '_partials/header/index.njk' -%}
-      </header>
-      {%- if theme.sidebar.display !== 'remove' %}
-        {% block sidebar %}{% endblock %}
-      {%- endif %}
-    </div>
+      </div></div>
+    </header>
+    {%- if theme.sidebar.display !== 'remove' %}
+      {% block sidebar %}{% endblock %}
+    {%- endif %}
+  </div>
 
-    <div class="main-inner {% block class %}{% endblock %}">
-      {%- include '_partials/header/sub-menu.njk' -%}
-      {% block content %}{% endblock %}
-      {%- include '_partials/comments.njk' -%}
-    </div>
-  </main>
+  <div class="main-inner {% block class %}{% endblock %}">
+    {%- include '_partials/header/sub-menu.njk' -%}
+    {% block content %}{% endblock %}
+    {%- include '_partials/comments.njk' -%}
+  </div>
 
   <footer class="footer">
     <div class="footer-inner">
