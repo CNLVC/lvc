@@ -42,6 +42,8 @@ jobs:
 
       - name: Apply v5 templates
         run: |
+          cp theme_templates/_layout.njk themes/next/layout/_layout.njk
+          cp theme_templates/_macro/sidebar.njk themes/next/layout/_macro/sidebar.njk
           cp theme_templates/_partials/header/brand.njk themes/next/layout/_partials/header/brand.njk
           cp theme_templates/_partials/header/menu.njk themes/next/layout/_partials/header/menu.njk
           cp theme_templates/_partials/header/menu-item.njk themes/next/layout/_partials/header/menu-item.njk
