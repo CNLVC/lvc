@@ -4,7 +4,13 @@
   <li class="menu-item menu-item-{{ node.name | lower | replace(' ', '-') }}">
 
     {%- if theme.menu_settings.icons and node.icon %}
-      {%- set iconName = node.icon | replace('fa-', '') | trim %}
+      {%- set parts = node.icon | split(' ') %}
+      {%- set iconName = '' %}
+      {%- for part in parts %}
+        {%- if part starts with 'fa-' and part != 'fa-fw' and part != 'fa-lg' and part != 'fa-2x' %}
+          {%- set iconName = part | replace('fa-', '') %}
+        {%- endif %}
+      {%- endfor %}
       {%- set menuIcon = '<i class="menu-item-icon fa fa-fw fa-' + iconName + '"></i>' %}
     {%- else %}
       {%- set menuIcon = '' %}
