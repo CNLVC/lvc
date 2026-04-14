@@ -44,11 +44,15 @@ jobs:
         run: |
           cp theme_config/next_config.yml themes/next/_config.yml
 
+      - name: Patch theme templates for v5 compatibility
+        run: |
+          # Add id="header" to header element
+          sed -i 's/<header class="header"/<header id="header" class="header"/' themes/next/layout/_layout.njk
+          # Add id="sidebar" to sidebar element
+          sed -i 's/<aside class="sidebar"/<aside id="sidebar" class="sidebar"/' themes/next/layout/_macro/sidebar.njk
+
       - name: Build Hexo site
         run: npm run build
-
-      - name: Fix homepage header and sidebar
-        run: node scripts/fix-homepage.js
 
       - name: Copy static files and admin panel to public
         run: |
