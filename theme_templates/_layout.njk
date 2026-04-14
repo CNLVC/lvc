@@ -16,34 +16,37 @@
   </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"{% if theme.motion.enable %} class="use-motion"{% endif %}>
-
+<body itemscope itemtype="http://schema.org/WebPage"{% if theme.motion.enable %} class="use-motion"{% endif %}>
   <div class="container sidebar-position-left">
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-        {%- include '_partials/header/index.njk' -%}
-      </div></div>
-    </header>
-    {%- if theme.sidebar.display !== 'remove' %}
-      {% block sidebar %}{% endblock %}
-    {%- endif %}
+    <div class="headband"></div>
+
+    <main class="main">
+      <div class="column">
+        <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+          {%- include '_partials/header/index.njk' -%}
+        </header>
+        {%- if theme.sidebar.display !== 'remove' %}
+          {% block sidebar %}{% endblock %}
+        {%- endif %}
+      </div>
+
+      <div class="main-inner {% block class %}{% endblock %}">
+        {%- include '_partials/header/sub-menu.njk' -%}
+        {% block content %}{% endblock %}
+        {%- include '_partials/comments.njk' -%}
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        {%- include '_partials/languages.njk' -%}
+        {{ partial('_partials/footer.njk', {}, {cache: theme.cache.enable}) }}
+      </div>
+    </footer>
+
+    {{ partial('_partials/widgets.njk', {}, {cache: theme.cache.enable}) }}
+
+    {{- next_inject('bodyEnd') }}
   </div>
-
-  <div class="main-inner {% block class %}{% endblock %}">
-    {%- include '_partials/header/sub-menu.njk' -%}
-    {% block content %}{% endblock %}
-    {%- include '_partials/comments.njk' -%}
-  </div>
-
-  <footer class="footer">
-    <div class="footer-inner">
-      {%- include '_partials/languages.njk' -%}
-      {{ partial('_partials/footer.njk', {}, {cache: theme.cache.enable}) }}
-    </div>
-  </footer>
-
-  {{ partial('_partials/widgets.njk', {}, {cache: theme.cache.enable}) }}
-
-  {{- next_inject('bodyEnd') }}
 </body>
 </html>
