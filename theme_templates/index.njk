@@ -1,26 +1,23 @@
 {% extends '_layout.njk' %}
-{% import '_macro/sidebar.njk' as sidebar_template with context %}
 
 {% block title %}{{ title }}{% if theme.index_with_subtitle and subtitle %} - {{ subtitle }}{% endif %}{% endblock %}
 
 {% block class %}index posts-expand{% endblock %}
 
-{% block container %}
-<div class="container sidebar-position-left">
-  {{ super() }}
-</div>
-{% endblock %}
-
 {% block content %}
-
-  {%- for post in page.posts.toArray() %}
-    {{ partial('_macro/post.njk', {post: post, is_index: true}) }}
-  {%- endfor %}
-
-  {%- include '_partials/pagination.njk' -%}
-
+  <div id="posts-div"></div>
+  <div id="pagination-div"></div>
+  <script>
+  // Load posts from API
+  fetch('/page/')
+    .then(r => r.text())
+    .then(html => {
+      var doc = new DOMParser().parseFromString(html, 'text/html');
+      var posts = doc.querySelectorAll('.post');
+      var postsDiv = document.getElementById('posts-div');
+      posts.forEach(p => postsDiv.appendChild(p));
+    });
+  </script>
 {% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+{% block sidebar %}{% endblock %}

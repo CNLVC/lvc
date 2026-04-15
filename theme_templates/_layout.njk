@@ -17,37 +17,34 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage"{% if theme.motion.enable %} class="use-motion"{% endif %}>
-  <script src="/js/apply-v5-header.js" defer></script>
-  <div class="container sidebar-position-left">
-    <div class="headband"></div>
+  <div class="headband"></div>
 
-    <main class="main">
-      <div class="column">
-        <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-          {%- include '_partials/header/index.njk' -%}
-        </header>
-        {%- if theme.sidebar.display !== 'remove' %}
-          {% block sidebar %}{% endblock %}
-        {%- endif %}
-      </div>
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        {%- include '_partials/header/index.njk' -%}
+      </header>
+      {%- if theme.sidebar.display !== 'remove' %}
+        {% block sidebar %}{% endblock %}
+      {%- endif %}
+    </div>
 
-      <div class="main-inner {% block class %}{% endblock %}">
-        {%- include '_partials/header/sub-menu.njk' -%}
-        {% block content %}{% endblock %}
-        {%- include '_partials/comments.njk' -%}
-      </div>
-    </main>
+    <div class="main-inner {% block class %}{% endblock %}">
+      {%- include '_partials/header/sub-menu.njk' -%}
+      {% block content %}{% endblock %}
+      {%- include '_comments.njk' -%}
+    </div>
+  </main>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        {%- include '_partials/languages.njk' -%}
-        {{ partial('_partials/footer.njk', {}, {cache: theme.cache.enable}) }}
-      </div>
-    </footer>
+  <footer class="footer">
+    <div class="footer-inner">
+      {%- include '_partials/languages.njk' -%}
+      {{ partial('_partials/footer.njk', {}, {cache: theme.cache.enable}) }}
+    </div>
+  </footer>
 
-    {{ partial('_partials/widgets.njk', {}, {cache: theme.cache.enable}) }}
+  {{ partial('_partials/widgets.njk', {}, {cache: theme.cache.enable}) }}
 
-    {{- next_inject('bodyEnd') }}
-  </div>
+  {{- next_inject('bodyEnd') }}
 </body>
 </html>
