@@ -67,24 +67,25 @@ jobs:
         run: npm run build
           
       - name: Copy static files and admin panel to public
-        run: |
-          cp CNAME public/ || true
-          cp -r admin public/
-          cp -r about public/
-          cp -r new public/
-          cp -r archives public/
-          # cp -r tags public/  # Removed - hexo generates tags pages
-          # cp -r categories public/  # Removed - hexo generates category pages
-          cp -r authors public/
-          cp -r images public/
-          cp -r lib public/
-          cp -r js public/
-          # Copy v5 CSS to v5.css, keep NexT CSS as main.css for homepage
-          cp css/main.css public/css/v5.css
-          # Copy XML files for search and RSS
-          cp search.xml atom.xml public/
-          cp source/js/truncate.js public/js/ 2>/dev/null || true
-          cp source/js/transform-menu.js public/js/ 2>/dev/null || true
+          run: |
+            cp CNAME public/ || true
+            cp -r admin public/
+            cp -r about public/
+            cp -r new public/
+            # cp -r archives public/  # Removed - hexo generates archives with correct article URLs
+            # Copy just the index pages for categories and tags (hexo generates per-category pages)
+            cp categories/index.html public/categories/index.html
+            cp tags/index.html public/tags/index.html
+            cp -r authors public/
+            cp -r images public/
+            cp -r lib public/
+            cp -r js public/
+            # Copy v5 CSS to v5.css, keep NexT CSS as main.css for homepage
+            cp css/main.css public/css/v5.css
+            # Copy XML files for search and RSS
+            cp search.xml atom.xml public/
+            cp source/js/truncate.js public/js/ 2>/dev/null || true
+            cp source/js/transform-menu.js public/js/ 2>/dev/null || true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
