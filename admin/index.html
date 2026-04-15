@@ -148,7 +148,6 @@
   <div class="header" id="mainHeader" style="display:none">
     <h1>LVC 文章管理</h1>
     <div>
-      <a href="list.html">文章列表</a>
       <a onclick="showSettings()">设置</a>
       <a onclick="showPasswordModal()">改密码</a>
     </div>
@@ -171,31 +170,31 @@
         <input type="text" id="articleTitle" placeholder="文章标题">
         <div class="meta-row">
           <label>作者:</label>
-          <input type="text" id="authorInput" value="Jeremy" style="width:100px;">
+          <input type="text" id="authorInput" value="" style="width:100px;">
           <label>日期:</label>
           <input type="date" id="articleDate" style="width:150px;">
           <label>分类:</label>
-          <select id="categorySelect">
-            <option value="">选择分类</option>
-            <option value="诗篇">诗篇</option>
-            <option value="马可福音">马可福音</option>
-            <option value="约翰福音">约翰福音</option>
-            <option value="路加福音">路加福音</option>
-            <option value="马太福音">马太福音</option>
-            <option value="创世记">创世记</option>
-            <option value="罗马书">罗马书</option>
-            <option value="加拉太书">加拉太书</option>
-            <option value="以弗所书">以弗所书</option>
-            <option value="腓立比书">腓立比书</option>
-            <option value="歌罗西书">歌罗西书</option>
-            <option value="希伯来书">希伯来书</option>
-            <option value="雅各书">雅各书</option>
-            <option value="约翰一书">约翰一书</option>
-            <option value="启示录">启示录</option>
-            <option value="使徒行传">使徒行传</option>
-            <option value="见证">见证</option>
-            <option value="未分类">未分类</option>
-          </select>
+          <input type="text" id="categorySelect" list="categoryList" placeholder="输入或选择分类" style="width:150px;">
+          <datalist id="categoryList">
+            <option value="诗篇">
+            <option value="马可福音">
+            <option value="约翰福音">
+            <option value="路加福音">
+            <option value="马太福音">
+            <option value="创世记">
+            <option value="罗马书">
+            <option value="加拉太书">
+            <option value="以弗所书">
+            <option value="腓立比书">
+            <option value="歌罗西书">
+            <option value="希伯来书">
+            <option value="雅各书">
+            <option value="约翰一书">
+            <option value="启示录">
+            <option value="使徒行传">
+            <option value="见证">
+            <option value="未分类">
+          </datalist>
           <label>标签:</label>
           <input type="text" id="articleTags" placeholder="多个标签用逗号分隔" style="width:150px;">
         </div>
