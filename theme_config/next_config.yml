@@ -23,6 +23,7 @@ custom_file_path:
   #header: source/_data/header.njk
   menu: source/_data/menu.njk
   #sidebar: source/_data/sidebar.njk
+  style: source/_data/styles.styl
   #postMeta: source/_data/post-meta.njk
   #postBodyStart: source/_data/post-body-start.njk
   #postBodyEnd: source/_data/post-body-end.njk
@@ -59,9 +60,9 @@ lightdark:
 # ---------------------------------------------------------------
 
 favicon:
-  small: /images/favicon-16x16-next.png
-  medium: /images/favicon-32x32-next.png
-  apple_touch_icon: /images/apple-touch-icon-next.png
+  small: /images/favicon.ico
+  medium: /images/favicon.ico
+  apple_touch_icon: /images/logo90.png
   safari_pinned_tab: /images/logo.svg
   #android_manifest: /manifest.json
 
