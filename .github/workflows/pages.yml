@@ -50,9 +50,14 @@ jobs:
           cp theme_templates/_macro/sidebar.njk themes/next/layout/_macro/sidebar.njk
           cp theme_templates/_macro/post.njk themes/next/layout/_macro/post.njk
 
+      - name: Inject admin password
+        run: node scripts/inject-admin-password.js
+        env:
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+
       - name: Build Hexo site
         run: npm run build
-
+          
       - name: Copy static files and admin panel to public
         run: |
           cp CNAME public/ || true
