@@ -831,13 +831,16 @@ author: ${author || 'Jeremy'}`;
 
     async function saveArticle() {
       try {
-        // 保存时保持当前发布状态
-        // 新文章默认是草稿，已发布的文章保持已发布状态
-        // publish=true 设置 draft: false (发布)
-        // publish=false 设置 draft: true (草稿)
         const isNewArticle = !currentArticle;
-        const shouldBePublished = isNewArticle ? false : !isDraft;
-        await saveArticleInner(true, shouldBePublished);
+
+        if (isNewArticle) {
+          // 新文章默认是草稿
+          await saveArticleInner(true, false);
+        } else {
+          // 已有文章：保持原状态，不改变发布状态
+          // withDraftFlag=false 且 publish=null 表示不修改 front matter 中的 draft 状态
+          await saveArticleInner(false, null);
+        }
         hasUnsavedChanges = false;
         updatePublishStatus();
         showToast('保存成功！', 'success');
