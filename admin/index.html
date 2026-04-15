@@ -36,10 +36,11 @@
     .meta-row input, .meta-row select { padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 4px; font-size: 14px; }
     .meta-row label { font-size: 14px; color: #586069; }
 
-    .editor-toolbar { padding: 10px 20px; background: #f6f8fa; border-bottom: 1px solid #d1d5da; display: flex; gap: 5px; flex-wrap: wrap; }
-    .editor-toolbar button { padding: 6px 12px; background: white; border: 1px solid #d1d5da; border-radius: 4px; cursor: pointer; font-size: 14px; }
+    .editor-toolbar { padding: 10px 20px; background: #f6f8fa; border-bottom: 1px solid #d1d5da; display: flex; gap: 5px; flex-wrap: wrap; position: relative; }
+    .editor-toolbar button { padding: 6px 12px; background: white; border: 1px solid #d1d5da; border-radius: 4px; cursor: pointer; font-size: 14px; position: relative; }
     .editor-toolbar button:hover { background: #f0f0f0; }
     .editor-toolbar button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .editor-toolbar button[data-tip]:hover::after { content: attr(data-tip); position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #24292e; color: white; padding: 6px 10px; border-radius: 4px; font-size: 12px; white-space: nowrap; z-index: 100; margin-bottom: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
 
     .editor-content { flex: 1; display: flex; overflow: hidden; }
     .editor-content textarea { flex: 1; border: none; padding: 20px; font-size: 15px; font-family: 'Consolas', 'Monaco', monospace; line-height: 1.6; resize: none; }
@@ -201,14 +202,22 @@
       </div>
 
       <div class="editor-toolbar">
-        <button onclick="insertMd('**', '**')"><b>B</b></button>
-        <button onclick="insertMd('*', '*')"><i>I</i></button>
-        <button onclick="insertMd('> ', '')">引用</button>
-        <button onclick="insertMd('\n- ', '')">列表</button>
-        <button onclick="insertMd('`', '`')">代码</button>
-        <button onclick="insertMd('\n## ', '')">H2</button>
-        <button onclick="insertMd('\n### ', '')">H3</button>
-        <button onclick="document.getElementById('imageInput').click()">图片</button>
+        <button onclick="insertMd('**', '**')" data-tip="粗体"><b>B</b></button>
+        <button onclick="insertMd('*', '*')" data-tip="斜体"><i>I</i></button>
+        <button onclick="insertMd('~~', '~~')" data-tip="删除线"><s>S</s></button>
+        <button onclick="insertMd('> ', '')" data-tip="引用">❝</button>
+        <button onclick="insertMd('\n- ', '')" data-tip="无序列表">•</button>
+        <button onclick="insertMd('\n1. ', '')" data-tip="有序列表">1.</button>
+        <button onclick="insertMd('`', '`')" data-tip="行内代码">`</button>
+        <button onclick="insertMd('\n```\n', '\n```')" data-tip="代码块">⌸</button>
+        <button onclick="insertMd('\n## ', '')" data-tip="二级标题">H2</button>
+        <button onclick="insertMd('\n### ', '')" data-tip="三级标题">H3</button>
+        <button onclick="insertMd('\n#### ', '')" data-tip="四级标题">H4</button>
+        <button onclick="insertMd('\n---\n', '')" data-tip="分隔线">—</button>
+        <button onclick="insertMd('\n- [ ] ', '')" data-tip="任务列表">☐</button>
+        <button onclick="insertMd('`', '`')" data-tip="行内代码">代码</button>
+        <button onclick="insertMd('[]()', '')" data-tip="链接">链接</button>
+        <button onclick="document.getElementById('imageInput').click()" data-tip="上传图片">图片</button>
         <input type="file" id="imageInput" accept="image/*" style="display:none" onchange="handleImageUpload(event)">
       </div>
 
