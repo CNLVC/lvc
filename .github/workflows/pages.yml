@@ -73,8 +73,8 @@ jobs:
           cp -r about public/
           cp -r new public/
           cp -r archives public/
-          cp -r tags public/
-          cp -r categories public/
+          # cp -r tags public/  # Removed - hexo generates tags pages
+          # cp -r categories public/  # Removed - hexo generates category pages
           cp -r authors public/
           cp -r images public/
           cp -r lib public/
