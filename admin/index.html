@@ -101,19 +101,56 @@
 
     .hint { background: #fff8e5; border: 1px solid #ffe58f; padding: 10px 15px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; color: #8a6d3b; }
     .error-msg { color: #cb2431; padding: 20px; text-align: center; }
+
+    /* Auth overlay */
+    .auth-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #24292e; z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+    .auth-overlay.hidden { display: none; }
+    .auth-box { background: white; padding: 40px; border-radius: 8px; width: 350px; text-align: center; }
+    .auth-box h2 { margin-bottom: 25px; color: #24292e; font-size: 20px; }
+    .auth-box input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #d1d5da; border-radius: 4px; font-size: 14px; box-sizing: border-box; }
+    .auth-box input:focus { outline: none; border-color: #0366d6; }
+    .auth-box button { width: 100%; padding: 12px; background: #2ea44f; color: white; border: none; border-radius: 4px; font-size: 14px; cursor: pointer; }
+    .auth-box button:hover { background: #2c974b; }
+    .auth-box button:disabled { background: #ccc; cursor: not-allowed; }
+    .auth-error { color: #cb2431; font-size: 13px; margin-top: 10px; display: none; }
+    .auth-box p { color: #586069; font-size: 12px; margin-top: 15px; line-height: 1.5; }
   </style>
 </head>
 <body>
 
-  <div class="header">
+  <!-- 密码验证界面 -->
+  <div class="auth-overlay" id="authOverlay">
+    <div class="auth-box">
+      <h2>光谷教会管理后台</h2>
+      <input type="password" id="passwordInput" placeholder="请输入访问密码" onkeypress="if(event.key==='Enter')verifyPassword()">
+      <button id="loginBtn" onclick="verifyPassword()">进入后台</button>
+      <div class="auth-error" id="authError">密码错误，请重试</div>
+      <p>如需修改密码，请在 GitHub Actions 中运行 "更新后台密码" workflow</p>
+    </div>
+  </div>
+
+  <!-- 密码修改弹窗 -->
+  <div class="modal-settings" id="passwordModal">
+    <div class="modal-content">
+      <h2>修改密码</h2>
+      <input type="password" id="oldPasswordInput" placeholder="请输入原密码" style="margin-bottom:10px;">
+      <input type="password" id="newPasswordInput" placeholder="请输入新密码">
+      <p style="font-size:12px;color:#666;margin-bottom:15px;">修改密码后需要重新构建并部署，请到 GitHub Actions 运行 "更新后台密码" workflow</p>
+      <button class="btn-primary" onclick="showPasswordChangeGuide()">获取修改密码指南</button>
+      <button onclick="closePasswordModal()" style="background:#f6f8fa;border:1px solid #d1d5da;">关闭</button>
+    </div>
+  </div>
+
+  <div class="header" id="mainHeader" style="display:none">
     <h1>LVC 文章管理</h1>
     <div>
       <a href="list.html">文章列表</a>
       <a onclick="showSettings()">设置</a>
+      <a onclick="showPasswordModal()">改密码</a>
     </div>
   </div>
 
-  <div class="container">
+  <div class="container" id="mainContainer" style="display:none">
     <div class="sidebar">
       <div class="sidebar-header">
         <h2>文章列表</h2>
@@ -229,11 +266,47 @@
     let isDraft = false;
     let autoSaveTimer = null;
     let hasUnsavedChanges = false;
+    let isAuthenticated = false;
+
+    // 密码验证 - 由构建时注入
+    const ADMIN_PASSWORD = 'INJECTED_PASSWORD';
+
+    function verifyPassword() {
+      const input = document.getElementById('passwordInput');
+      const error = document.getElementById('authError');
+      const btn = document.getElementById('loginBtn');
+
+      if (input.value === ADMIN_PASSWORD) {
+        isAuthenticated = true;
+        document.getElementById('authOverlay').classList.add('hidden');
+        document.getElementById('mainHeader').style.display = 'flex';
+        document.getElementById('mainContainer').style.display = 'flex';
+
+        githubToken = localStorage.getItem('lvc_github_token') || '';
+        if (githubToken) document.getElementById('githubToken').value = githubToken;
+        loadArticleList();
+      } else {
+        error.style.display = 'block';
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    function showPasswordModal() {
+      document.getElementById('passwordModal').classList.add('active');
+    }
+
+    function closePasswordModal() {
+      document.getElementById('passwordModal').classList.remove('active');
+    }
+
+    function showPasswordChangeGuide() {
+      alert('修改密码步骤：\n\n1. 登录 GitHub，进入 CNLVC/lvc 仓库\n2. 点击 Actions -> 更新后台密码\n3. 点击 "Run workflow"\n4. 输入新密码后点击绿色按钮\n5. 等待构建完成（约1-2分钟）\n\n新密码下次构建后生效。');
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
-      githubToken = localStorage.getItem('lvc_github_token') || '';
-      if (githubToken) document.getElementById('githubToken').value = githubToken;
-      loadArticleList();
+      // 页面加载时检查是否已验证过（本次会话）
+      // 密码验证在 verifyPassword() 中进行
     });
 
     // 解码 Base64 为 UTF-8
