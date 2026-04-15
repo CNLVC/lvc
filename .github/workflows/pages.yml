@@ -53,7 +53,7 @@ jobs:
       - name: Inject admin password
         run: node scripts/inject-admin-password.js
         env:
-          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          ADMIN_PASSWORD: ${{ vars.ADMIN_PASSWORD || 'Lvc*8002' }}
 
       - name: Build Hexo site
         run: npm run build
@@ -93,3 +93,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
