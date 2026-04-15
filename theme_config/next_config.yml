@@ -21,6 +21,7 @@ minify: false
 custom_file_path:
   #head: source/_data/head.njk
   #header: source/_data/header.njk
+  menu: source/_data/menu.njk
   #sidebar: source/_data/sidebar.njk
   #postMeta: source/_data/post-meta.njk
   #postBodyStart: source/_data/post-body-start.njk
@@ -109,7 +110,6 @@ menu:
   categories: /categories/ || fa fa-th
   archives: /archives/ || fa fa-archive
   新人: /new/ || fa fa-user-plus
-  搜索: / || fa fa-search
   #sitemap: /sitemap.xml || fa fa-sitemap
   #commonweal: /404/ || fa fa-heartbeat
 
