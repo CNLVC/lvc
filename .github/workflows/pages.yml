@@ -64,8 +64,9 @@ jobs:
           cp -r authors public/
           cp -r images public/
           cp -r lib public/
-          cp -r css public/
           cp -r js public/
+          # Copy v5 CSS to v5.css, keep NexT CSS as main.css for homepage
+          cp css/main.css public/css/v5.css
           cp source/js/truncate.js public/js/ 2>/dev/null || true
           cp source/js/transform-menu.js public/js/ 2>/dev/null || true
 
