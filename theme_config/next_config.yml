@@ -165,11 +165,11 @@ site_state: true
 # Key is the link label showing to end users.
 # Value before `||` delimiter is the target permalink, value after `||` delimiter is the name of Font Awesome icon.
 social:
-  Facebook: https://www.facebook.com/groups/130221490113/ || fa fa-facebook
-  Twitter: http://twitter.com/LVCH || fa fa-twitter
-  Weibo: http://www.weibo.com/lvch || fa fa-weibo
+  Facebook: https://www.facebook.com/groups/130221490113/ || fa fa-arrow-circle-right
+  Twitter: http://twitter.com/LVCH || fa fa-arrow-circle-right
+  Weibo: http://www.weibo.com/lvch || fa fa-arrow-circle-right
   豆瓣: http://www.douban.com/group/LightValley/ || fa fa-arrow-circle-right
-  微信公众号: http://p.malihaha.com/LVC-QR.jpg || fa fa-weixin
+  微信公众号: http://p.malihaha.com/LVC-QR.jpg || fa fa-arrow-circle-right
 
 social_icons:
   enable: true
