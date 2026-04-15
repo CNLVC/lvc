@@ -3,7 +3,7 @@ title: "绵羊与山羊 Ram and Goat"
 date: 2016-12-04
 author: Jeremy
 categories:
-  - 但以理书/
+  - 但以理书
 tags:
   - 异象
 ---

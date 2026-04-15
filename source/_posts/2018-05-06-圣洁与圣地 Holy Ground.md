@@ -3,7 +3,7 @@ title: "圣洁与圣地 Holy Ground"
 date: 2018-05-06
 author: Jeremy
 categories:
-  - 圣洁系列/
+  - 圣洁系列
 tags:
   - 圣洁
 ---

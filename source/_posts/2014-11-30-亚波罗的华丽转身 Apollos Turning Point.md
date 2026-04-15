@@ -3,7 +3,7 @@ title: "亚波罗的华丽转身 Apollos Turning Point"
 date: 2014-11-30
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 福音
 ---

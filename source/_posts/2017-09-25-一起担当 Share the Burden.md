@@ -3,7 +3,7 @@ title: "一起担当 Share the Burden"
 date: 2017-09-25
 author: Jeremy
 categories:
-  - 加拉太书/
+  - 加拉太书
 tags:
   - 担当
 ---

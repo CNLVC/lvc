@@ -3,7 +3,7 @@ title: "癫狂为主！ Crazy For God"
 date: 2015-06-14
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 癫狂
 ---

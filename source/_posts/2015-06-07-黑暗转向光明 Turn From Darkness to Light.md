@@ -3,7 +3,7 @@ title: "黑暗转向光明 Turn From Darkness to Light"
 date: 2015-06-07
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 光明
 ---

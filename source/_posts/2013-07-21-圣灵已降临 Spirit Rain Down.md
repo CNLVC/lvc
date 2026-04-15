@@ -3,7 +3,7 @@ title: "圣灵已降临 Spirit Rain Down"
 date: 2013-07-21
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 圣灵
 ---

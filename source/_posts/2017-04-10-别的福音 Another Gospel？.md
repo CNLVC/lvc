@@ -3,7 +3,7 @@ title: "别的福音 Another Gospel？"
 date: 2017-04-10
 author: Jeremy
 categories:
-  - 加拉太书/
+  - 加拉太书
 tags:
   - 福音
 ---

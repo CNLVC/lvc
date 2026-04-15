@@ -3,7 +3,7 @@ title: "父债子偿？Father&#39;s Fault？"
 date: 2015-09-13
 author: Jeremy
 categories:
-  - 以西结书/
+  - 以西结书
 tags:
   - Hexo
   - NexT

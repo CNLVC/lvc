@@ -3,7 +3,7 @@ title: "梦之树 A Tree Dream"
 date: 2016-09-18
 author: Jeremy
 categories:
-  - 但以理书/
+  - 但以理书
 tags:
   - 梦
 ---

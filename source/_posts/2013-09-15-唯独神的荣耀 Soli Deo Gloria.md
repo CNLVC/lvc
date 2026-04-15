@@ -3,7 +3,7 @@ title: "唯独神的荣耀 Soli Deo Gloria"
 date: 2013-09-15
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 神的荣耀
 ---

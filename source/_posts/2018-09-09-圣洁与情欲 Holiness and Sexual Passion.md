@@ -3,7 +3,7 @@ title: "圣洁与情欲 Holiness and Sexual Passion"
 date: 2018-09-09
 author: Jeremy
 categories:
-  - 圣洁系列/
+  - 圣洁系列
 tags:
   - 情欲
 ---

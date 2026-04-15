@@ -3,7 +3,7 @@ title: "小组建造 Cell Group Building"
 date: 2014-01-05
 author: Jeremy
 categories:
-  - 以弗所书/
+  - 以弗所书
 tags:
   - Hexo
   - NexT

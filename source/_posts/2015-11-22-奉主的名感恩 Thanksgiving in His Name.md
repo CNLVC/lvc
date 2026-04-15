@@ -3,7 +3,7 @@ title: "奉主的名感恩 Thanksgiving in His Name"
 date: 2015-11-22
 author: Jeremy
 categories:
-  - 歌罗西书/
+  - 歌罗西书
 tags:
   - 感恩
 ---

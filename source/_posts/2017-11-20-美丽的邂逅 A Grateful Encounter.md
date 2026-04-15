@@ -3,7 +3,7 @@ title: "美丽的邂逅 A Grateful Encounter"
 date: 2017-11-20
 author: Jeremy
 categories:
-  - 路得记/
+  - 路得记
 tags:
   - 恩典
 ---

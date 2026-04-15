@@ -3,7 +3,7 @@ title: "疯狂的使女 Crazy Slave Girl"
 date: 2014-09-14
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 福音
   - 自由

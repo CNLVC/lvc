@@ -3,7 +3,7 @@ title: "神国侠侣 The Kingdom Couple"
 date: 2014-11-23
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 夫妻关系
 ---

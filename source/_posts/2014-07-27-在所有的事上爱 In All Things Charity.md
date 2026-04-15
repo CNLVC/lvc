@@ -3,7 +3,7 @@ title: "在所有的事上爱 In All Things Charity"
 date: 2014-07-27
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 爱
 ---

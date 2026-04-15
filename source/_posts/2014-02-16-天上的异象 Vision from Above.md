@@ -3,7 +3,7 @@ title: "天上的异象 Vision from Above"
 date: 2014-02-16
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 异象
 ---

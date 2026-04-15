@@ -3,7 +3,7 @@ title: "所有全奉献 I Surrender All"
 date: 2013-10-13
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 奉献
 ---

@@ -3,7 +3,7 @@ title: "等候结局 A Happy Ending"
 date: 2017-03-20
 author: Jeremy
 categories:
-  - 但以理书/
+  - 但以理书
 tags:
   - 等候
 ---

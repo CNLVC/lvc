@@ -3,7 +3,7 @@ title: "在基要的事上合一 In Essentials Unity"
 date: 2014-07-13
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 基要
 ---

@@ -3,7 +3,7 @@ title: "圣洁与秩序 Holiness in Order"
 date: 2018-05-27
 author: Jeremy
 categories:
-  - 圣洁系列/
+  - 圣洁系列
 tags:
   - 秩序
 ---

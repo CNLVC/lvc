@@ -3,7 +3,7 @@ title: "长大就自由啦！ Too Young to be Free！"
 date: 2017-07-25
 author: Jeremy
 categories:
-  - 加拉太书/
+  - 加拉太书
 tags:
   - 自由
 ---

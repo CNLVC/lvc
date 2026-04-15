@@ -3,7 +3,7 @@ title: "两种选择：爱或恨 To Love or To Hate"
 date: 2016-04-17
 author: Jeremy
 categories:
-  - 约翰一书/
+  - 约翰一书
 tags:
   - 彼此相爱
 ---

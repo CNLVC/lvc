@@ -3,7 +3,7 @@ title: "午夜惊情 A Midnight Surprise"
 date: 2018-01-23
 author: Jeremy
 categories:
-  - 路得记/
+  - 路得记
 tags:
   - 誓约
 ---

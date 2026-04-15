@@ -3,7 +3,7 @@ title: "一生的呼召 The Calling of Life"
 date: 2017-09-13
 author: Jeremy
 categories:
-  - 约书亚记/
+  - 约书亚记
 tags:
   - 呼召
 ---

@@ -3,7 +3,7 @@ title: "以西结蒙召 Ezekiel’s Calling"
 date: 2015-08-02
 author: Jeremy
 categories:
-  - 以西结书/
+  - 以西结书
 tags:
   - 默示
 ---

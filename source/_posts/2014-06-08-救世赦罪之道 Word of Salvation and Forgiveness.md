@@ -3,7 +3,7 @@ title: "救世赦罪之道 Word of Salvation and Forgiveness"
 date: 2014-06-08
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 赦罪
 ---

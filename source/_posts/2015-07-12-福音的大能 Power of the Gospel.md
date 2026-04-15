@@ -3,7 +3,7 @@ title: "福音的大能 Power of the Gospel"
 date: 2015-07-12
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 福音
 ---

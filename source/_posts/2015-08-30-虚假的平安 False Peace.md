@@ -3,7 +3,7 @@ title: "虚假的平安 False Peace"
 date: 2015-08-30
 author: Jeremy
 categories:
-  - 以西结书/
+  - 以西结书
 tags:
   - 安全感
 ---

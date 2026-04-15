@@ -3,7 +3,7 @@ title: "真正的父亲 A True Father"
 date: 2014-06-15
 author: Jeremy
 categories:
-  - 诗篇/
+  - 诗篇
 tags:
   - 家庭
 ---

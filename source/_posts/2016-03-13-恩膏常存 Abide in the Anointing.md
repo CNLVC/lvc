@@ -3,7 +3,7 @@ title: "恩膏常存 Abide in the Anointing"
 date: 2016-03-13
 author: Jeremy
 categories:
-  - 约翰一书/
+  - 约翰一书
 tags:
   - 恩膏
 ---

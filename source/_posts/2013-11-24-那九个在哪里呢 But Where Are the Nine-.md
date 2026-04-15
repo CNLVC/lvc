@@ -3,7 +3,7 @@ title: "那九个在哪里呢 But Where Are the Nine?"
 date: 2013-11-24
 author: Jeremy
 categories:
-  - 路加福音/
+  - 路加福音
 tags:
   - 感恩
 ---

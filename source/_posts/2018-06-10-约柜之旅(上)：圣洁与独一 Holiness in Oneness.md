@@ -3,7 +3,7 @@ title: "约柜之旅(上)：圣洁与独一 Holiness in Oneness"
 date: 2018-06-10
 author: Jeremy
 categories:
-  - 圣洁系列/
+  - 圣洁系列
 tags:
   - 约柜
 ---

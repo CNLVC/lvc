@@ -3,7 +3,7 @@ title: "打赢你里面的争战 Winning the War Within"
 date: 2017-09-17
 author: Jeremy
 categories:
-  - 加拉太书/
+  - 加拉太书
 tags:
   - 争战
 ---

@@ -3,7 +3,7 @@ title: "我心尊主为大 My soul doth magnify the Lord"
 date: 2014-12-21
 author: Jeremy
 categories:
-  - 路加福音/
+  - 路加福音
 tags:
   - 圣诞节
 ---

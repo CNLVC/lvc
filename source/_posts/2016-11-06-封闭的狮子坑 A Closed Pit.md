@@ -3,7 +3,7 @@ title: "封闭的狮子坑 A Closed Pit"
 date: 2016-11-06
 author: Jeremy
 categories:
-  - 但以理书/
+  - 但以理书
 tags:
   - 荣耀
 ---

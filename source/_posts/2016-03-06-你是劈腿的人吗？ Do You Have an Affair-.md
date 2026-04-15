@@ -3,7 +3,7 @@ title: "你是劈腿的人吗？ Do You Have an Affair?"
 date: 2016-03-06
 author: Jeremy
 categories:
-  - 约翰一书/
+  - 约翰一书
 tags:
   - 情欲
 ---

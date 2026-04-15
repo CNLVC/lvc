@@ -3,7 +3,7 @@ title: "越狱（下）全家归主 Prison Break Part 2"
 date: 2014-09-28
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 拯救
 ---

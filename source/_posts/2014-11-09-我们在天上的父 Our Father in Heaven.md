@@ -3,7 +3,7 @@ title: "我们在天上的父 Our Father in Heaven"
 date: 2014-11-09
 author: Jeremy
 categories:
-  - 主祷文/
+  - 主祷文
 tags:
   - 祷告
 ---

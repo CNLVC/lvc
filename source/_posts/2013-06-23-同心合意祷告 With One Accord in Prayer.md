@@ -3,7 +3,7 @@ title: "同心合意祷告 With One Accord in Prayer"
 date: 2013-06-23
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - Hexo
   - NexT

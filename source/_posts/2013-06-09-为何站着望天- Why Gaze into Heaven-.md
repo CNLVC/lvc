@@ -3,7 +3,7 @@ title: "为何站着望天? Why Gaze into Heaven?"
 date: 2013-06-09
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - Hexo
   - NexT

@@ -3,7 +3,7 @@ title: "自由去爱 Free to Love"
 date: 2017-08-30
 author: Jeremy
 categories:
-  - 加拉太书/
+  - 加拉太书
 tags:
   - 自由
 ---

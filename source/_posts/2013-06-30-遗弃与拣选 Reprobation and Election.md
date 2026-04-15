@@ -3,7 +3,7 @@ title: "遗弃与拣选 Reprobation and Election"
 date: 2013-06-30
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - Hexo
   - NexT

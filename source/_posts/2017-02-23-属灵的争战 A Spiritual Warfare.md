@@ -3,7 +3,7 @@ title: "属灵的争战 A Spiritual Warfare"
 date: 2017-02-23
 author: Jeremy
 categories:
-  - 但以理书/
+  - 但以理书
 tags:
   - 力量 争战
 ---

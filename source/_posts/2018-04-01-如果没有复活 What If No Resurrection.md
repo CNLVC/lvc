@@ -3,7 +3,7 @@ title: "如果没有复活 What If No Resurrection"
 date: 2018-04-01
 author: Jeremy
 categories:
-  - 复活节/
+  - 复活节
 tags:
   - 复活
 ---

@@ -3,7 +3,7 @@ title: "复活之争An Argument of Resurrection"
 date: 2015-04-26
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 复活
 ---

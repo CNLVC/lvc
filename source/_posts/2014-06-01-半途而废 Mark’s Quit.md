@@ -3,7 +3,7 @@ title: "半途而废 Mark’s Quit"
 date: 2014-06-01
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 恩典
 ---

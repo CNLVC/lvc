@@ -3,7 +3,7 @@ title: "带着期待的祷告 Pray with Expectancy"
 date: 2014-04-27
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 祷告
 ---

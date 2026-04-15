@@ -3,7 +3,7 @@ title: "神不偏待人  God Shows No Partiality"
 date: 2014-03-30
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - Hexo
   - NexT

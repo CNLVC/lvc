@@ -3,7 +3,7 @@ title: "好命犹推古Fortunate Eutychus"
 date: 2015-01-25
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - Hexo
   - NexT

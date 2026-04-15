@@ -3,7 +3,7 @@ title: "问君能有几多愁？ Paul’s Questions Against Galatians"
 date: 2017-06-20
 author: Jeremy
 categories:
-  - 加拉太书/
+  - 加拉太书
 tags:
   - 父亲节
 ---

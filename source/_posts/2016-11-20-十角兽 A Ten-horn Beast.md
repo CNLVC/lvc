@@ -3,7 +3,7 @@ title: "十角兽 A Ten-horn Beast"
 date: 2016-11-20
 author: Jeremy
 categories:
-  - 但以理书/
+  - 但以理书
 tags:
   - 审判
 ---

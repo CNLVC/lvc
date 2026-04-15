@@ -3,7 +3,7 @@ title: "圣洁与亵慢 Holiness vs Profaneness"
 date: 2018-07-01
 author: Jeremy
 categories:
-  - 圣洁系列/
+  - 圣洁系列
 tags:
   - 亵慢
 ---

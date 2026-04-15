@@ -3,7 +3,7 @@ title: "为这十个的缘故 For Sake of the Ten"
 date: 2017-01-23
 author: Jeremy
 categories:
-  - 创世记/
+  - 创世记
 tags:
   - 春节
 ---

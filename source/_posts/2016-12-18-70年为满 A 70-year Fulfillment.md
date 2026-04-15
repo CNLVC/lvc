@@ -3,7 +3,7 @@ title: "70年为满 A 70-year Fulfillment"
 date: 2016-12-18
 author: Jeremy
 categories:
-  - 但以理书/
+  - 但以理书
 tags:
   - 神掌权
 ---

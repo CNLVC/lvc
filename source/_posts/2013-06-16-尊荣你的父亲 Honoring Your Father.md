@@ -3,7 +3,7 @@ title: "尊荣你的父亲 Honoring Your Father"
 date: 2013-06-16
 author: Jeremy
 categories:
-  - 申命记/
+  - 申命记
 tags:
   - Hexo
   - NexT

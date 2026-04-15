@@ -3,7 +3,7 @@ title: "使徒的祝福 Greetings from Paul"
 date: 2017-04-04
 author: Jeremy
 categories:
-  - 加拉太书/
+  - 加拉太书
 tags:
   - 祝福
 ---

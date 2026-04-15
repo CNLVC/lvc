@@ -3,7 +3,7 @@ title: "新心与新灵 A New Heart and A New Spirit"
 date: 2015-10-11
 author: Jeremy
 categories:
-  - 以西结书/
+  - 以西结书
 tags:
   - 应许
 ---

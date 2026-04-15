@@ -3,7 +3,7 @@ title: "圣洁与敬拜 Holiness in Worship"
 date: 2018-04-15
 author: Jeremy
 categories:
-  - 圣洁系列/
+  - 圣洁系列
 tags:
   - 圣洁
 ---

@@ -3,7 +3,7 @@ title: "不安中的安息 Rest in restless times"
 date: 2019-01-13
 author: Jeremy
 categories:
-  - 路加福音/
+  - 路加福音
 tags:
   - 安息
 ---

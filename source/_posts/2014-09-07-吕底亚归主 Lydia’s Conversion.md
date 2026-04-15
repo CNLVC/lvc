@@ -3,7 +3,7 @@ title: "吕底亚归主 Lydia’s Conversion"
 date: 2014-09-07
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 吕底亚
 ---

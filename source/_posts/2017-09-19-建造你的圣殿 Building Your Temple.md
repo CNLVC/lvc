@@ -3,7 +3,7 @@ title: "建造你的圣殿 Building Your Temple"
 date: 2017-09-19
 author: Jeremy
 categories:
-  - 哥林多前书/
+  - 哥林多前书
 tags:
   - 圣殿
 ---

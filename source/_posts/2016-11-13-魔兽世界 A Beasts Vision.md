@@ -3,7 +3,7 @@ title: "魔兽世界 A Beasts Vision"
 date: 2016-11-13
 author: Jeremy
 categories:
-  - 但以理书/
+  - 但以理书
 tags:
   - 基督
 ---

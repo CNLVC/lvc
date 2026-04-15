@@ -3,7 +3,7 @@ title: "转载 姐妹着装 Dressed in Holiness"
 date: 2010-05-18
 author: Jeremy
 categories:
-  - 未分类/
+  - 未分类
 tags:
   - Hexo
   - NexT

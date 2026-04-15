@@ -3,7 +3,7 @@ title: "讲道：生而为王 Born to Be King"
 date: 2018-12-23
 author: Jeremy
 categories:
-  - 马太福音/
+  - 马太福音
 tags:
   - 王
 ---

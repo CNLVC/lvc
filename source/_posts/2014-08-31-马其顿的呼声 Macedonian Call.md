@@ -3,7 +3,7 @@ title: "马其顿的呼声 Macedonian Call"
 date: 2014-08-31
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 圣灵
 ---

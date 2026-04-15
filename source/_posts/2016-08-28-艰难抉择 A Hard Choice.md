@@ -3,7 +3,7 @@ title: "艰难抉择 A Hard Choice"
 date: 2016-08-28
 author: Jeremy
 categories:
-  - 但以理书/
+  - 但以理书
 tags:
   - 抉择
 ---

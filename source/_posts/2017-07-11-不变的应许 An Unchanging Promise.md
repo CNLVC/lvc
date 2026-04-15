@@ -3,7 +3,7 @@ title: "不变的应许 An Unchanging Promise"
 date: 2017-07-11
 author: Jeremy
 categories:
-  - 加拉太书/
+  - 加拉太书
 tags:
   - 应许
 ---

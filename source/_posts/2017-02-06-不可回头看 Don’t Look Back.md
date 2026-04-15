@@ -3,7 +3,7 @@ title: "不可回头看 Don’t Look Back"
 date: 2017-02-06
 author: Jeremy
 categories:
-  - 创世记/
+  - 创世记
 tags:
   - 跟随
 ---

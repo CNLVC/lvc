@@ -3,7 +3,7 @@ title: "遵守主道 Keep the Word"
 date: 2016-01-24
 author: Jeremy
 categories:
-  - 约翰一书/
+  - 约翰一书
 tags:
   - 确据
 ---

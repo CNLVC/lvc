@@ -3,7 +3,7 @@ title: "当顺服谁？Who to Obey?"
 date: 2013-12-08
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 顺服
 ---

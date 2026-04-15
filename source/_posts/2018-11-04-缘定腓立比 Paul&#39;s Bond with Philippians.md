@@ -3,7 +3,7 @@ title: "缘定腓立比 Paul&#39;s Bond with Philippians"
 date: 2018-11-04
 author: Jeremy
 categories:
-  - 腓立比书/
+  - 腓立比书
 tags:
   - 缘
 ---

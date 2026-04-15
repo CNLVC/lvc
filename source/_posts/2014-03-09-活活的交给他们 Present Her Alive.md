@@ -3,7 +3,7 @@ title: "活活的交给他们 Present Her Alive"
 date: 2014-03-09
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 生命
 ---

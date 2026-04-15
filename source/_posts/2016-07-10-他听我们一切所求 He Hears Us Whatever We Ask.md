@@ -3,7 +3,7 @@ title: "他听我们一切所求 He Hears Us Whatever We Ask"
 date: 2016-07-10
 author: Jeremy
 categories:
-  - 约翰一书/
+  - 约翰一书
 tags:
   - 祷告
 ---

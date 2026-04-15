@@ -3,7 +3,7 @@ title: "未识之神 An Unkown God"
 date: 2014-11-02
 author: Jeremy
 categories:
-  - 未分类/
+  - 未分类
 tags:
   - 文化
 ---

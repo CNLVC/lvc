@@ -3,7 +3,7 @@ title: "生命中的得与失（失） Lost and Gain"
 date: 2014-03-02
 author: Jeremy
 categories:
-  - 约伯记/
+  - 约伯记
 tags:
   - 失去
 ---

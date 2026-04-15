@@ -3,7 +3,7 @@ title: "基督徒的起源 Origin of Christian"
 date: 2014-04-07
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - Hexo
   - NexT

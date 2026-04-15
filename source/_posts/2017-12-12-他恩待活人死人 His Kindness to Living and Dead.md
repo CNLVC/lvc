@@ -3,7 +3,7 @@ title: "他恩待活人死人 His Kindness to Living and Dead"
 date: 2017-12-12
 author: Jeremy
 categories:
-  - 路得记/
+  - 路得记
 tags:
   - 恩典
 ---

@@ -3,7 +3,7 @@ title: "定意跟随 Your God My God"
 date: 2017-10-24
 author: Jeremy
 categories:
-  - 路得记/
+  - 路得记
 tags:
   - 跟随
 ---

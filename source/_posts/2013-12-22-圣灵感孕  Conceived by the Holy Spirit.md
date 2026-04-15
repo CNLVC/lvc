@@ -3,7 +3,7 @@ title: "圣灵感孕  Conceived by the Holy Spirit"
 date: 2013-12-22
 author: Jeremy
 categories:
-  - 圣诞节/
+  - 圣诞节
 tags:
   - Hexo
   - NexT

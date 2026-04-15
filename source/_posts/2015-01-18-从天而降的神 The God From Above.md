@@ -3,7 +3,7 @@ title: "从天而降的神 The God From Above"
 date: 2015-01-18
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 耶稣
 ---

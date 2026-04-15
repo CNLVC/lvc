@@ -3,7 +3,7 @@ title: "奉耶稣的名（下）：七子 7 Misusing the Name of Jesus"
 date: 2014-12-28
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 耶稣
 ---

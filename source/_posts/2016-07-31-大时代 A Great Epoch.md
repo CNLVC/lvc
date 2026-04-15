@@ -3,7 +3,7 @@ title: "大时代 A Great Epoch"
 date: 2016-07-31
 author: Jeremy
 categories:
-  - 但以理书/
+  - 但以理书
 tags:
   - 神掌权
 ---

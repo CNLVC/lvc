@@ -3,7 +3,7 @@ title: "夜宴 A Nightly Banquet"
 date: 2016-10-16
 author: Jeremy
 categories:
-  - 但以理书/
+  - 但以理书
 tags:
   - 宴席
 ---

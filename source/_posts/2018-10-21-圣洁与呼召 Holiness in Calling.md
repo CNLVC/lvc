@@ -3,7 +3,7 @@ title: "圣洁与呼召 Holiness in Calling"
 date: 2018-10-21
 author: Jeremy
 categories:
-  - 圣洁系列/
+  - 圣洁系列
 tags:
   - 呼召
 ---

@@ -3,7 +3,7 @@ title: "三种跟随者 Followers of Paul"
 date: 2014-06-29
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 荣耀
 ---

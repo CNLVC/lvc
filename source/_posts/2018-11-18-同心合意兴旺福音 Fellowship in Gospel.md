@@ -3,7 +3,7 @@ title: "同心合意兴旺福音 Fellowship in Gospel"
 date: 2018-11-18
 author: Jeremy
 categories:
-  - 腓立比书/
+  - 腓立比书
 tags:
   - 同心合意
 ---

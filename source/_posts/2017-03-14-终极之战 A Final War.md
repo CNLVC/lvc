@@ -3,7 +3,7 @@ title: "终极之战 A Final War"
 date: 2017-03-14
 author: Jeremy
 categories:
-  - 但以理书/
+  - 但以理书
 tags:
   - 审判
 ---

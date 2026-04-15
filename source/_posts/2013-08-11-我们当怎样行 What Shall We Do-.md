@@ -3,7 +3,7 @@ title: "我们当怎样行 What Shall We Do?"
 date: 2013-08-11
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 扎心
 ---

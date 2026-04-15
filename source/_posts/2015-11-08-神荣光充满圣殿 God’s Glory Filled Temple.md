@@ -3,7 +3,7 @@ title: "神荣光充满圣殿 God’s Glory Filled Temple"
 date: 2015-11-08
 author: Jeremy
 categories:
-  - 以西结书/
+  - 以西结书
 tags:
   - 异象
 ---

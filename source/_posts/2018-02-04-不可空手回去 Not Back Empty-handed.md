@@ -3,7 +3,7 @@ title: "不可空手回去 Not Back Empty-handed"
 date: 2018-02-04
 author: Jeremy
 categories:
-  - 路得记/
+  - 路得记
 tags:
   - 恩典
 ---

@@ -3,7 +3,7 @@ title: "提摩太行割礼 Timothy’s Circumcision"
 date: 2014-08-24
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 教会
 ---

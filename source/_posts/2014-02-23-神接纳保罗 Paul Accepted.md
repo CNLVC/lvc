@@ -3,7 +3,7 @@ title: "神接纳保罗 Paul Accepted"
 date: 2014-02-23
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 神的旨意
 ---

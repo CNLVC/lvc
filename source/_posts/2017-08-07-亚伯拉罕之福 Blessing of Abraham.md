@@ -3,7 +3,7 @@ title: "亚伯拉罕之福 Blessing of Abraham"
 date: 2017-08-07
 author: Jeremy
 categories:
-  - 加拉太书/
+  - 加拉太书
 tags:
   - 祝福
 ---

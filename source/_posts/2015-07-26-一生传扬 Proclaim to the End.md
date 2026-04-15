@@ -3,7 +3,7 @@ title: "一生传扬 Proclaim to the End"
 date: 2015-07-26
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 福音
 ---

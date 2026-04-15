@@ -3,7 +3,7 @@ title: "我们知道 We Know That…"
 date: 2016-07-17
 author: Jeremy
 categories:
-  - 约翰一书/
+  - 约翰一书
 tags:
   - 知道
 ---

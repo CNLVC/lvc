@@ -3,7 +3,7 @@ title: "爱的命令 Command of Love"
 date: 2016-01-31
 author: Jeremy
 categories:
-  - 约翰一书/
+  - 约翰一书
 tags:
   - 爱
 ---

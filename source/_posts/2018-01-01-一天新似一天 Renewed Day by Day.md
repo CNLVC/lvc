@@ -3,7 +3,7 @@ title: "一天新似一天 Renewed Day by Day"
 date: 2018-01-01
 author: Jeremy
 categories:
-  - 哥林多后书/
+  - 哥林多后书
 tags:
   - 元旦
 ---

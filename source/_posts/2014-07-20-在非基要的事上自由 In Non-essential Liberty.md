@@ -3,7 +3,7 @@ title: "在非基要的事上自由 In Non-essential Liberty"
 date: 2014-07-20
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 福音
   - 爱

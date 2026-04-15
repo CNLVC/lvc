@@ -3,7 +3,7 @@ title: "搅乱天下的人 Turn World Upside Down"
 date: 2014-10-19
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 福音
 ---

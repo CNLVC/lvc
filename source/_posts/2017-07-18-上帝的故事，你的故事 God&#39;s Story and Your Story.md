@@ -3,7 +3,7 @@ title: "上帝的故事，你的故事 God&#39;s Story and Your Story"
 date: 2017-07-18
 author: Jeremy
 categories:
-  - 撒母耳记/
+  - 撒母耳记
 tags:
   - 故事
 ---

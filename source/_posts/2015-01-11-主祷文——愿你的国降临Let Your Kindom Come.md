@@ -3,7 +3,7 @@ title: "主祷文——愿你的国降临Let Your Kindom Come"
 date: 2015-01-11
 author: Jeremy
 categories:
-  - 主祷文/
+  - 主祷文
 tags:
   - 主祷文
 ---

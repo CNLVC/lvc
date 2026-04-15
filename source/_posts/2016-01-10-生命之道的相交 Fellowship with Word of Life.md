@@ -3,7 +3,7 @@ title: "生命之道的相交 Fellowship with Word of Life"
 date: 2016-01-10
 author: Jeremy
 categories:
-  - 约翰一书/
+  - 约翰一书
 tags:
   - 相交
 ---

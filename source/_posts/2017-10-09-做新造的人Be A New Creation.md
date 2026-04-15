@@ -3,7 +3,7 @@ title: "做新造的人Be A New Creation"
 date: 2017-10-09
 author: Jeremy
 categories:
-  - 加拉太书/
+  - 加拉太书
 tags:
   - 新人
 ---

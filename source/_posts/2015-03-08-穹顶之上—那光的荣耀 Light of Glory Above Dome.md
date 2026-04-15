@@ -3,7 +3,7 @@ title: "穹顶之上—那光的荣耀 Light of Glory Above Dome"
 date: 2015-03-08
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 荣耀
 ---

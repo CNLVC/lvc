@@ -3,7 +3,7 @@ title: "感恩：打开祝福之门 Thanksgiving - A Key to All Blessings"
 date: 2013-12-01
 author: Jeremy
 categories:
-  - 诗篇/
+  - 诗篇
 tags:
   - 爱
 ---

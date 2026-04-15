@@ -3,7 +3,7 @@ title: "塞浦路斯的敌挡 Opposed at Cyprus"
 date: 2014-05-25
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 争战
 ---

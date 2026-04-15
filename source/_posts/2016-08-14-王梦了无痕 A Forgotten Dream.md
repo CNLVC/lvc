@@ -3,7 +3,7 @@ title: "王梦了无痕 A Forgotten Dream"
 date: 2016-08-14
 author: Jeremy
 categories:
-  - 但以理书/
+  - 但以理书
 tags:
   - 梦
 ---

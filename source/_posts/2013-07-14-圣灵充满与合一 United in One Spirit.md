@@ -3,7 +3,7 @@ title: "圣灵充满与合一 United in One Spirit"
 date: 2013-07-14
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 圣灵
 ---

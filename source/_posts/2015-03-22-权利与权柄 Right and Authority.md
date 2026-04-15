@@ -3,7 +3,7 @@ title: "权利与权柄 Right and Authority"
 date: 2015-03-22
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 权柄
 ---

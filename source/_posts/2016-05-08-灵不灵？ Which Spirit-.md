@@ -3,7 +3,7 @@ title: "灵不灵？ Which Spirit?"
 date: 2016-05-08
 author: Jeremy
 categories:
-  - 约翰一书/
+  - 约翰一书
 tags:
   - 圣灵
 ---

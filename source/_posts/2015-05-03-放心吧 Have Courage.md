@@ -3,7 +3,7 @@ title: "放心吧 Have Courage"
 date: 2015-05-03
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 放心
 ---

@@ -3,7 +3,7 @@ title: "信从谁？Faith in Whom?"
 date: 2015-06-28
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 保罗
 ---

@@ -3,7 +3,7 @@ title: "对神诚实 Honest to God"
 date: 2013-11-03
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 团契
 ---

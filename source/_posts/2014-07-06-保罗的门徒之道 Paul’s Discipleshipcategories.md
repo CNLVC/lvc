@@ -3,7 +3,7 @@ title: "保罗的门徒之道 Paul’s Discipleshipcategories"
 date: 2014-07-06
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 门徒
 ---

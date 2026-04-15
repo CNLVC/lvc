@@ -3,7 +3,7 @@ title: "谁的荣耀？ Who’s Glory?"
 date: 2014-05-04
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 神的荣耀
 ---

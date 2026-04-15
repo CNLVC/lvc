@@ -3,7 +3,7 @@ title: "枯骨复生 Resurrection of Dry Bones"
 date: 2015-10-25
 author: Jeremy
 categories:
-  - 以西结书/
+  - 以西结书
 tags:
   - 复活
 ---

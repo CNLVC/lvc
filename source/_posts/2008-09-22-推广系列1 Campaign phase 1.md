@@ -3,7 +3,7 @@ title: "推广系列1 Campaign phase 1"
 date: 2008-09-22
 author: Jeremy
 categories:
-  - 未分类/
+  - 未分类
 tags:
   - Hexo
   - NexT

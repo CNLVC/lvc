@@ -3,7 +3,7 @@ title: "永生之道 Word of Eternal Life"
 date: 2016-07-03
 author: Jeremy
 categories:
-  - 约翰一书/
+  - 约翰一书
 tags:
   - 永生
 ---

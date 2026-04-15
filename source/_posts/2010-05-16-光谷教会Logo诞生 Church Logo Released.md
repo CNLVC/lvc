@@ -3,7 +3,7 @@ title: "光谷教会Logo诞生 Church Logo Released"
 date: 2010-05-16
 author: Jeremy
 categories:
-  - 未分类/
+  - 未分类
 tags:
   - Hexo
   - NexT

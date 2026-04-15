@@ -3,7 +3,7 @@ title: "神为他儿子见证 God Testified Concerning His Son"
 date: 2016-06-12
 author: Jeremy
 categories:
-  - 约翰一书/
+  - 约翰一书
 tags:
   - 圣灵
 ---

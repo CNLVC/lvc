@@ -3,7 +3,7 @@ title: "拿俄米的计划 Naomi’s Plan"
 date: 2018-01-08
 author: Jeremy
 categories:
-  - 路得记/
+  - 路得记
 tags:
   - 慈爱
 ---

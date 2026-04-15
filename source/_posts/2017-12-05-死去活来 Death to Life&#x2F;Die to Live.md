@@ -3,7 +3,7 @@ title: "死去活来 Death to Life&#x2F;Die to Live"
 date: 2017-12-05
 author: Jeremy
 categories:
-  - 罗马书/
+  - 罗马书
 tags:
   - 洗礼
 ---

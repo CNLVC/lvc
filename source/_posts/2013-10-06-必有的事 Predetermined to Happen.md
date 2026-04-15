@@ -3,7 +3,7 @@ title: "必有的事 Predetermined to Happen"
 date: 2013-10-06
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - Hexo
   - NexT

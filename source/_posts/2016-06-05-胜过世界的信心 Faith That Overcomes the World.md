@@ -3,7 +3,7 @@ title: "胜过世界的信心 Faith That Overcomes the World"
 date: 2016-06-05
 author: Jeremy
 categories:
-  - 约翰一书/
+  - 约翰一书
 tags:
   - 信心
 ---

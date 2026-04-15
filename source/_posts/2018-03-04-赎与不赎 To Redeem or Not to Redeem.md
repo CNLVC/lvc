@@ -3,7 +3,7 @@ title: "赎与不赎 To Redeem or Not to Redeem"
 date: 2018-03-04
 author: Jeremy
 categories:
-  - 路得记/
+  - 路得记
 tags:
   - 救赎
 ---

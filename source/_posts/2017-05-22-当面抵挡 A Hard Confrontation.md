@@ -3,7 +3,7 @@ title: "当面抵挡 A Hard Confrontation"
 date: 2017-05-22
 author: Jeremy
 categories:
-  - 加拉太书/
+  - 加拉太书
 tags:
   - 福音
 ---

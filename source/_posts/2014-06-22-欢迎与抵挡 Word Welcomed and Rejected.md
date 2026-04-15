@@ -3,7 +3,7 @@ title: "欢迎与抵挡 Word Welcomed and Rejected"
 date: 2014-06-22
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 圣灵
 ---

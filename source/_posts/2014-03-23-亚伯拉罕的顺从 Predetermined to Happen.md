@@ -3,7 +3,7 @@ title: "亚伯拉罕的顺从 Predetermined to Happen"
 date: 2014-03-23
 author: Jeremy
 categories:
-  - 创世记/
+  - 创世记
 tags:
   - Hexo
   - NexT

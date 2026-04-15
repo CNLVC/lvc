@@ -3,7 +3,7 @@ title: "司提反殉道 Stephen the Martyr"
 date: 2014-01-19
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - Hexo
   - NexT

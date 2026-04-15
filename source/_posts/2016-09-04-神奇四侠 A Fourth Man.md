@@ -3,7 +3,7 @@ title: "神奇四侠 A Fourth Man"
 date: 2016-09-04
 author: Jeremy
 categories:
-  - 但以理书/
+  - 但以理书
 tags:
   - 神奇四侠
 ---

@@ -3,7 +3,7 @@ title: "神叫他复活了 God Raised Jesus Up"
 date: 2013-08-04
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 耶稣
 ---

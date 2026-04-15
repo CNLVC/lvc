@@ -3,7 +3,7 @@ title: "审判列国的神 God Who Judge Nations"
 date: 2015-09-20
 author: Jeremy
 categories:
-  - 以西结书/
+  - 以西结书
 tags:
   - 审判
 ---

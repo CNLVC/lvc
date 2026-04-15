@@ -3,7 +3,7 @@ title: "圣洁与灭绝 Holiness in Herem"
 date: 2018-06-03
 author: Jeremy
 categories:
-  - 圣洁系列/
+  - 圣洁系列
 tags:
   - 灭绝
 ---

@@ -3,7 +3,7 @@ title: "70个7 Seventy Weeks"
 date: 2017-01-10
 author: Jeremy
 categories:
-  - 但以理书/
+  - 但以理书
 tags:
   - 神掌权
 ---

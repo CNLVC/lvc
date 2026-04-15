@@ -3,7 +3,7 @@ title: "你不可当作俗物 God Made It Clean"
 date: 2014-03-16
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 基督
 ---

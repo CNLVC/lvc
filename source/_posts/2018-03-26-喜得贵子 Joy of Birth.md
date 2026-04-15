@@ -3,7 +3,7 @@ title: "喜得贵子 Joy of Birth"
 date: 2018-03-26
 author: Jeremy
 categories:
-  - 路得记/
+  - 路得记
 tags:
   - 后裔
 ---

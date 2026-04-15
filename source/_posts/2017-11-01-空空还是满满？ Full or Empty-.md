@@ -3,7 +3,7 @@ title: "空空还是满满？ Full or Empty?"
 date: 2017-11-01
 author: Jeremy
 categories:
-  - 路得记/
+  - 路得记
 tags:
   - 转机
 ---

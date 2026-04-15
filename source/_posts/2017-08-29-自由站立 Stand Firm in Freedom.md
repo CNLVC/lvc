@@ -3,7 +3,7 @@ title: "自由站立 Stand Firm in Freedom"
 date: 2017-08-29
 author: Jeremy
 categories:
-  - 加拉太书/
+  - 加拉太书
 tags:
   - 自由
 ---

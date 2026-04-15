@@ -3,7 +3,7 @@ title: "风急浪高且徐行 Walks on The Water"
 date: 2017-10-03
 author: Jeremy
 categories:
-  - 马可福音/
+  - 马可福音
 tags:
   - 风浪
 ---

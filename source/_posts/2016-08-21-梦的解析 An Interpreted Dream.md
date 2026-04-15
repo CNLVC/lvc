@@ -3,7 +3,7 @@ title: "梦的解析 An Interpreted Dream"
 date: 2016-08-21
 author: Jeremy
 categories:
-  - 但以理书/
+  - 但以理书
 tags:
   - 异象
 ---

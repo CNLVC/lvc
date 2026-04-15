@@ -3,7 +3,7 @@ title: "看哪，我要做一件新事！Behold, I Will Do a New Thing!"
 date: 2015-01-04
 author: Jeremy
 categories:
-  - 以赛亚书/
+  - 以赛亚书
 tags:
   - 荣耀神
 ---

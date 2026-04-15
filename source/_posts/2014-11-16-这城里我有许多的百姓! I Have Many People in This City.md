@@ -3,7 +3,7 @@ title: "这城里我有许多的百姓! I Have Many People in This City"
 date: 2014-11-16
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 神的百姓
 ---

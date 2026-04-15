@@ -3,7 +3,7 @@ title: "少年壮志老骥伏枥 Children Young and Old"
 date: 2016-02-21
 author: Jeremy
 categories:
-  - 约翰一书/
+  - 约翰一书
 tags:
   - 老龄化
 ---

@@ -3,7 +3,7 @@ title: "悲剧人生 A Life of Tragedies"
 date: 2017-10-17
 author: Jeremy
 categories:
-  - 路得记/
+  - 路得记
 tags:
   - 人生
 ---

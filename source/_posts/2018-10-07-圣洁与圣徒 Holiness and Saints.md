@@ -3,7 +3,7 @@ title: "圣洁与圣徒 Holiness and Saints"
 date: 2018-10-07
 author: Jeremy
 categories:
-  - 圣洁系列/
+  - 圣洁系列
 tags:
   - 圣徒
 ---

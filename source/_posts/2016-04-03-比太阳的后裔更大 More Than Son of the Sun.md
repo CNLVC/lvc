@@ -3,7 +3,7 @@ title: "比太阳的后裔更大 More Than Son of the Sun"
 date: 2016-04-03
 author: Jeremy
 categories:
-  - 约翰一书/
+  - 约翰一书
 tags:
   - 神的后裔
 ---

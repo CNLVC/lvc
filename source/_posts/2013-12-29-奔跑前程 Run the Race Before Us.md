@@ -3,7 +3,7 @@ title: "奔跑前程 Run the Race Before Us"
 date: 2013-12-29
 author: Jeremy
 categories:
-  - 希伯来书/
+  - 希伯来书
 tags:
   - 信心
 ---

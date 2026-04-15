@@ -3,7 +3,7 @@ title: "墙上的指头 A Finger on the Wall"
 date: 2016-10-23
 author: Jeremy
 categories:
-  - 但以理书/
+  - 但以理书
 tags:
   - no zuo no die
 ---

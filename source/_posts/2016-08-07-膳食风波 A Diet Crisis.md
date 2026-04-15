@@ -3,7 +3,7 @@ title: "膳食风波 A Diet Crisis"
 date: 2016-08-07
 author: Jeremy
 categories:
-  - 但以理书/
+  - 但以理书
 tags:
   - 禁食
 ---

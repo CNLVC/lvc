@@ -3,7 +3,7 @@ title: "今非昔比  Faith:Then and Now"
 date: 2017-08-02
 author: Jeremy
 categories:
-  - 加拉太书/
+  - 加拉太书
 tags:
   - 信仰
 ---

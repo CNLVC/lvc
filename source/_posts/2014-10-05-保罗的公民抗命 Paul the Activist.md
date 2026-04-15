@@ -3,7 +3,7 @@ title: "保罗的公民抗命 Paul the Activist"
 date: 2014-10-05
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 恩典
   - 恐惧

@@ -3,7 +3,7 @@ title: "谁杀害了耶稣 Who Killed Jesus?"
 date: 2013-07-28
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 耶稣
 ---

@@ -3,7 +3,7 @@ title: "第三天从死里复活 Rise From Dead"
 date: 2015-04-05
 author: Jeremy
 categories:
-  - 复活节/
+  - 复活节
 tags:
   - 复活
 ---

@@ -3,7 +3,7 @@ title: "走出囚牢 PrisonBreAk"
 date: 2013-11-10
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 福音
 ---

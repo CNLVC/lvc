@@ -3,7 +3,7 @@ title: "存留他的名 Keep His Name"
 date: 2018-03-19
 author: Jeremy
 categories:
-  - 路得记/
+  - 路得记
 tags:
   - 名字
 ---

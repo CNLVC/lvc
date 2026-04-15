@@ -3,7 +3,7 @@ title: "恰巧 It Happened…"
 date: 2017-11-06
 author: Jeremy
 categories:
-  - 路得记/
+  - 路得记
 tags:
   - 恰巧
 ---

@@ -3,7 +3,7 @@ title: "你的银子和你一同灭亡罢 Your Silver Perish With You"
 date: 2014-01-26
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - Hexo
   - NexT

@@ -3,7 +3,7 @@ title: "双子记 A Tale of Two Sons"
 date: 2017-08-09
 author: Jeremy
 categories:
-  - 加拉太书/
+  - 加拉太书
 tags:
   - 身份
 ---

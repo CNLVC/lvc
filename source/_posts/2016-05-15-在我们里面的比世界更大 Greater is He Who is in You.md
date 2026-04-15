@@ -3,7 +3,7 @@ title: "在我们里面的比世界更大 Greater is He Who is in You"
 date: 2016-05-15
 author: Jeremy
 categories:
-  - 约翰一书/
+  - 约翰一书
 tags:
   - 圣灵
 ---

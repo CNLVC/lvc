@@ -3,7 +3,7 @@ title: "应许中的平安 Peace in Promise"
 date: 2015-07-05
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 应许
 ---

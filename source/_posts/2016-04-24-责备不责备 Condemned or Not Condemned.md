@@ -3,7 +3,7 @@ title: "责备不责备 Condemned or Not Condemned"
 date: 2016-04-24
 author: Jeremy
 categories:
-  - 约翰一书/
+  - 约翰一书
 tags:
   - 责备
 ---

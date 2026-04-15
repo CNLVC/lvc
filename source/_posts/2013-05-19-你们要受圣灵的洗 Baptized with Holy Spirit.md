@@ -3,7 +3,7 @@ title: "你们要受圣灵的洗 Baptized with Holy Spirit"
 date: 2013-05-19
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 圣灵
 ---

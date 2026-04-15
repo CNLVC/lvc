@@ -3,7 +3,7 @@ title: "越狱（上）- 锁链松开 Prison Break Part 1 - Chains Broken"
 date: 2014-09-21
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 赞美
 ---

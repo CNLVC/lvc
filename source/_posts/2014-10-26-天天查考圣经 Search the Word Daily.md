@@ -3,7 +3,7 @@ title: "天天查考圣经 Search the Word Daily"
 date: 2014-10-26
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 圣经
 ---

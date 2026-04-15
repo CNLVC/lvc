@@ -3,7 +3,7 @@ title: "主来的盼望 Hope for His Coming"
 date: 2016-03-20
 author: Jeremy
 categories:
-  - 约翰一书/
+  - 约翰一书
 tags:
   - 末世
 ---

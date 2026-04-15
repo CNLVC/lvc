@@ -3,7 +3,7 @@ title: "知识和见识 Knowledge and Insight"
 date: 2018-12-02
 author: Jeremy
 categories:
-  - 腓立比书/
+  - 腓立比书
 tags:
   - 知识
 ---

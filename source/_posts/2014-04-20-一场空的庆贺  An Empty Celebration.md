@@ -3,7 +3,7 @@ title: "一场空的庆贺  An Empty Celebration"
 date: 2014-04-20
 author: Jeremy
 categories:
-  - 腓立比书/
+  - 腓立比书
 tags:
   - 基督
 ---

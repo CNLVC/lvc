@@ -3,7 +3,7 @@ title: "在王面前见证 Witness Before Kings"
 date: 2015-05-31
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 复活
 ---

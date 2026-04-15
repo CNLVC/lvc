@@ -3,7 +3,7 @@ title: "患难兴旺福音 Affliction to Advance Gospel"
 date: 2019-01-06
 author: Jeremy
 categories:
-  - 腓立比书/
+  - 腓立比书
 tags:
   - 患难
 ---

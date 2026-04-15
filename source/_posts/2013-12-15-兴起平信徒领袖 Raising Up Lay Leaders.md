@@ -3,7 +3,7 @@ title: "兴起平信徒领袖 Raising Up Lay Leaders"
 date: 2013-12-15
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - Hexo
   - NexT

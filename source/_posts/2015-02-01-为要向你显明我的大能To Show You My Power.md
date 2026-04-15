@@ -3,7 +3,7 @@ title: "为要向你显明我的大能To Show You My Power"
 date: 2015-02-01
 author: Jeremy
 categories:
-  - 出埃及记/
+  - 出埃及记
 tags:
   - Hexo
   - NexT

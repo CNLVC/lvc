@@ -3,7 +3,7 @@ title: "圣洁与圣灵 Spirit of Holiness"
 date: 2018-05-20
 author: Jeremy
 categories:
-  - 圣洁系列/
+  - 圣洁系列
 tags:
   - 圣洁
 ---

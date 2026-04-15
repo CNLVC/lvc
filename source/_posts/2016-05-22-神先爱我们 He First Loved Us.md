@@ -3,7 +3,7 @@ title: "神先爱我们 He First Loved Us"
 date: 2016-05-22
 author: Jeremy
 categories:
-  - 约翰一书/
+  - 约翰一书
 tags:
   - 爱
 ---

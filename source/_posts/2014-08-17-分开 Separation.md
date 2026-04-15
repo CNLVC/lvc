@@ -3,7 +3,7 @@ title: "分开 Separation"
 date: 2014-08-17
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 神的护理
 ---

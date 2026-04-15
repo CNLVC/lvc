@@ -3,7 +3,7 @@ title: "复兴谁的国 Kingdom Revival"
 date: 2013-05-26
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 神的国
 ---

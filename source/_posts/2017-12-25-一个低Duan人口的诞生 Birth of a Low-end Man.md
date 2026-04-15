@@ -3,7 +3,7 @@ title: "一个低Duan人口的诞生 Birth of a Low-end Man"
 date: 2017-12-25
 author: Jeremy
 categories:
-  - 路加福音/
+  - 路加福音
 tags:
   - 圣诞节
 ---

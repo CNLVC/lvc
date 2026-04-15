@@ -3,7 +3,7 @@ title: "抓住救恩 Salvation is Now"
 date: 2015-05-10
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 信心
 ---

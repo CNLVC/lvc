@@ -3,7 +3,7 @@ title: "神国与世界无法兼容（上）Love Not This World (Part I)"
 date: 2015-03-29
 author: Jeremy
 categories:
-  - 约翰一书/
+  - 约翰一书
 tags:
   - 爱
 ---

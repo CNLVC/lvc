@@ -3,7 +3,7 @@ title: "来自圣灵的呼召 A Call from the Holy Spirit"
 date: 2014-05-18
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - 呼召
 ---

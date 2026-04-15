@@ -3,7 +3,7 @@ title: "赤壁退修会 | Red Cliff Retreat"
 date: 2010-07-02
 author: Jeremy
 categories:
-  - 未分类/
+  - 未分类
 tags:
   - Hexo
   - NexT

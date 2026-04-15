@@ -3,7 +3,7 @@ title: "神偏待人？ God Shows Partiality?"
 date: 2014-04-13
 author: Jeremy
 categories:
-  - 使徒行传/
+  - 使徒行传
 tags:
   - Hexo
   - NexT

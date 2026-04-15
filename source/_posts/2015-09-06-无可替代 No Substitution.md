@@ -3,7 +3,7 @@ title: "无可替代 No Substitution"
 date: 2015-09-06
 author: Jeremy
 categories:
-  - 以西结书/
+  - 以西结书
 tags:
   - 审判
 ---
