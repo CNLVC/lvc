@@ -353,42 +353,55 @@
         // 1. 保存 token 到本地
         localStorage.setItem('lvc_change_token', token);
 
-        // 2. 通过 GitHub API 创建/更新 .admin_password 文件
-        // 先获取文件当前 SHA
-        const shaRes = await fetch('https://api.github.com/repos/CNLVC/lvc/contents/.admin_password', {
-          headers: { 'Authorization': 'token ' + token }
-        });
-        const shaData = await shaRes.json();
-        const sha = shaData.sha || null;
+        // 2. 通过 GitHub API 直接更新 GitHub Variable
+        const apiUrl = 'https://api.github.com/repos/CNLVC/lvc/actions/variables/ADMIN_PASSWORD';
 
-        // 3. 创建包含新密码的文件
-        const content = btoa(newPass); // Base64 编码
-        const fileRes = await fetch('https://api.github.com/repos/CNLVC/lvc/contents/.admin_password', {
-          method: 'PUT',
+        // 先尝试更新，如果 Variable 不存在会返回 404
+        let response = await fetch(apiUrl, {
+          method: 'PATCH',
           headers: {
             'Authorization': 'token ' + token,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github.v3+json'
           },
-          body: JSON.stringify({
-            message: 'update admin password',
-            content: content,
-            sha: sha
-          })
+          body: JSON.stringify({ value: newPass })
         });
 
-        if (!fileRes.ok) {
-          const err = await fileRes.json();
-          throw new Error(err.message || '更新失败');
+        // 如果 404，说明 Variable 不存在，需要先创建
+        if (response.status === 404) {
+          response = await fetch('https://api.github.com/repos/CNLVC/lvc/actions/variables', {
+            method: 'POST',
+            headers: {
+              'Authorization': 'token ' + token,
+              'Content-Type': 'application/json',
+              'Accept': 'application/vnd.github.v3+json'
+            },
+            body: JSON.stringify({ name: 'ADMIN_PASSWORD', value: newPass })
+          });
         }
 
-        // 4. 触发重新构建
+        if (!response.ok && response.status !== 204) {
+          const err = await response.json().catch(() => ({ message: '更新失败' }));
+          throw new Error(err.message || '更新失败 (' + response.status + ')');
+        }
+
+        // 3. 触发重新构建
         status.textContent = '密码已更新，正在重新构建网站（约1-2分钟）...';
 
-        // 等待一下让 workflow 启动
+        // 触发 workflow
+        await fetch('https://api.github.com/repos/CNLVC/lvc/actions/workflows/pages.yml/dispatches', {
+          method: 'POST',
+          headers: {
+            'Authorization': 'token ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github.v3+json'
+          },
+          body: JSON.stringify({ ref: 'master' })
+        });
+
         setTimeout(() => {
           closePasswordModal();
           alert('密码修改成功！\n\n请使用新密码重新登录。\n\n注意：网站需要约1-2分钟重新构建后新密码才能生效。');
-          // 重新加载页面让用户输入新密码
           location.reload();
         }, 2000);
 
