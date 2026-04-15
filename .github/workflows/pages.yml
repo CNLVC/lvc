@@ -65,6 +65,7 @@ jobs:
           cp -r images public/
           cp -r lib public/
           cp -r css public/
+          cp -r js public/
           cp source/js/truncate.js public/js/ 2>/dev/null || true
           cp source/js/transform-menu.js public/js/ 2>/dev/null || true
 
