@@ -87,7 +87,7 @@
           {%- endif %}
           <!--/noindex-->
         {% else %}
-          {{ post.content | truncate(500) }}
+          {{ post.content | striptags | truncate(500) }}
           <!--noindex-->
           {%- if theme.read_more_btn %}
             <div class="post-button">
