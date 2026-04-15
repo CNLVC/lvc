@@ -44,12 +44,9 @@ jobs:
         run: |
           cp theme_config/next_config.yml themes/next/_config.yml
 
-      - name: Patch theme templates for v5 compatibility
+      - name: Patch theme templates
         run: |
-          # Copy pre-patched layout template
           cp theme_templates/_layout.njk themes/next/layout/_layout.njk
-
-          # Copy pre-patched sidebar template
           cp theme_templates/_macro/sidebar.njk themes/next/layout/_macro/sidebar.njk
 
       - name: Build Hexo site
@@ -69,7 +66,6 @@ jobs:
           cp -r lib public/
           cp -r css public/
           cp source/js/truncate.js public/js/ 2>/dev/null || true
-          cp source/js/apply-v5-header.js public/js/ 2>/dev/null || true
           cp source/js/transform-menu.js public/js/ 2>/dev/null || true
 
       - name: Upload artifact
