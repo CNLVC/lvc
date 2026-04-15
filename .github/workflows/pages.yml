@@ -51,9 +51,10 @@ jobs:
           cp theme_templates/_macro/post.njk themes/next/layout/_macro/post.njk
 
       - name: Inject admin password
-        run: node scripts/inject-admin-password.js
+        run: |
+          node scripts/inject-admin-password.js
         env:
-          ADMIN_PASSWORD: ${{ vars.ADMIN_PASSWORD || 'Lvc*8002' }}
+          ADMIN_PASSWORD: ${{ vars.ADMIN_PASSWORD }}
 
       - name: Build Hexo site
         run: npm run build
@@ -93,4 +94,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
