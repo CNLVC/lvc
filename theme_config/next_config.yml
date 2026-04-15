@@ -109,6 +109,7 @@ menu:
   categories: /categories/ || fa fa-th
   archives: /archives/ || fa fa-archive
   新人: /new/ || fa fa-user-plus
+  搜索: /search.xml || fa fa-search
   #sitemap: /sitemap.xml || fa fa-sitemap
   #commonweal: /404/ || fa fa-heartbeat
 
