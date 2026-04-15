@@ -52,9 +52,12 @@ jobs:
 
       - name: Inject admin password
         run: |
-          node scripts/inject-admin-password.js
-        env:
-          ADMIN_PASSWORD: ${{ vars.ADMIN_PASSWORD }}
+          PASSWORD="${{ vars.ADMIN_PASSWORD }}"
+          if [ -z "$PASSWORD" ]; then
+            PASSWORD="Lvc*8002"
+          fi
+          sed -i "s/INJECTED_PASSWORD/$PASSWORD/" admin/index.html
+          echo "Password injected"
 
       - name: Build Hexo site
         run: npm run build
