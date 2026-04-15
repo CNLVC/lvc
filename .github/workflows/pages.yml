@@ -52,24 +52,15 @@ jobs:
 
       - name: Inject admin password
         run: |
-          echo "Checking variable value..."
-          echo "VAR_VALUE: ${{ vars.ADMIN_PASSWORD }}"
-          PASSWORD="${{ vars.ADMIN_PASSWORD }}"
-          if [ -z "$PASSWORD" ]; then
-            PASSWORD="Lvc*8002"
-          fi
-          echo "Using password: ${PASSWORD:0:3}***"
           node -e "
             const fs = require('fs');
-            const password = process.env.PASSWORD || 'changeme';
-            console.log('Node received password:', password);
+            const password = '${{ vars.ADMIN_PASSWORD }}' || 'Lvc*8002';
+            console.log('Password:', password.substring(0, 3) + '***');
             let content = fs.readFileSync('admin/index.html', 'utf8');
-            content = content.replace(/const ADMIN_PASSWORD = 'INJECTED_PASSWORD';/, \"const ADMIN_PASSWORD = '\" + password + \"';\");
+            content = content.replace(/INJECTED_PASSWORD/, password);
             fs.writeFileSync('admin/index.html', content);
-            console.log('Password injected');
+            console.log('Done');
           "
-        env:
-          PASSWORD: ${{ vars.ADMIN_PASSWORD }}
 
       - name: Build Hexo site
         run: npm run build
