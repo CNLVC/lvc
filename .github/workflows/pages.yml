@@ -131,6 +131,10 @@ jobs:
           cp source/js/truncate.js public/js/ 2>/dev/null || true
           cp source/js/transform-menu.js public/js/ 2>/dev/null || true
 
+      - name: Fix copyright year from 2019 to 2008
+        run: |
+          find public -name "*.html" -exec sed -i 's/<span itemprop="copyrightYear">2019<\/span>/<span itemprop="copyrightYear">2008<\/span>/g' {} \;
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
