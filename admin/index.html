@@ -65,8 +65,6 @@
 
     .action-bar { padding: 15px 20px; border-top: 1px solid #d1d5da; display: flex; gap: 10px; justify-content: flex-end; background: #f6f8fa; }
     .action-bar button { padding: 10px 20px; border-radius: 4px; font-size: 14px; cursor: pointer; border: none; }
-    .btn-save { background: #6a737d; color: white; }
-    .btn-save:hover { background: #586069; }
     .btn-publish { background: #2ea44f; color: white; }
     .btn-publish:hover { background: #2c974b; }
     .btn-unpublish { background: #f0ad4e; color: white; }
@@ -235,7 +233,6 @@
 
       <div class="action-bar">
         <button class="btn-delete" onclick="showDeleteModal()">删除</button>
-        <button class="btn-save" onclick="saveArticle()">保存</button>
         <button class="btn-publish" id="btnPublish" onclick="publishArticle()">发布</button>
       </div>
     </div>
@@ -593,6 +590,24 @@
         }
       }
 
+      // 检查是否有本地草稿
+      if (hasDraft()) {
+        const saved = JSON.parse(localStorage.getItem(DRAFT_KEY) || '{}');
+        const draftDate = saved.savedAt ? new Date(saved.savedAt).toLocaleString() : '未知时间';
+        if (confirm(`发现未发布的草稿（保存于 ${draftDate}），是否恢复？\n\n标题: ${saved.title || '(无标题)'}\n内容: ${(saved.bodyContent || '').substring(0, 50)}...`)) {
+          restoreDraftFromLocal();
+          currentArticle = null;
+          isDraft = false;
+          document.querySelectorAll('.article-list a').forEach(a => a.classList.remove('active'));
+          hasUnsavedChanges = true;
+          updatePublishStatus();
+          updatePreview();
+          return;
+        } else {
+          clearLocalDraft();
+        }
+      }
+
       currentArticle = null;
       isDraft = false;
       document.getElementById('articleTitle').value = '';
@@ -719,9 +734,9 @@
         clearTimeout(autoSaveTimer);
       }
 
-      // 3秒后自动保存
+      // 3秒后自动保存到 localStorage
       autoSaveTimer = setTimeout(() => {
-        if (hasUnsavedChanges && currentArticle) {
+        if (hasUnsavedChanges) {
           autoSave();
         }
       }, 3000);
@@ -737,7 +752,7 @@
           clearTimeout(autoSaveTimer);
         }
         autoSaveTimer = setTimeout(() => {
-          if (hasUnsavedChanges && currentArticle) {
+          if (hasUnsavedChanges) {
             autoSave();
           }
         }, 3000);
@@ -745,16 +760,73 @@
     });
 
     // 自动保存（不触发构建）
-    async function autoSave() {
-      if (!currentArticle || !hasUnsavedChanges) return;
+    // localStorage key for draft
+    const DRAFT_KEY = 'lvc_article_draft';
+
+    // 保存草稿到 localStorage（不触发构建）
+    function saveDraftToLocal() {
+      const title = document.getElementById('articleTitle').value.trim();
+      const date = document.getElementById('articleDate').value;
+      const author = document.getElementById('authorInput').value.trim();
+      const category = document.getElementById('categorySelect').value;
+      const tags = document.getElementById('articleTags').value;
+      const bodyContent = document.getElementById('editor').value;
+
+      // 只有有内容才保存
+      if (!title && !bodyContent) return;
+
+      const draft = {
+        title,
+        date,
+        author,
+        category,
+        tags,
+        bodyContent,
+        savedAt: new Date().toISOString()
+      };
+
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+      document.getElementById('saveStatus').textContent = '已存草稿';
+      console.log('草稿已保存到本地');
+    }
+
+    // 从 localStorage 恢复草稿
+    function restoreDraftFromLocal() {
+      const saved = localStorage.getItem(DRAFT_KEY);
+      if (!saved) return false;
 
       try {
-        await saveArticleInner(false);
-        hasUnsavedChanges = false;
-        updatePublishStatus();
-      } catch (error) {
-        console.error('自动保存失败:', error);
+        const draft = JSON.parse(saved);
+        document.getElementById('articleTitle').value = draft.title || '';
+        document.getElementById('articleDate').value = draft.date || '';
+        document.getElementById('authorInput').value = draft.author || '';
+        document.getElementById('categorySelect').value = draft.category || '';
+        document.getElementById('articleTags').value = draft.tags || '';
+        document.getElementById('editor').value = draft.bodyContent || '';
+        updatePreview();
+        return true;
+      } catch (e) {
+        console.error('恢复草稿失败:', e);
+        return false;
       }
+    }
+
+    // 清除 localStorage 草稿
+    function clearLocalDraft() {
+      localStorage.removeItem(DRAFT_KEY);
+    }
+
+    // 检查是否有未发布的草稿
+    function hasDraft() {
+      return !!localStorage.getItem(DRAFT_KEY);
+    }
+
+    // 自动保存到 localStorage
+    function autoSave() {
+      if (!hasUnsavedChanges) return;
+      saveDraftToLocal();
+      hasUnsavedChanges = false;
+      updatePublishStatus();
     }
 
     async function saveArticleInner(withDraftFlag, publish = null) {
@@ -854,6 +926,9 @@ author: ${author || 'Jeremy'}`;
 
         // 保存并设置为已发布
         await saveArticleInner(true, true);
+
+        // 清除本地草稿
+        clearLocalDraft();
 
         // 触发 GitHub Pages 重新构建
         await triggerPagesBuild();
