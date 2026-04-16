@@ -65,7 +65,51 @@ jobs:
 
       - name: Build Hexo site
         run: npm run build
-          
+
+      - name: Remove draft posts
+        run: |
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+
+            function hasDraftFrontMatter(filePath) {
+              try {
+                const content = fs.readFileSync(filePath, 'utf8');
+                const match = content.match(/^---\n([\s\S]*?)\n---/);
+                if (match) {
+                  const fm = match[1];
+                  return fm.includes('draft: true');
+                }
+              } catch (e) {}
+              return false;
+            }
+
+            const postsDir = 'source/_posts';
+            if (fs.existsSync(postsDir)) {
+              const files = fs.readdirSync(postsDir);
+              for (const file of files) {
+                if (file.endsWith('.md')) {
+                  const fullPath = path.join(postsDir, file);
+                  if (hasDraftFrontMatter(fullPath)) {
+                    console.log('Draft found:', file);
+                    const match = file.match(/^(\d{4}-\d{2}-\d{2})-(.+)\.md$/);
+                    if (match) {
+                      const date = match[1];
+                      const slug = match[2];
+                      const year = date.split('-')[0];
+                      const publicPath = path.join('public', year, date + '-' + slug);
+                      if (fs.existsSync(publicPath)) {
+                        console.log('Removing:', publicPath);
+                        fs.rmSync(publicPath, { recursive: true });
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            console.log('Draft removal done');
+          "
+
       - name: Copy static files and admin panel to public
         run: |
           cp CNAME public/ || true
