@@ -837,9 +837,8 @@ author: ${author || 'Jeremy'}`;
           // 新文章默认是草稿
           await saveArticleInner(true, false);
         } else {
-          // 已有文章：保持原状态，不改变发布状态
-          // withDraftFlag=false 且 publish=null 表示不修改 front matter 中的 draft 状态
-          await saveArticleInner(false, null);
+          // 已有文章：保持原来的发布状态
+          await saveArticleInner(true, !isDraft);
         }
         hasUnsavedChanges = false;
         updatePublishStatus();
