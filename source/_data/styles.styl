@@ -181,15 +181,23 @@
 // Light Mode
 // ==========================================
 
-// Light mode header - white background, black text
-body:not(.darkmode) .header,
-body:not(.darkmode) #header,
-body:not(.darkmode) header.header {
+// Homepage background - white
+body:not(.darkmode) {
   background-color: #ffffff !important;
-  border-bottom-color: #ddd !important;
 }
 
-body:not(.darkmode) .site-title a {
+// Light mode header/navigation bar - #CCCCCC background, black text
+body:not(.darkmode) .header,
+body:not(.darkmode) #header,
+body:not(.darkmode) header.header,
+body:not(.darkmode) .header-inner,
+body:not(.darkmode) .site-head {
+  background-color: #CCCCCC !important;
+  border-bottom-color: #aaa !important;
+}
+
+body:not(.darkmode) .site-title a,
+body:not(.darkmode) .brand {
   color: #000000 !important;
 }
 
@@ -205,16 +213,16 @@ body:not(.darkmode) .menu-item a:hover {
   color: #333333 !important;
 }
 
-// Light mode sidebar - white background, text black
+// Light mode sidebar - #CCCCCC background, text black
 body:not(.darkmode) .sidebar,
 body:not(.darkmode) #sidebar,
 body:not(.darkmode) aside.sidebar {
-  background-color: #ffffff !important;
+  background-color: #CCCCCC !important;
 }
 
 body:not(.darkmode) .sidebar-inner,
 body:not(.darkmode) .sidebar-panel {
-  background-color: #ffffff !important;
+  background-color: #CCCCCC !important;
 }
 
 body:not(.darkmode) .site-author-image {
@@ -244,8 +252,8 @@ body:not(.darkmode) .links-of-blogroll a {
 
 // Light mode footer
 body:not(.darkmode) .footer {
-  background-color: #ffffff !important;
-  border-top-color: #ddd !important;
+  background-color: #CCCCCC !important;
+  border-top-color: #aaa !important;
   color: #000000 !important;
 }
 
@@ -278,7 +286,7 @@ body:not(.darkmode) .post-link {
   color: #333333 !important;
 }
 
-// Light mode "阅读全文" button - white background, black text
+// Light mode "阅读全文" button
 body:not(.darkmode) .post-button a,
 body:not(.darkmode) .posts-expand .post-button .btn,
 body:not(.darkmode) .read-more-btn {
@@ -289,13 +297,13 @@ body:not(.darkmode) .read-more-btn {
 
 // Light mode toggle button
 body:not(.darkmode) .darkmode-toggle-btn {
-  background: #f0f0f0 !important;
+  background: #e0e0e0 !important;
   color: #333333 !important;
-  border: 1px solid #ccc !important;
+  border: 1px solid #bbb !important;
 }
 
 body:not(.darkmode) .darkmode-toggle-btn:hover {
-  background: #e0e0e0 !important;
+  background: #d0d0d0 !important;
 }
 
 // Light mode pagination
