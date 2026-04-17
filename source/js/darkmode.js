@@ -34,6 +34,23 @@
     } else {
       document.body.classList.remove('darkmode');
     }
+    updateButtonStyle(mode);
+  }
+
+  // Update button style based on mode
+  function updateButtonStyle(mode) {
+    const btn = document.getElementById('darkmode-toggle');
+    if (!btn) return;
+
+    if (mode === 'dark') {
+      btn.style.background = '#3a3a3c';
+      btn.style.color = '#e5e5e7';
+      btn.style.borderColor = '#555';
+    } else {
+      btn.style.background = '#f0f0f0';
+      btn.style.color = '#333';
+      btn.style.borderColor = 'rgba(0,0,0,0.1)';
+    }
   }
 
   // Toggle mode
@@ -50,12 +67,14 @@
     const btn = document.getElementById('darkmode-toggle');
     if (btn) {
       btn.textContent = mode === 'dark' ? '☀️ 浅色模式' : '🌙 深色模式';
+      updateButtonStyle(mode);
     }
   }
 
   // Create and inject the toggle button
   function createToggleButton(mode) {
-    const sidebar = document.querySelector('.sidebar .sidebar-panel .site-overview-wrap');
+    // Try multiple selectors to find the right insertion point
+    const sidebar = document.querySelector('.sidebar-inner .site-overview');
     if (!sidebar) return;
 
     // Check if button already exists
@@ -65,7 +84,7 @@
     btn.id = 'darkmode-toggle';
     btn.className = 'darkmode-toggle-btn';
     btn.textContent = mode === 'dark' ? '☀️ 浅色模式' : '🌙 深色模式';
-    btn.style.cssText = 'padding: 8px 12px; margin: 10px 0; text-align: center; cursor: pointer; border-radius: 4px; background: var(--btn-default-bg); color: var(--btn-default-color); font-size: 14px; transition: all 0.3s ease;';
+    btn.style.cssText = 'padding: 10px 12px; margin: 10px 0; text-align: center; cursor: pointer; border-radius: 6px; background: var(--btn-default-bg, #f0f0f0); color: var(--btn-default-color, #333); font-size: 14px; transition: all 0.3s ease; border: 1px solid rgba(0,0,0,0.1);';
     btn.onclick = toggleMode;
 
     sidebar.insertBefore(btn, sidebar.firstChild);
