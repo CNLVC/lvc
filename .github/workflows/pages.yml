@@ -139,9 +139,10 @@ jobs:
         run: |
           find public -name "*.html" -exec sed -i 's/<span itemprop="copyrightYear">2019<\/span>/<span itemprop="copyrightYear">2008<\/span>/g' {} \;
 
-      - name: Remove archive count text
+      - name: Remove archive count text prefix and suffix
         run: |
-          find public -name "*.html" -exec sed -i 's/<p>太棒了! 目前共计.*篇日志。 继续努力。<\/p>//g' {} \;
+          find public -name "*.html" -exec sed -i 's/太棒了! 目前共计/目前共计/g' {} \;
+          find public -name "*.html" -exec sed -i 's/篇日志。 继续努力。/篇日志。/g' {} \;
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
