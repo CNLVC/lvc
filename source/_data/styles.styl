@@ -8,16 +8,15 @@
 }
 
 // ==========================================
-// Dark Mode - Override NexT Theme Hardcoded Styles
+// Dark Mode
 // ==========================================
 
-// Dark mode body and content
 .darkmode {
   background-color: #1c1c1e !important;
   color: #e5e5e7 !important;
 }
 
-// Dark mode header/navigation - force #333333
+// Dark mode header/navigation - #333333
 .darkmode .header,
 .darkmode #header,
 .darkmode header.header {
@@ -25,35 +24,30 @@
   border-bottom-color: #444 !important;
 }
 
-// Dark mode site title and subtitle
 .darkmode .site-title,
 .darkmode .site-title a,
 .darkmode .site-subtitle {
   color: #ffffff !important;
 }
 
-// Dark mode sidebar - force #333333
+// Dark mode sidebar - #333333
 .darkmode .sidebar,
 .darkmode #sidebar,
 .darkmode aside.sidebar {
   background-color: #333333 !important;
 }
 
-// Dark mode sidebar inner
 .darkmode .sidebar-inner,
 .darkmode .sidebar-panel {
   background-color: #333333 !important;
 }
 
-// Dark mode footer
-.darkmode .footer,
-.darkmode footer.footer {
+.darkmode .footer {
   background-color: #333333 !important;
   border-top-color: #444 !important;
   color: #e5e5e7 !important;
 }
 
-// Dark mode links
 .darkmode a {
   color: #6eb5ff !important;
 }
@@ -62,9 +56,7 @@
   color: #9ecfff !important;
 }
 
-// Dark mode posts
-.darkmode .post,
-.darkmode article.post {
+.darkmode .post {
   background-color: #2c2c2e !important;
   border-color: #38383a !important;
 }
@@ -82,7 +74,6 @@
   color: #6eb5ff !important;
 }
 
-// Dark mode menu/navigation in header
 .darkmode .menu-item a,
 .darkmode .menu .menu-item a,
 .darkmode .nav-item a {
@@ -94,7 +85,6 @@
   color: #6eb5ff !important;
 }
 
-// Dark mode back to top button
 .darkmode .back-to-top {
   background-color: #333333 !important;
   color: #e5e5e7 !important;
@@ -111,21 +101,18 @@
   background: #5a5a5a !important;
 }
 
-// Dark mode code
 .darkmode code,
 .darkmode pre {
   background-color: #2c2c2e !important;
   color: #e5e5e7 !important;
 }
 
-// Dark mode blockquote
 .darkmode blockquote {
   border-left-color: #6eb5ff !important;
   background-color: #2c2c2e !important;
   color: #e5e5e7 !important;
 }
 
-// Dark mode tags/categories
 .darkmode .tags a,
 .darkmode .categories a,
 .darkmode .tag-list a,
@@ -135,7 +122,6 @@
   border-color: #555 !important;
 }
 
-// Dark mode pagination
 .darkmode .pagination .page-number,
 .darkmode .pagination a {
   background-color: #3a3a3c !important;
@@ -143,14 +129,12 @@
   border-color: #555 !important;
 }
 
-// Dark mode buttons
 .darkmode .btn {
   background-color: #3a3a3c !important;
   color: #e5e5e7 !important;
   border-color: #555 !important;
 }
 
-// Dark mode forms
 .darkmode input,
 .darkmode textarea,
 .darkmode select {
@@ -159,78 +143,162 @@
   border-color: #555 !important;
 }
 
-// Dark mode site-state (archive/category counts)
 .darkmode .site-state-item,
 .darkmode .site-state-item a {
   color: #e5e5e7 !important;
 }
 
-// Dark mode author info
 .darkmode .author-info {
   background-color: #333333 !important;
   color: #e5e5e7 !important;
 }
 
+// Dark mode "阅读全文" button and pagination - #1c1c1e
+.darkmode .post-button a,
+.darkmode .posts-expand .post-button .btn,
+.darkmode .read-more-btn {
+  background-color: #1c1c1e !important;
+  color: #e5e5e7 !important;
+  border-color: #444 !important;
+}
+
+.darkmode .pagination,
+.darkmode .pagination-wrap,
+.darkmode .pagination .prev,
+.darkmode .pagination .next,
+.darkmode .pagination .page-number {
+  background-color: #1c1c1e !important;
+  border-color: #38383a !important;
+}
+
+.darkmode .pagination .page-number {
+  background-color: #1c1c1e !important;
+  color: #e5e5e7 !important;
+  border: 1px solid #38383a !important;
+}
+
 // ==========================================
-// Light Mode - Override to make header/sidebar lighter
+// Light Mode
 // ==========================================
 
-// Light mode header should be white
+// Light mode header - #CCCCCC, text black
 body:not(.darkmode) .header,
 body:not(.darkmode) #header,
 body:not(.darkmode) header.header {
-  background-color: #ffffff !important;
+  background-color: #CCCCCC !important;
+  border-bottom-color: #aaa !important;
 }
 
-// Light mode sidebar should be light gray
+body:not(.darkmode) .site-title a {
+  color: #000000 !important;
+}
+
+body:not(.darkmode) .site-subtitle {
+  color: #000000 !important;
+}
+
+body:not(.darkmode) .menu-item a {
+  color: #000000 !important;
+}
+
+body:not(.darkmode) .menu-item a:hover {
+  color: #333333 !important;
+}
+
+// Light mode sidebar - logo no border, text black
 body:not(.darkmode) .sidebar,
 body:not(.darkmode) #sidebar,
 body:not(.darkmode) aside.sidebar {
-  background-color: #f8f9fa !important;
+  background-color: #CCCCCC !important;
 }
 
 body:not(.darkmode) .sidebar-inner,
 body:not(.darkmode) .sidebar-panel {
-  background-color: #f8f9fa !important;
+  background-color: #CCCCCC !important;
+}
+
+body:not(.darkmode) .site-author-image {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body:not(.darkmode) .site-author-name,
+body:not(.darkmode) .site-description,
+body:not(.darkmode) .site-state-item,
+body:not(.darkmode) .site-state-item a,
+body:not(.darkmode) .site-state-item-count,
+body:not(.darkmode) .site-state-item-name,
+body:not(.darkmode) .links-of-blogroll-title,
+body:not(.darkmode) .links-of-blogroll-item a {
+  color: #000000 !important;
 }
 
 // Light mode footer
 body:not(.darkmode) .footer {
-  background-color: #ffffff !important;
-  border-top-color: #e1e8ed !important;
+  background-color: #CCCCCC !important;
+  border-top-color: #aaa !important;
+  color: #000000 !important;
 }
 
-// Light mode title
-body:not(.darkmode) .site-title a {
-  color: #2c3e50 !important;
+// Light mode homepage posts - #CCCCCC background, black text
+body:not(.darkmode) .posts-expand,
+body:not(.darkmode) .posts-expand .post {
+  background-color: #CCCCCC !important;
+  border-color: #aaa !important;
 }
 
-body:not(.darkmode) .site-subtitle {
-  color: #606060 !important;
+body:not(.darkmode) .post-title,
+body:not(.darkmode) .post-title a,
+body:not(.darkmode) .post-meta,
+body:not(.darkmode) .post-content,
+body:not(.darkmode) .post-body,
+body:not(.darkmode) .post-entry,
+body:not(.darkmode) .post-description {
+  color: #000000 !important;
 }
 
-// Light mode menu
-body:not(.darkmode) .menu-item a {
-  color: #2c3e50 !important;
+body:not(.darkmode) .post-link {
+  color: #333333 !important;
 }
 
-body:not(.darkmode) .menu-item a:hover {
-  color: #2a80b9 !important;
+// Light mode "阅读全文" button
+body:not(.darkmode) .post-button a,
+body:not(.darkmode) .posts-expand .post-button .btn,
+body:not(.darkmode) .read-more-btn {
+  background-color: #CCCCCC !important;
+  color: #000000 !important;
+  border: 1px solid #999 !important;
 }
 
 // Light mode toggle button
 body:not(.darkmode) .darkmode-toggle-btn {
-  background: #f0f0f0 !important;
-  color: #555555 !important;
-  border: 1px solid #ddd !important;
+  background: #e0e0e0 !important;
+  color: #333333 !important;
+  border: 1px solid #bbb !important;
 }
 
 body:not(.darkmode) .darkmode-toggle-btn:hover {
-  background: #e8e8e8 !important;
+  background: #d0d0d0 !important;
 }
 
-// Light mode posts should be white
-body:not(.darkmode) .post,
-body:not(.darkmode) article.post {
-  background-color: #ffffff !important;
+// Light mode pagination
+body:not(.darkmode) .pagination .page-number {
+  background-color: #CCCCCC !important;
+  color: #000000 !important;
+  border: 1px solid #aaa !important;
+}
+
+body:not(.darkmode) .pagination a {
+  background-color: #CCCCCC !important;
+  color: #000000 !important;
+  border-color: #aaa !important;
+}
+
+// Light mode homepage specific
+body:not(.darkmode) .main-inner {
+  background-color: #CCCCCC !important;
+}
+
+body:not(.darkmode) .column {
+  background-color: #CCCCCC !important;
 }
