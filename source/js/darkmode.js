@@ -1,32 +1,28 @@
 /**
  * Dark Mode Controller
  * - Time-based auto switching: 06:00-17:59 = light, 18:00-05:59 = dark
- * - Manual toggle button in sidebar
+ * - Manual toggle button in sidebar (bottom)
  * - Persists user preference in localStorage
  */
 
 (function() {
   const STORAGE_KEY = 'lvc_dark_mode';
-  const LIGHT_HOUR_START = 6;  // 06:00
-  const LIGHT_HOUR_END = 18;   // 18:00 (excluded, so 18:00 starts dark)
+  const LIGHT_HOUR_START = 6;
+  const LIGHT_HOUR_END = 18;
 
-  // Check if currently in light hours (06:00-17:59)
   function isLightHours() {
     const hour = new Date().getHours();
     return hour >= LIGHT_HOUR_START && hour < LIGHT_HOUR_END;
   }
 
-  // Get initial mode: check localStorage first, then time-based
   function getInitialMode() {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored !== null) {
       return stored === 'light' ? 'light' : 'dark';
     }
-    // No preference stored, use time-based
     return isLightHours() ? 'light' : 'dark';
   }
 
-  // Apply mode to page
   function applyMode(mode) {
     if (mode === 'dark') {
       document.body.classList.add('darkmode');
@@ -37,23 +33,20 @@
     updateButtonStyle(mode);
   }
 
-  // Update button style based on mode
   function updateButtonStyle(mode) {
     const btn = document.getElementById('darkmode-toggle');
     if (!btn) return;
-
     if (mode === 'dark') {
       btn.style.background = '#3a3a3c';
       btn.style.color = '#e5e5e7';
       btn.style.borderColor = '#555';
     } else {
       btn.style.background = '#f0f0f0';
-      btn.style.color = '#333';
-      btn.style.borderColor = 'rgba(0,0,0,0.1)';
+      btn.style.color = '#555';
+      btn.style.borderColor = '#ddd';
     }
   }
 
-  // Toggle mode
   function toggleMode() {
     const currentMode = document.body.classList.contains('darkmode') ? 'dark' : 'light';
     const newMode = currentMode === 'dark' ? 'light' : 'dark';
@@ -62,40 +55,51 @@
     updateButtonText(newMode);
   }
 
-  // Update toggle button text
   function updateButtonText(mode) {
     const btn = document.getElementById('darkmode-toggle');
     if (btn) {
-      btn.textContent = mode === 'dark' ? '☀️ 浅色模式' : '🌙 深色模式';
+      btn.textContent = mode === 'dark' ? '☀️' : '🌙';
+      btn.title = mode === 'dark' ? '切换到浅色模式' : '切换到深色模式';
       updateButtonStyle(mode);
     }
   }
 
-  // Create and inject the toggle button
+  // Create button and insert at BOTTOM of sidebar
   function createToggleButton(mode) {
-    // Try multiple selectors to find the right insertion point
-    const sidebar = document.querySelector('.sidebar-inner .site-overview');
-    if (!sidebar) return;
+    // Try multiple possible sidebar containers (for different page types)
+    const selectors = [
+      '.sidebar-inner .site-overview-wrap',
+      '.sidebar-inner .sidebar-panel',
+      '.sidebar-inner',
+      '#sidebar .sidebar-inner'
+    ];
 
-    // Check if button already exists
+    let container = null;
+    for (const sel of selectors) {
+      const el = document.querySelector(sel);
+      if (el) { container = el; break; }
+    }
+    if (!container) return;
     if (document.getElementById('darkmode-toggle')) return;
 
     const btn = document.createElement('div');
     btn.id = 'darkmode-toggle';
     btn.className = 'darkmode-toggle-btn';
-    btn.textContent = mode === 'dark' ? '☀️ 浅色模式' : '🌙 深色模式';
-    btn.style.cssText = 'padding: 10px 12px; margin: 10px 0; text-align: center; cursor: pointer; border-radius: 6px; background: var(--btn-default-bg, #f0f0f0); color: var(--btn-default-color, #333); font-size: 14px; transition: all 0.3s ease; border: 1px solid rgba(0,0,0,0.1);';
+    btn.textContent = mode === 'dark' ? '☀️' : '🌙';
+    btn.title = mode === 'dark' ? '切换到浅色模式' : '切换到深色模式';
     btn.onclick = toggleMode;
+    btn.style.cssText = 'width: 32px; height: 32px; line-height: 32px; margin: 8px auto; text-align: center; cursor: pointer; border-radius: 50%; font-size: 16px; transition: all 0.3s;';
 
-    sidebar.insertBefore(btn, sidebar.firstChild);
+    // Insert at the end (bottom) of the container
+    container.appendChild(btn);
   }
 
-  // Initialize
   function init() {
     const mode = getInitialMode();
+
+    // Apply mode immediately (before DOM ready)
     applyMode(mode);
 
-    // Wait for DOM to be ready
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', function() {
         createToggleButton(mode);
@@ -104,11 +108,10 @@
       createToggleButton(mode);
     }
 
-    // Check time every minute and auto-switch if needed
+    // Check time every minute for auto-switch
     setInterval(function() {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored === null) {
-        // No manual preference, auto-switch based on time
         const shouldBeLight = isLightHours();
         const currentIsDark = document.body.classList.contains('darkmode');
         if ((shouldBeLight && currentIsDark) || (!shouldBeLight && !currentIsDark)) {
@@ -117,7 +120,7 @@
           updateButtonText(newMode);
         }
       }
-    }, 60000); // Check every minute
+    }, 60000);
   }
 
   init();
