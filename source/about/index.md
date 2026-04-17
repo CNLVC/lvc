@@ -31,4 +31,4 @@ Vision: Build a city on the hill, shine your light into the valley.
 
 ![微信公众号](../images/LVC-QR.jpg)
 
-## [联系我们>>](https://www.wenjuan.com/s/J7F7ryO/)
+<p><a href="https://www.wenjuan.com/s/J7F7ryO/" target="_blank">联系我们>></a></p>
