@@ -5,8 +5,6 @@ author: Jeremy
 categories:
   - 未分类
 tags:
-  - Hexo
-  - NexT
 ---
 
 **原文地址：**[姐妹着装](http://blog.sina.com.cn/s/blog_63d3d40c0100j81v.html)

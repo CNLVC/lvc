@@ -5,8 +5,6 @@ author: Jeremy
 categories:
   - 未分类
 tags:
-  - Hexo
-  - NexT
 ---
 
 由Aaron设计，版权所有。

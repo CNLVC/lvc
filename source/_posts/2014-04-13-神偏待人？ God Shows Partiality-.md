@@ -5,8 +5,6 @@ author: Jeremy
 categories:
   - 使徒行传
 tags:
-  - Hexo
-  - NexT
 ---
 
 证道/周牧

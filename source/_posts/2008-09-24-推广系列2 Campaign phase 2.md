@@ -3,10 +3,7 @@ title: "推广系列2 Campaign phase 2"
 date: 2008-09-24
 author: Jeremy
 categories:
-  - index.html
-tags:
-  - Hexo
-  - NexT
+  - 未分类
 ---
 
 今天印了第二期720份（鉴于上次不足），去了同样那座写字楼派发。

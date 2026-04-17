@@ -5,8 +5,6 @@ author: Jeremy
 categories:
   - 未分类
 tags:
-  - Hexo
-  - NexT
 ---
 
 作者：小幺

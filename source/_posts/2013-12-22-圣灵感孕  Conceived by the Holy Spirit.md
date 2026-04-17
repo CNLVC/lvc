@@ -5,8 +5,6 @@ author: Jeremy
 categories:
   - 圣诞节
 tags:
-  - Hexo
-  - NexT
 ---
 
 太Matt 1:18-25

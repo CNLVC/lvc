@@ -5,8 +5,6 @@ author: Jeremy
 categories:
   - 创世记
 tags:
-  - Hexo
-  - NexT
 ---
 
 证道/特邀嘉宾

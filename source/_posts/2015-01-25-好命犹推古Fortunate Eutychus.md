@@ -5,8 +5,6 @@ author: Jeremy
 categories:
   - 使徒行传
 tags:
-  - Hexo
-  - NexT
 ---
 
 **徒 Acts 20:1-12**

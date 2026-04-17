@@ -5,8 +5,6 @@ author: Jeremy
 categories:
   - 未分类
 tags:
-  - Hexo
-  - NexT
 ---
 
 今天找了5个弟兄去那栋写字楼门口发单张。

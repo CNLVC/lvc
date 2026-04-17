@@ -5,8 +5,6 @@ author: Jeremy
 categories:
   - 出埃及记
 tags:
-  - Hexo
-  - NexT
 ---
 
 出 Exo 9:13-21

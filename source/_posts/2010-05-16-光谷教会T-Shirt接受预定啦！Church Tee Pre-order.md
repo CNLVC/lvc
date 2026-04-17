@@ -5,8 +5,6 @@ author: Jeremy
 categories:
   - 未分类
 tags:
-  - Hexo
-  - NexT
 ---
 
 本教会会友下周日前预定可享受优惠价 ￥20（每人限购2件，两件以上原价）

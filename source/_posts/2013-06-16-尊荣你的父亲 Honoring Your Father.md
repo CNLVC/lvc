@@ -5,8 +5,6 @@ author: Jeremy
 categories:
   - 申命记
 tags:
-  - Hexo
-  - NexT
 ---
 
 申Duet 5:16

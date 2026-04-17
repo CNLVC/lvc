@@ -5,8 +5,6 @@ author: Jeremy
 categories:
   - 以西结书
 tags:
-  - Hexo
-  - NexT
 ---
 
 **以西结书Eze 18:1-32**

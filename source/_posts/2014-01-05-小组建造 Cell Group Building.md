@@ -5,8 +5,6 @@ author: Jeremy
 categories:
   - 以弗所书
 tags:
-  - Hexo
-  - NexT
 ---
 
 证道/周牧
