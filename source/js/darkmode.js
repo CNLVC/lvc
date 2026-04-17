@@ -64,13 +64,8 @@
     }
   }
 
-  // Create button and insert at BOTTOM of sidebar (homepage only)
+  // Create button and insert at BOTTOM of sidebar
   function createToggleButton(mode) {
-    // Only show toggle button on homepage
-    const path = window.location.pathname;
-    const isHomepage = path === '/' || path === '/2026/' || path.match(/^\/\d{4}\/$/);
-    if (!isHomepage) return;
-
     // Try multiple possible sidebar containers (for different page types)
     const selectors = [
       '.sidebar-inner .site-overview-wrap',
