@@ -6,3 +6,171 @@
 .posts-expand .post-body a img {
   display: none;
 }
+
+// ==========================================
+// Dark Mode Color Overrides
+// ==========================================
+
+// Light mode colors (default - keep original)
+:root {
+  --body-bg-color: #ffffff;
+  --text-color: #2c3e50;
+  --link-color: #2a80b9;
+  --border-color: #e1e8ed;
+  --header-bg-color: #ffffff;
+  --sidebar-bg-color: #f8f9fa;
+  --post-bg-color: #ffffff;
+  --btn-default-bg: #f6f8fa;
+  --btn-default-color: #24292e;
+}
+
+// Dark mode colors (apple-inspired, easy on eyes)
+.darkmode {
+  --body-bg-color: #1c1c1e;
+  --text-color: #e5e5e7;
+  --link-color: #6eb5ff;
+  --border-color: #38383a;
+  --header-bg-color: #1c1c1e;
+  --sidebar-bg-color: #2c2c2e;
+  --post-bg-color: #2c2c2e;
+  --btn-default-bg: #3a3a3c;
+  --btn-default-color: #e5e5e7;
+}
+
+// Apply dark mode colors
+.darkmode body,
+.darkmode {
+  background-color: var(--body-bg-color);
+  color: var(--text-color);
+}
+
+// Header
+.darkmode .header {
+  background-color: var(--header-bg-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.darkmode .site-title,
+.darkmode .site-subtitle {
+  color: var(--text-color);
+}
+
+// Sidebar
+.darkmode .sidebar {
+  background-color: var(--sidebar-bg-color);
+}
+
+.darkmode .sidebar a {
+  color: var(--text-color);
+}
+
+// Posts and content
+.darkmode .post {
+  background-color: var(--post-bg-color);
+  border: 1px solid var(--border-color);
+}
+
+.darkmode .post-title,
+.darkmode .post-meta,
+.darkmode .post-content,
+.darkmode .post-body {
+  color: var(--text-color);
+}
+
+.darkmode .post-link {
+  color: var(--link-color);
+}
+
+// Navigation links
+.darkmode .menu-item a {
+  color: var(--text-color);
+}
+
+.darkmode .menu-item a:hover {
+  color: var(--link-color);
+}
+
+// Buttons
+.darkmode .btn {
+  background-color: var(--btn-default-bg);
+  color: var(--btn-default-color);
+  border: 1px solid var(--border-color);
+}
+
+// Footer
+.darkmode .footer {
+  background-color: var(--header-bg-color);
+  border-top: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+// Dark mode toggle button
+.darkmode .darkmode-toggle-btn {
+  background: var(--btn-default-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.darkmode .darkmode-toggle-btn:hover {
+  background: var(--btn-default-bg);
+  opacity: 0.8;
+}
+
+// Code blocks
+.darkmode code,
+.darkmode pre {
+  background-color: var(--sidebar-bg-color);
+  color: var(--text-color);
+}
+
+// Blockquotes
+.darkmode blockquote {
+  border-left: 4px solid var(--link-color);
+  background-color: var(--sidebar-bg-color);
+  color: var(--text-color);
+}
+
+// Links in dark mode
+.darkmode a {
+  color: var(--link-color);
+}
+
+.darkmode a:hover {
+  color: #9ecfff;
+}
+
+// Tags and categories
+.darkmode .tags a,
+.darkmode .categories a {
+  background-color: var(--sidebar-bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+// Pagination
+.darkmode .pagination {
+  color: var(--text-color);
+}
+
+.darkmode .page-number {
+  background-color: var(--btn-default-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+// Author info
+.darkmode .author-info {
+  background-color: var(--sidebar-bg-color);
+  color: var(--text-color);
+}
+
+// TOC
+.darkmode .post-toc {
+  background-color: var(--sidebar-bg-color);
+  color: var(--text-color);
+}
+
+.darkmode .post-toc a {
+  color: var(--link-color);
+}
+

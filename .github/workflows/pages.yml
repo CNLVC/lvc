@@ -130,6 +130,11 @@ jobs:
           cp search.xml atom.xml public/
           cp source/js/truncate.js public/js/ 2>/dev/null || true
           cp source/js/transform-menu.js public/js/ 2>/dev/null || true
+          cp source/js/darkmode.js public/js/ 2>/dev/null || true
+
+      - name: Inject darkmode script into HTML
+        run: |
+          find public -name "*.html" -exec sed -i 's|</body>|<script src="/js/darkmode.js"><\/script><\/body>|g' {} \;
 
       - name: Fix copyright year from 2019 to 2008
         run: |

@@ -46,13 +46,11 @@ scheme: Mist
 language: zh-CN
 
 # Dark Mode
-darkmode: false
+darkmode: true
 
 # Light-Dark Mode
 lightdark:
   enable: false
-  # Add @supports (color: light-dark(red, red)) check
-  check_supports: true
 
 
 # ---------------------------------------------------------------
