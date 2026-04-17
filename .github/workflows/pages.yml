@@ -141,7 +141,7 @@ jobs:
 
       - name: Remove archive count text
         run: |
-          find public/archives -name "*.html" -exec sed -i -E 's/<p>太棒了! 目前共计 [0-9]+ 篇日志。 继续努力。<\/p>//g' {} \;
+          find public -name "*.html" -exec sed -i 's/<p>太棒了! 目前共计.*篇日志。 继续努力。<\/p>//g' {} \;
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
