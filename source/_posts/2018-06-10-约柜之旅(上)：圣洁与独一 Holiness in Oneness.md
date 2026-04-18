@@ -98,4 +98,3 @@ tags:
 
 欢迎下载完整讲道录音 [https://pan.baidu.com/s/1hl-OuInwklF9t1ccNBRe2w](https://pan.baidu.com/s/1hl-OuInwklF9t1ccNBRe2w)
 
-欢迎您订阅我们的微信公众号，快扫一扫吧:)

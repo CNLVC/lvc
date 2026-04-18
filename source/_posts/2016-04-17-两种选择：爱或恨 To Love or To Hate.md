@@ -40,4 +40,3 @@ tags:
 
 [收听音频>>](http://fdfs.xmcdn.com/group9/M09/48/91/wKgDYlcTGNjjv3IbAZTmTWy6L4g781.mp3)
 
-欢迎您订阅我们的微信公众号，快扫一扫吧:)

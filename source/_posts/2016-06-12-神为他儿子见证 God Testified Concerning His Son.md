@@ -38,4 +38,3 @@ tags:
 
 [收听音频>>](http://fdfs.xmcdn.com/group7/M05/90/3C/wKgDX1dde1Lxk3waARfabbGx6kM065.mp3)
 
-欢迎您订阅我们的微信公众号，快扫一扫吧:)

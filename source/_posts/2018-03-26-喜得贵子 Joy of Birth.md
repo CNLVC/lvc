@@ -92,4 +92,3 @@ tags:
 
 [http://v.youku.com/v_show/id_XMzQ4OTk3OTEyNA==.html](http://v.youku.com/v_show/id_XMzQ4OTk3OTEyNA==.html)
 
-欢迎您订阅我们的微信公众号，快扫一扫吧:)

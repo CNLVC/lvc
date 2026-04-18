@@ -42,4 +42,3 @@ tags:
 
 [收听音频>>](http://fdfs.xmcdn.com/group10/M00/70/57/wKgDZ1dBrTywfRKHAT7UDeblpFU904.mp3)
 
-欢迎您订阅我们的微信公众号，快扫一扫吧:)

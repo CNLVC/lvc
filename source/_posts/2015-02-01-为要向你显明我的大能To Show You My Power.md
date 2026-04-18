@@ -13,4 +13,3 @@ tags:
 
 [收听音频>>](http://www.chinacpn.org/whlvc/sermon/20150201_For_To_Shew_In_Thee_My_Power.mp3)
 
-欢迎您订阅我们的微信公众号，快扫一扫吧:)

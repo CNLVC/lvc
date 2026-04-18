@@ -32,4 +32,3 @@ tags:
 
 [收听音频>>](http://fdfs.xmcdn.com/group4/M05/A5/AC/wKgDs1d5KKbxcO2CAVAq81cCGn0673.mp3)
 
-欢迎您订阅我们的微信公众号，快扫一扫吧:)

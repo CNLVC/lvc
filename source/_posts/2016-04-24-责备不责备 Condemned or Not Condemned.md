@@ -36,4 +36,3 @@ tags:
 
 [收听音频>>](http://fdfs.xmcdn.com/group14/M07/56/DC/wKgDZFchYPui7q_3AV3qTZYC2vw195.mp3)
 
-欢迎您订阅我们的微信公众号，快扫一扫吧:)

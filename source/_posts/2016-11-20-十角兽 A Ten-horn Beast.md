@@ -24,4 +24,3 @@ tags:
 
 [收听音频>>](http://fdfs.xmcdn.com/group25/M00/5B/0A/wKgJMVgztlbAVpSwAZqei4bJY7A012.mp3)
 
-欢迎您订阅我们的微信公众号，快扫一扫吧:)

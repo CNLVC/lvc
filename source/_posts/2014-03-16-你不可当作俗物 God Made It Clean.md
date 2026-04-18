@@ -38,4 +38,3 @@ tags:
 
 - 基督是文化的更新者（Christ the Transformer）： 皈依类型（type of conversion）
 
-欢迎您订阅我们的微信公众号，快扫一扫吧:)

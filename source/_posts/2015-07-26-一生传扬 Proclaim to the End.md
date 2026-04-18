@@ -36,4 +36,3 @@ tags:
 
 [收听音频>>](http://www.chinacpn.org/whlvc/sermon/20150726_Proclaim_To_The_End.mp3)
 
-欢迎您订阅我们的微信公众号，快扫一扫吧:)

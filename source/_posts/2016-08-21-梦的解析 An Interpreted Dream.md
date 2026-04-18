@@ -72,4 +72,3 @@ tags:
 
 [收听音频>>](http://fdfs.xmcdn.com/group19/M02/AC/25/wKgJK1e5r6yweZU8AVyJe-0bqpo431.mp3)
 
-欢迎您订阅我们的微信公众号，快扫一扫吧:)

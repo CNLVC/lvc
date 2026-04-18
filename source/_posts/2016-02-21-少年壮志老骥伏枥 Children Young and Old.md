@@ -28,4 +28,3 @@ tags:
 
 [收听音频>>](http://www.chinacpn.org/whlvc/sermon/20160221_Children_Young_And_Old.mp3)
 
-欢迎您订阅我们的微信公众号，快扫一扫吧:)

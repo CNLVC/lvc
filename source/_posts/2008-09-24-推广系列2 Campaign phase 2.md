@@ -22,4 +22,3 @@ categories:
 
 ![](http://p.malihaha.com/20180924.jpg)
 
-欢迎您订阅我们的微信公众号，快扫一扫吧:)

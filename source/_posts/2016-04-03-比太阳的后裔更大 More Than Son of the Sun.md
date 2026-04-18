@@ -36,4 +36,3 @@ tags:
 
 [收听音频>>](http://www.chinacpn.org/whlvc/sermon/20160403_More_Than_Son_Of_The_Sun.mp3)
 
-欢迎您订阅我们的微信公众号，快扫一扫吧:)

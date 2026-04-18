@@ -34,4 +34,3 @@ tags:
 
 但神给我们空空的坟墓充满应许的(Emptiness full of Promises)。
 
-欢迎您订阅我们的微信公众号，快扫一扫吧:)
