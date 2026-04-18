@@ -151,7 +151,6 @@ jobs:
           const fs = require('fs');
           const path = require('path');
 
-          // Read the generated categories index.html
           const categoriesPath = path.join('public', 'categories', 'index.html');
           if (!fs.existsSync(categoriesPath)) {
             console.log('Categories page not found, skipping');
@@ -160,100 +159,104 @@ jobs:
 
           let html = fs.readFileSync(categoriesPath, 'utf8');
 
-          // Custom Bible canon ordered categories HTML
-          const customContent = \`
-          <div class=\"posts-expand\">
-            <div class=\"post-block\">
-              <div class=\"post-body\">
-                <p><strong>旧约</strong></p>
-                <ul>
-                  <li>创世记</li>
-                  <li>出埃及记</li>
-                  <li>利未记</li>
-                  <li>民数记</li>
-                  <li>申命记</li>
-                  <li>约书亚记</li>
-                  <li>士师记</li>
-                  <li>路得记</li>
-                  <li>撒母耳记上</li>
-                  <li>撒母耳记下</li>
-                  <li>列王纪上</li>
-                  <li>列王纪下</li>
-                  <li>历代志上</li>
-                  <li>历代志下</li>
-                  <li>以斯拉记</li>
-                  <li>尼希米记</li>
-                  <li>以斯帖记</li>
-                  <li>约伯记</li>
-                  <li>诗篇</li>
-                  <li>箴言</li>
-                  <li>传道书</li>
-                  <li>雅歌</li>
-                  <li>以赛亚书</li>
-                  <li>耶利米书</li>
-                  <li>耶利米哀歌</li>
-                  <li>以西结书</li>
-                  <li>但以理书</li>
-                  <li>何西阿书</li>
-                  <li>约珥书</li>
-                  <li>阿摩司书</li>
-                  <li>俄巴底亚书</li>
-                  <li>约拿书</li>
-                  <li>弥迦书</li>
-                  <li>那鸿书</li>
-                  <li>哈巴谷书</li>
-                  <li>西番雅书</li>
-                  <li>哈该书</li>
-                  <li>撒迦利亚书</li>
-                  <li>玛拉基书</li>
-                  <li>二先知系列</li>
-                </ul>
-                <p><strong>新约</strong></p>
-                <ul>
-                  <li>马太福音</li>
-                  <li>马可福音</li>
-                  <li>路加福音</li>
-                  <li>约翰福音</li>
-                  <li>使徒行传</li>
-                  <li>罗马书</li>
-                  <li>哥林多前书</li>
-                  <li>哥林多后书</li>
-                  <li>加拉太书</li>
-                  <li>以弗所书</li>
-                  <li>腓立比书</li>
-                  <li>歌罗西书</li>
-                  <li>帖撒罗尼迦前书</li>
-                  <li>帖撒罗尼迦后书</li>
-                  <li>提摩太前书</li>
-                  <li>提摩太后书</li>
-                  <li>提多书</li>
-                  <li>腓利门书</li>
-                  <li>希伯来书</li>
-                  <li>雅各书</li>
-                  <li>彼得前书</li>
-                  <li>彼得后书</li>
-                  <li>约翰一书</li>
-                  <li>约翰二书</li>
-                  <li>约翰三书</li>
-                  <li>犹大书</li>
-                  <li>启示录</li>
-                </ul>
-                <p><strong>其他</strong></p>
-                <ul>
-                  <li>主祷文</li>
-                  <li>复活节</li>
-                  <li>圣诞节</li>
-                  <li>情人节</li>
-                  <li>圣洁系列</li>
-                  <li>见证</li>
-                  <li>未分类</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          \`;
+          // Extract existing category links and counts from generated HTML
+          const categoryMap = {};
+          const regex = /<a class=\"category-list-link\" href=\"([^\"]+)\">([^<]+)<\\/a><span class=\"category-list-count\">(\\d+)<\\/span>/g;
+          let match;
+          while ((match = regex.exec(html)) !== null) {
+            categoryMap[match[2]] = { url: match[1], count: parseInt(match[3]) };
+          }
+          console.log('Found categories:', Object.keys(categoryMap).length);
 
-          // Find and replace the category-all div content
+          // Build category list item HTML
+          function buildCategoryItem(name, categoryMap) {
+            if (categoryMap[name]) {
+              return '<li class=\"category-list-item\"><a class=\"category-list-link\" href=\"' + categoryMap[name].url + '\">' + name + '</a><span class=\"category-list-count\">' + categoryMap[name].count + '</span></li>';
+            } else {
+              return '<li class=\"category-list-item\"><a class=\"category-list-link\" href=\"#\">' + name + '</a></li>';
+            }
+          }
+
+          const customContent = '<div class=\"posts-expand\"><div class=\"post-block\"><div class=\"post-body\">' +
+            '<p><strong>旧约</strong></p><ul>' +
+            buildCategoryItem('创世记', categoryMap) +
+            buildCategoryItem('出埃及记', categoryMap) +
+            buildCategoryItem('利未记', categoryMap) +
+            buildCategoryItem('民数记', categoryMap) +
+            buildCategoryItem('申命记', categoryMap) +
+            buildCategoryItem('约书亚记', categoryMap) +
+            buildCategoryItem('士师记', categoryMap) +
+            buildCategoryItem('路得记', categoryMap) +
+            buildCategoryItem('撒母耳记上', categoryMap) +
+            buildCategoryItem('撒母耳记下', categoryMap) +
+            buildCategoryItem('列王纪上', categoryMap) +
+            buildCategoryItem('列王纪下', categoryMap) +
+            buildCategoryItem('历代志上', categoryMap) +
+            buildCategoryItem('历代志下', categoryMap) +
+            buildCategoryItem('以斯拉记', categoryMap) +
+            buildCategoryItem('尼希米记', categoryMap) +
+            buildCategoryItem('以斯帖记', categoryMap) +
+            buildCategoryItem('约伯记', categoryMap) +
+            buildCategoryItem('诗篇', categoryMap) +
+            buildCategoryItem('箴言', categoryMap) +
+            buildCategoryItem('传道书', categoryMap) +
+            buildCategoryItem('雅歌', categoryMap) +
+            buildCategoryItem('以赛亚书', categoryMap) +
+            buildCategoryItem('耶利米书', categoryMap) +
+            buildCategoryItem('耶利米哀歌', categoryMap) +
+            buildCategoryItem('以西结书', categoryMap) +
+            buildCategoryItem('但以理书', categoryMap) +
+            buildCategoryItem('何西阿书', categoryMap) +
+            buildCategoryItem('约珥书', categoryMap) +
+            buildCategoryItem('阿摩司书', categoryMap) +
+            buildCategoryItem('俄巴底亚书', categoryMap) +
+            buildCategoryItem('约拿书', categoryMap) +
+            buildCategoryItem('弥迦书', categoryMap) +
+            buildCategoryItem('那鸿书', categoryMap) +
+            buildCategoryItem('哈巴谷书', categoryMap) +
+            buildCategoryItem('西番雅书', categoryMap) +
+            buildCategoryItem('哈该书', categoryMap) +
+            buildCategoryItem('撒迦利亚书', categoryMap) +
+            buildCategoryItem('玛拉基书', categoryMap) +
+            buildCategoryItem('二先知系列', categoryMap) +
+            '</ul><p><strong>新约</strong></p><ul>' +
+            buildCategoryItem('马太福音', categoryMap) +
+            buildCategoryItem('马可福音', categoryMap) +
+            buildCategoryItem('路加福音', categoryMap) +
+            buildCategoryItem('约翰福音', categoryMap) +
+            buildCategoryItem('使徒行传', categoryMap) +
+            buildCategoryItem('罗马书', categoryMap) +
+            buildCategoryItem('哥林多前书', categoryMap) +
+            buildCategoryItem('哥林多后书', categoryMap) +
+            buildCategoryItem('加拉太书', categoryMap) +
+            buildCategoryItem('以弗所书', categoryMap) +
+            buildCategoryItem('腓立比书', categoryMap) +
+            buildCategoryItem('歌罗西书', categoryMap) +
+            buildCategoryItem('帖撒罗尼迦前书', categoryMap) +
+            buildCategoryItem('帖撒罗尼迦后书', categoryMap) +
+            buildCategoryItem('提摩太前书', categoryMap) +
+            buildCategoryItem('提摩太后书', categoryMap) +
+            buildCategoryItem('提多书', categoryMap) +
+            buildCategoryItem('腓利门书', categoryMap) +
+            buildCategoryItem('希伯来书', categoryMap) +
+            buildCategoryItem('雅各书', categoryMap) +
+            buildCategoryItem('彼得前书', categoryMap) +
+            buildCategoryItem('彼得后书', categoryMap) +
+            buildCategoryItem('约翰一书', categoryMap) +
+            buildCategoryItem('约翰二书', categoryMap) +
+            buildCategoryItem('约翰三书', categoryMap) +
+            buildCategoryItem('犹大书', categoryMap) +
+            buildCategoryItem('启示录', categoryMap) +
+            '</ul><p><strong>其他</strong></p><ul>' +
+            buildCategoryItem('主祷文', categoryMap) +
+            buildCategoryItem('复活节', categoryMap) +
+            buildCategoryItem('圣诞节', categoryMap) +
+            buildCategoryItem('情人节', categoryMap) +
+            buildCategoryItem('圣洁系列', categoryMap) +
+            buildCategoryItem('见证', categoryMap) +
+            buildCategoryItem('未分类', categoryMap) +
+            '</ul></div></div></div>';
+
           const categoryAllMatch = html.match(/<div class=\"category-all-page\">[\\s\\S]*?<\\/div>\\s*<\\/div>\\s*<\\/div>/);
           if (categoryAllMatch) {
             html = html.replace(categoryAllMatch[0], customContent);
