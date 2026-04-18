@@ -265,6 +265,10 @@ jobs:
           } else {
             console.log('Could not find category-all div to replace');
           }
+
+          const hideCSS = '<style>.post-header,.category-all-title{display:none!important}</style>';
+          html = html.replace('</head>', hideCSS + '</head>');
+          fs.writeFileSync(categoriesPath, html);
           "
 
       - name: Upload artifact
