@@ -266,7 +266,7 @@ jobs:
             console.log('Could not find category-all div to replace');
           }
 
-          const hideCSS = '<style>.post-header,.category-all-title{display:none!important}</style>';
+          const hideCSS = '<style>.post-header{display:none!important}.category-all-title{display:none!important}h1.post-title{display:none!important}.category-all-page{margin-top:0!important;padding-top:0!important}.post-block{background:none!important;border:none!important;box-shadow:none!important}</style>';
           html = html.replace('</head>', hideCSS + '</head>');
           fs.writeFileSync(categoriesPath, html);
           "
