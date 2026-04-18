@@ -49,6 +49,7 @@ jobs:
           cp theme_templates/_layout.njk themes/next/layout/_layout.njk
           cp theme_templates/_macro/sidebar.njk themes/next/layout/_macro/sidebar.njk
           cp theme_templates/_macro/post.njk themes/next/layout/_macro/post.njk
+          cp theme_templates/categories.njk themes/next/layout/categories.njk
 
       - name: Inject admin password
         run: |
